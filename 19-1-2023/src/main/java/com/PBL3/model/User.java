@@ -1,23 +1,18 @@
 package com.PBL3.model;
 
-import java.util.UUID;
-
 public class User extends AbstractModel {
-	enum GENDER {
-		male, female, other
-	}
-
 	private String userId;
 	private Integer roleId;
-	private String firstName;
-	private String lastName;
+	private String firstname;
+	private String lastname;
 	private String nationalId;
 	private Integer gender;
-	private String phoneNumber;
+	private String phonenumber;
 	private String email;
-	private String userName;
+	private String username;
 	private String password;
 	private Integer action;
+
 	public Integer getAction() {
 		return action;
 	}
@@ -25,6 +20,7 @@ public class User extends AbstractModel {
 	public void setAction(Integer action) {
 		this.action = action;
 	}
+
 	public String getUserId() {
 		return userId;
 	}
@@ -42,19 +38,19 @@ public class User extends AbstractModel {
 	}
 
 	public String getFirstName() {
-		return firstName;
+		return firstname;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFirstName(String firstname) {
+		this.firstname = firstname;
 	}
 
 	public String getLastName() {
-		return lastName;
+		return lastname;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLastName(String lastname) {
+		this.lastname = lastname;
 	}
 
 	public String getNationalId() {
@@ -74,11 +70,11 @@ public class User extends AbstractModel {
 	}
 
 	public String getPhoneNumber() {
-		return phoneNumber;
+		return phonenumber;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public void setPhoneNumber(String phonenumber) {
+		this.phonenumber = phonenumber;
 	}
 
 	public String getEmail() {
@@ -90,11 +86,11 @@ public class User extends AbstractModel {
 	}
 
 	public String getUserName() {
-		return userName;
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserName(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {

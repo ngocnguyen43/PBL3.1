@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.PBL3.helpers.Helper;
+import com.PBL3.model.User;
 
 @WebServlet(urlPatterns = { "/api/v1/admin/users" })
 public class UserApi extends HttpServlet {
@@ -28,8 +29,9 @@ public class UserApi extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 //		System.out.println(req.getReader());
 		resp.setContentType("application/json");
-		resp.setContentType("application/x-www-form-urlencoded");
-//		System.out.println(Helper.of(req.getReader()).toModel(null));
+//		resp.setContentType("application/x-www-form-urlencoded");
+//		User user = Helper.of(req.getReader()).toModel(User.class);
+		System.out.println(Helper.of(req.getReader()).toModel(User.class));
 		
 
 	}

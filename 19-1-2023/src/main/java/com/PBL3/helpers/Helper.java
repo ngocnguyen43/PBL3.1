@@ -17,15 +17,8 @@ public class Helper {
 	public <T> T toModel(Class<T> tClass) {
 		try {
 			return new ObjectMapper().readValue(data, tClass);
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 		return null;
 	}
