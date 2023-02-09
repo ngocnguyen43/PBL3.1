@@ -10,5 +10,7 @@ public interface IUserDAO extends GenericDAO<User> {
 	User findByUserId(String id);
 	
 	String save(User user);
+	
+	void delete(String USerId);
 
 }

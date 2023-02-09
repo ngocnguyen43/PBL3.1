@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,6 +77,8 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
 					statement.setString(index, (String) parameter);
 				} else if (parameter instanceof Integer) {
 					statement.setInt(index, (Integer) parameter);
+				} else  {
+					statement.setNull(index,Types.NULL );
 				}
 
 			}
@@ -128,6 +131,7 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
 		PreparedStatement statement = null;
 		try {
 			connection = getConnection();
+			connection.setAutoCommit(false);
 			statement = connection.prepareStatement(sql);
 			setParams(statement, params);
 			statement.executeUpdate();

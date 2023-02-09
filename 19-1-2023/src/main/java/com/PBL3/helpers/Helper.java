@@ -30,10 +30,9 @@ public class Helper {
 				sb.append(line);
 ;		}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println(e);
-//			e.printStackTrace();
 		}
 		return new Helper(sb.toString());
 	}
+
 }

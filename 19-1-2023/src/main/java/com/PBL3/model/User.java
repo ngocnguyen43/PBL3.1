@@ -3,13 +3,13 @@ package com.PBL3.model;
 public class User extends AbstractModel {
 	private String userId;
 	private Integer roleId;
-	private String firstname;
-	private String lastname;
+	private String firstName;
+	private String lastName;
 	private String nationalId;
 	private Integer gender;
-	private String phonenumber;
+	private String phoneNumber;
 	private String email;
-	private String username;
+	private String userName;
 	private String password;
 	private Integer action;
 
@@ -38,19 +38,19 @@ public class User extends AbstractModel {
 	}
 
 	public String getFirstName() {
-		return firstname;
+		return firstName;
 	}
 
 	public void setFirstName(String firstname) {
-		this.firstname = firstname;
+		this.firstName = firstname;
 	}
 
 	public String getLastName() {
-		return lastname;
+		return lastName;
 	}
 
 	public void setLastName(String lastname) {
-		this.lastname = lastname;
+		this.lastName = lastname;
 	}
 
 	public String getNationalId() {
@@ -70,11 +70,11 @@ public class User extends AbstractModel {
 	}
 
 	public String getPhoneNumber() {
-		return phonenumber;
+		return phoneNumber;
 	}
 
 	public void setPhoneNumber(String phonenumber) {
-		this.phonenumber = phonenumber;
+		this.phoneNumber = phonenumber;
 	}
 
 	public String getEmail() {
@@ -86,11 +86,11 @@ public class User extends AbstractModel {
 	}
 
 	public String getUserName() {
-		return username;
+		return userName;
 	}
 
 	public void setUserName(String username) {
-		this.username = username;
+		this.userName = username;
 	}
 
 	public String getPassword() {

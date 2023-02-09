@@ -7,5 +7,6 @@ import com.PBL3.model.User;
 public interface IUserService {
 	List<User> findAll();
 	List<User> findByUserId(String id);
-	String save(User user);
+	User save(User user);
+	void delete(String userId);
 }

@@ -1,10 +1,7 @@
 package com.PBL3.model;
 
-import java.util.UUID;
-
 public class StoreCertificate extends AbstractModel {
 	private String id;
-
 	private String certificateId;
 	private String storeId;
 	private Boolean action;

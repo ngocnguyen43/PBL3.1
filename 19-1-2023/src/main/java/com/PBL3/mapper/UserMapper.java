@@ -25,13 +25,14 @@ public class UserMapper implements IMapper<User> {
 			user.setModifiedBy(result.getString("modifiedBy"));
 			user.setCreatedAt(result.getTimestamp("createdAt"));
 			user.setUpdatedAt(result.getTimestamp("updatedAt"));
-			
+
 			return user;
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			return null;
+			System.out.println(e.getMessage());
 		}
+		return null;
 
 	}
 

@@ -40,28 +40,33 @@ public class GetUsers extends HttpServlet{
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		User user = new User();
-		user.setAction(1);
-		user.setEmail("mcncnbcsss");
-		user.setFirstName("test servlet");
-		user.setLastName("bingnngg");	
-		user.setNationalId("AbcAbcc");
-		user.setPassword("123456");
-		user.setPhoneNumber("098765432");
-		user.setRoleId(1);
-		user.setGender(1);
-		user.setUserName("aloalo");
-		user.setModifiedBy("d4216c1a-fabe-4dea-9b9e-84271c784497");
-		String id = userService.save(user);
-		System.out.println(id);
-		PrintWriter out = resp.getWriter();
-		ObjectMapper objectMapper= new ObjectMapper();
-		String jsonString = objectMapper.writeValueAsString(id);
-		resp.setContentType("application/json");
-		resp.setCharacterEncoding("UTF-8");
-		out.print(jsonString);
-		out.flush();
+//		User user = new User();
+//		user.setAction(1);
+//		user.setEmail("mcncnbcsss");
+//		user.setFirstName("test servlet");
+//		user.setLastName("bingnngg");	
+//		user.setNationalId("AbcAbcc");
+//		user.setPassword("123456");
+//		user.setPhoneNumber("098765432");
+//		user.setRoleId(1);
+//		user.setGender(1);
+//		user.setUserName("aloalo");
+//		user.setModifiedBy("d4216c1a-fabe-4dea-9b9e-84271c784497");
+//		String id = userService.save(user);
+//		System.out.println(id);
+//		PrintWriter out = resp.getWriter();
+//		ObjectMapper objectMapper= new ObjectMapper();
+//		String jsonString = objectMapper.writeValueAsString(id);
+//		resp.setContentType("application/json");
+//		resp.setCharacterEncoding("UTF-8");
+//		out.print(jsonString);
+//		out.flush();
 //		super.doPost(req, resp);
+	}
+	@Override
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -26,9 +26,18 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public String save(User user) {
+	public User save(User user) {
 		// TODO Auto-generated method stub
-		return userDao.save(user);
+		String userId = userDao.save(user);
+		return userDao.findByUserId(userId);
+	}
+
+	@Override
+	public void delete(String userId) {
+		userDao.delete(userId);
+		// TODO Auto-generated method stub
+		
+		
 	}
 
 //	@Override

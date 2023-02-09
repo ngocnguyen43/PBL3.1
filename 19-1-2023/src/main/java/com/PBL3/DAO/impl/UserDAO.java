@@ -21,7 +21,7 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
 		// TODO Auto-generated method stub
 		String sql = "SELECT * FROM users WHERE userId = ? ";
 		List<User> users = query(sql, new UserMapper(), id);
-		
+
 		return users.isEmpty() ? null : users.get(0);
 	}
 
@@ -31,21 +31,25 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
 		String sql = "INSERT INTO users (userId," + "roleId," + "firstname," + "lastname," + "nationalId," + "genderId,"
 				+ "phonenumber," + "email," + "username," + "password," + "action," + "modifiedBy)"
 				+ " VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
-		//helper
+		// helper
 		UUID uuid = UUID.randomUUID();
 		String userId = uuid.toString();
-		//helper hashed password
-		
-		insert(sql, userId, user.getRoleId(), user.getFirstName(), user.getLastName(), user.getNationalId(),
-				user.getGender(), user.getPhoneNumber(), user.getEmail(), user.getUserName(), user.getPassword(),
-				user.getAction(), user.getModifiedBy());
+		// helper hashed password
+		String firstname = user.getFirstName() != null ? user.getFirstName() : null;
+		insert(sql, userId, user.getRoleId(), firstname, user.getLastName(), user.getNationalId(), user.getGender(),
+				user.getPhoneNumber(), user.getEmail(), user.getUserName(), user.getPassword(), user.getAction(),
+				user.getModifiedBy());
 		return userId;
 
 	}
 
-	@Override
-	public void update(String sql, Object... params) {
+	public void delete(String userId) {
 		// TODO Auto-generated method stub
+		User user = findByUserId(userId);
+
+		int action = user.getAction() == 0 ? 1 : 0;
+		String sql = "UPDATE users SET action = ? WHERE userId = ?";
+		insert(sql, action, user.getUserId());
 
 	}
 
