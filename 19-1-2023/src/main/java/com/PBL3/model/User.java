@@ -12,7 +12,7 @@ public class User extends AbstractModel {
 //	private String userName;
 	private String password;
 	private Integer action;
-	private Role role;
+	private Role role = new Role();
 	public Integer getAction() {
 		return action;
 	}

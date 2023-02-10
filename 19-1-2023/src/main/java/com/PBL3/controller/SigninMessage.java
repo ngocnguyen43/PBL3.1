@@ -7,14 +7,15 @@ public class SigninMessage {
 	private String message;
 	private String ACCESS_TOKEN;
 	private String REFRESH_TOKEN;
-	private String role;
+	private Boolean isAdmin;
 	public SigninMessage() {}
-	public SigninMessage(Integer statusCode,String userId, String message, String ACCESS_TOKEN, String REFRESH_TOKEN) {
+	public SigninMessage(Integer statusCode,String userId, String message, String ACCESS_TOKEN, String REFRESH_TOKEN,Boolean isAdmin) {
 		this.statusCode = statusCode;
 		this.userId = userId;
 		this.message = message;
 		this.ACCESS_TOKEN = ACCESS_TOKEN;
 		this.REFRESH_TOKEN = REFRESH_TOKEN;
+		this.isAdmin = isAdmin;
 	}
 
 	public Integer getStatusCode() {
@@ -55,17 +56,18 @@ public class SigninMessage {
 		this.userId = userId;
 	}
 	/**
-	 * @return the role
+	 * @return the isAdmin
 	 */
-	public String getRole() {
-		return role;
+	public Boolean getIsAdmin() {
+		return isAdmin;
 	}
 	/**
-	 * @param role the role to set
+	 * @param isAdmin the isAdmin to set
 	 */
-	public void setRole(String role) {
-		this.role = role;
+	public void setIsAdmin(Boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
+
 
 
 }

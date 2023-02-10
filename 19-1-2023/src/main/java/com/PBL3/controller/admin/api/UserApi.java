@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -42,34 +43,34 @@ public class UserApi extends HttpServlet {
 		resp.setCharacterEncoding("UTF-8");
 		PrintWriter out = resp.getWriter();
 		ObjectMapper objectMapper = new ObjectMapper();
-		String jsonString = null;
-		String password = "123456";
-		String Salt = BCrypt.gensalt("$2b",15);
-		String Hashed = BCrypt.hashpw(password, Salt);
-		String hashedDB = "$2b$10$ufd70YPa8yMmNyHjwedbx.nHBGXAPMWj8HnUN8jQjD9O/sab3mA1O";
+//		String jsonString = null;
+//		String password = "123456";
+//		String Salt = BCrypt.gensalt("$2b",15);
+//		String Hashed = BCrypt.hashpw(password, Salt);
+//		String hashedDB = "$2b$10$ufd70YPa8yMmNyHjwedbx.nHBGXAPMWj8HnUN8jQjD9O/sab3mA1O";
 		try {
-			JWTGenerator generator = new JWTGenerator();
-			Map<String, String> claims = new HashMap<>();
-			String userId = UUID.randomUUID().toString();
-			claims.put("userId", userId);
-			try {
-				String token = generator.generatorJWT(claims);
-				claims.put("ACCESS_TOKEN", token);
-				JWTVerify validateJWT = new JWTVerify(token);
-				jsonString = objectMapper.writeValueAsString(claims);
-
-				DecodedJWT decoded = validateJWT.verifyingJWT();
-
-				Claim claim = decoded.getClaim("userId");
-				System.out.println(claim.asString().toString());
-				
-				System.out.println(Hashed);
-				out.print(jsonString);
+			List<User> users = userService.findAll();
+			String json = objectMapper.writeValueAsString(users);
+//			JWTGenerator generator = new JWTGenerator();
+//			Map<String, String> claims = new HashMap<>();
+//			String userId = UUID.randomUUID().toString();
+//			claims.put("userId", userId);
+//			try {
+//				String token = generator.generatorJWT(claims);
+//				claims.put("ACCESS_TOKEN", token);
+//				JWTVerify validateJWT = new JWTVerify(token);
+//				jsonString = objectMapper.writeValueAsString(claims);
+//
+//				DecodedJWT decoded = validateJWT.verifyingJWT();
+//
+//				Claim claim = decoded.getClaim("userId");
+//				System.out.println(claim.asString().toString());
+//				
+//				System.out.println(Hashed);
+				out.print(json);
 				out.flush();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} catch (NoSuchAlgorithmException e) {
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 

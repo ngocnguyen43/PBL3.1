@@ -1,10 +1,14 @@
 package com.PBL3.service.impl;
 
+import java.util.HashMap;
+
 import javax.inject.Inject;
 
 import com.PBL3.DAO.impl.UserDAO;
 import com.PBL3.controller.SigninMessage;
 import com.PBL3.helpers.DecryptPassword;
+import com.PBL3.helpers.JWTGenerator;
+import com.PBL3.helpers.RandomToken;
 import com.PBL3.model.User;
 import com.PBL3.model.UserSignin;
 import com.PBL3.service.ISigninService;
@@ -23,17 +27,23 @@ public class SigninService implements ISigninService {
 		String message = null;
 		String accessToken = null;
 		String refreshToken = null;
-		
+		Boolean isAdmin = null;
+		HashMap<String, String> claims = new HashMap<>();
 		try {
+			JWTGenerator generator = new JWTGenerator();
 			User user = userDao.findByEmail(tempUser.getEmail());
 			if (user != null) {
 				String hashedPassword = user.getPassword();
 				String password = tempUser.getPassword();
 				if (DecryptPassword.Decrypt(password, hashedPassword)) {
 					userId =  user.getUserId();
+					claims.put("userId", userId);
 					statusCode = 200;
 					message = "Login Succeed!";
-					signinMessage = new SigninMessage(statusCode,userId,message,accessToken,refreshToken);
+					isAdmin = user.getRole().getRoleCode().equals("ADM") ? true : false;
+					accessToken = generator.generatorJWT(claims);
+					refreshToken = RandomToken.getRandomHexString(40);
+					
 				}else {
 					statusCode = 401;
 					message = "Login Failed!" ;
@@ -45,7 +55,7 @@ public class SigninService implements ISigninService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		signinMessage = new SigninMessage(statusCode,userId,message,accessToken,refreshToken);
+		signinMessage = new SigninMessage(statusCode,userId,message,accessToken,refreshToken,isAdmin);
 		return signinMessage;
 	}
 

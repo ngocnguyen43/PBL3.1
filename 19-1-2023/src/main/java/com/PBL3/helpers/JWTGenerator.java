@@ -24,7 +24,7 @@ public class JWTGenerator {
 	}
 
 	public String generatorJWT(Map<String, String> payload) throws Exception {
-		Builder tokenBuilder = JWT.create().withExpiresAt(Date.from(Instant.now().plusSeconds(30)))
+		Builder tokenBuilder = JWT.create().withExpiresAt(Date.from(Instant.now().plusSeconds(300)))
 				.withIssuedAt(Date.from(Instant.now())).withIssuer("minhngoc");
 		payload.entrySet().forEach(action -> tokenBuilder.withClaim(action.getKey(), action.getValue()));
 		return tokenBuilder

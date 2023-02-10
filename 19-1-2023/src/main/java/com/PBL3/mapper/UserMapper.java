@@ -26,8 +26,10 @@ public class UserMapper implements IMapper<User> {
 			user.setCreatedAt(result.getTimestamp("createdAt"));
 			user.setUpdatedAt(result.getTimestamp("updatedAt"));
 			Role role = new Role();
-			
-
+			role.setRoleId(result.getInt("roleId"));
+			role.setRoleCode(result.getString("rolecode"));
+			role.setRoleName(result.getString("rolename"));
+			user.setRole(role);
 			return user;
 
 		} catch (SQLException e) {

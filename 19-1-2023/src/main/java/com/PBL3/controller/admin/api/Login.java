@@ -17,7 +17,7 @@ import com.PBL3.service.ISigninService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-@WebServlet(urlPatterns = {"/api/v1/auth/signin"})
+@WebServlet(urlPatterns = { "/api/v1/auth/signin" })
 public class Login extends HttpServlet {
 
 	/**
@@ -26,6 +26,7 @@ public class Login extends HttpServlet {
 	@Inject
 	private ISigninService signinService;
 	private static final long serialVersionUID = 251088703685976384L;
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
@@ -37,19 +38,30 @@ public class Login extends HttpServlet {
 			UserSignin user = Helper.of(req.getReader()).toModel(UserSignin.class);
 			SigninMessage message = signinService.Signin(user);
 			resp.setStatus(message.getStatusCode());
-			json.put("statusCode",message.getStatusCode());
-			json.put("userId", message.getUserId());
+			json.put("statusCode", message.getStatusCode());
+			if (message.getUserId() != null) {
+				json.put("userId", message.getUserId());
+			}
 			json.put("message", message.getMessage());
-			json.put("ACCESS_TOKEN", message.getACCESS_TOKEN());
-			json.put("REFRESH_TOKEN", message.getREFRESH_TOKEN());
+			if (message.getIsAdmin()) {
+				
+				json.put("isAdmin", message.getIsAdmin());
+			}
+			if (message.getACCESS_TOKEN() != null) {
+				
+				json.put("ACCESS_TOKEN", message.getACCESS_TOKEN());
+			}
+			if (message.getREFRESH_TOKEN() != null) {
+				
+				json.put("REFRESH_TOKEN", message.getREFRESH_TOKEN());
+			}
 			out.print(json.toString());
-			
+
 			out.flush();
 			
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println(e);
 		}
-		
+
 	}
 }
