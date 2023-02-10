@@ -3,6 +3,7 @@ package com.PBL3.mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.PBL3.model.Role;
 import com.PBL3.model.User;
 
 public class UserMapper implements IMapper<User> {
@@ -19,12 +20,13 @@ public class UserMapper implements IMapper<User> {
 			user.setNationalId(result.getString("nationalid"));
 			user.setGender(result.getInt("genderId"));
 			user.setPhoneNumber(result.getString("phonenumber"));
-			user.setUserName(result.getString("username"));
 			user.setPassword(result.getString("password"));
 			user.setAction(result.getInt("action"));
 			user.setModifiedBy(result.getString("modifiedBy"));
 			user.setCreatedAt(result.getTimestamp("createdAt"));
 			user.setUpdatedAt(result.getTimestamp("updatedAt"));
+			Role role = new Role();
+			
 
 			return user;
 

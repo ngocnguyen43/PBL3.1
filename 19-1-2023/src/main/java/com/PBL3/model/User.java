@@ -9,10 +9,10 @@ public class User extends AbstractModel {
 	private Integer gender;
 	private String phoneNumber;
 	private String email;
-	private String userName;
+//	private String userName;
 	private String password;
 	private Integer action;
-
+	private Role role;
 	public Integer getAction() {
 		return action;
 	}
@@ -85,12 +85,12 @@ public class User extends AbstractModel {
 		this.email = email;
 	}
 
-	public String getUserName() {
-		return userName;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setUserName(String username) {
-		this.userName = username;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public String getPassword() {

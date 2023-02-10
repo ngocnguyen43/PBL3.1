@@ -11,7 +11,8 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
 	@Override
 	public List<User> findAll() {
 		// TODO Auto-generated method stub
-		String sql = "SELECT * FROM users";
+		String sql = "SELECT * FROM users ";
+		
 //		System.out.println(query(sql, new UserMapper()));
 		return query(sql, new UserMapper());
 	}
@@ -29,15 +30,15 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
 	public String save(User user) {
 		// TODO Auto-generated method stub
 		String sql = "INSERT INTO users (userId," + "roleId," + "firstname," + "lastname," + "nationalId," + "genderId,"
-				+ "phonenumber," + "email," + "username," + "password," + "action," + "modifiedBy)"
-				+ " VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "phonenumber," + "email,"  + "password," + "action," + "modifiedBy)"
+				+ " VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 		// helper
 		UUID uuid = UUID.randomUUID();
 		String userId = uuid.toString();
 		// helper hashed password
 		String firstname = user.getFirstName() != null ? user.getFirstName() : null;
 		insert(sql, userId, user.getRoleId(), firstname, user.getLastName(), user.getNationalId(), user.getGender(),
-				user.getPhoneNumber(), user.getEmail(), user.getUserName(), user.getPassword(), user.getAction(),
+				user.getPhoneNumber(), user.getEmail(),user.getPassword(), user.getAction(),
 				user.getModifiedBy());
 		return userId;
 
@@ -51,6 +52,15 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
 		String sql = "UPDATE users SET action = ? WHERE userId = ?";
 		insert(sql, action, user.getUserId());
 
+	}
+
+	@Override
+	public User findByEmail(String email) {
+		// TODO Auto-generated method stub
+		String sql = "SELECT * FROM users WHERE email = ? ";
+		List<User> users = query(sql, new UserMapper(), email);
+
+		return users.isEmpty() ? null : users.get(0);
 	}
 
 }
