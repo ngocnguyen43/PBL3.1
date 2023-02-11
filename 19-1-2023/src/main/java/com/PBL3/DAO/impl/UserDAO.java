@@ -20,7 +20,7 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
 	@Override
 	public User findByUserId(String id) {
 		// TODO Auto-generated method stub
-		String sql = "SELECT * FROM users WHERE userId = ? ";
+		String sql = "SELECT * FROM users  INNER JOIN roles ON users.roleId = roles.roleId WHERE userId = ?";
 		List<User> users = query(sql, new UserMapper(), id);
 
 		return users.isEmpty() ? null : users.get(0);
@@ -57,7 +57,7 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
 	@Override
 	public User findByEmail(String email) {
 		// TODO Auto-generated method stub
-		String sql = "SELECT * FROM users INNER JOIN roles ON users.roleId = roles.roleId WHERE email = ? ";
+		String sql = "SELECT * FROM users INNER JOIN roles ON users.roleId = roles.roleId WHERE email = ? AND action = 1";
 		List<User> users = query(sql, new UserMapper(), email);
 
 		return users.isEmpty() ? null : users.get(0);

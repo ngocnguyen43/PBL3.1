@@ -5,21 +5,21 @@ import java.util.HashMap;
 import javax.inject.Inject;
 
 import com.PBL3.DAO.impl.UserDAO;
-import com.PBL3.controller.SigninMessage;
+import com.PBL3.DTO.UserSigninDTO;
 import com.PBL3.helpers.DecryptPassword;
 import com.PBL3.helpers.JWTGenerator;
 import com.PBL3.helpers.RandomToken;
+import com.PBL3.helpers.message.SigninMessage;
 import com.PBL3.model.User;
-import com.PBL3.model.UserSignin;
-import com.PBL3.service.ISigninService;
+import com.PBL3.service.IAuthService;
 
-public class SigninService implements ISigninService {
+public class AuthService implements IAuthService {
 
 
 	@Inject
 	private UserDAO userDao;
 	@Override
-	public SigninMessage Signin(UserSignin tempUser) {
+	public SigninMessage Signin(UserSigninDTO tempUser) {
 
 		SigninMessage signinMessage = null;
 		String userId = null;

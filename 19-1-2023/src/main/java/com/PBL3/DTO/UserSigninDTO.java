@@ -1,6 +1,6 @@
-package com.PBL3.model;
+package com.PBL3.DTO;
 
-public class UserSignin {
+public class UserSigninDTO {
 	private String email;
 	private String password;
 	public String getEmail() {
@@ -15,6 +15,6 @@ public class UserSignin {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
 	
 }

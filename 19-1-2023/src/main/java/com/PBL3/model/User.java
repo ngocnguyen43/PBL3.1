@@ -1,5 +1,7 @@
 package com.PBL3.model;
 
+import com.PBL3.DTO.UserSignupDTO;
+
 public class User extends AbstractModel {
 	private String userId;
 	private Integer roleId;
@@ -11,8 +13,21 @@ public class User extends AbstractModel {
 	private String email;
 //	private String userName;
 	private String password;
-	private Integer action;
-	private Role role = new Role();
+	private Integer action = 1;
+	private Role role ;
+	
+	public static  User withUserDTO(UserSignupDTO tempUser) {
+		User user =new User();
+		user.setRoleId(tempUser.getRoleId());
+		user.setFirstName(tempUser.getFirstName());
+		user.setLastName(tempUser.getLastName());
+		user.setGender(tempUser.getGenderId());
+		user.setNationalId(tempUser.getNationalId());
+		user.setPhoneNumber(tempUser.getPhoneNumber());
+		user.setEmail(tempUser.getEmail());
+		user.setPassword(tempUser.getPassword());
+		return user;
+	}
 	public Integer getAction() {
 		return action;
 	}

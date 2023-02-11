@@ -1,4 +1,4 @@
-package com.PBL3.controller;
+package com.PBL3.helpers.message;
 
 public class SigninMessage {
 	

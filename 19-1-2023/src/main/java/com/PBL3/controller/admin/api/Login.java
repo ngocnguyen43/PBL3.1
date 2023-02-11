@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.PBL3.controller.SigninMessage;
+import com.PBL3.DTO.UserSigninDTO;
 import com.PBL3.helpers.Helper;
-import com.PBL3.model.UserSignin;
-import com.PBL3.service.ISigninService;
+import com.PBL3.helpers.message.SigninMessage;
+import com.PBL3.service.IAuthService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -24,7 +24,7 @@ public class Login extends HttpServlet {
 	 * 
 	 */
 	@Inject
-	private ISigninService signinService;
+	private IAuthService signinService;
 	private static final long serialVersionUID = 251088703685976384L;
 
 	@Override
@@ -35,15 +35,15 @@ public class Login extends HttpServlet {
 		ObjectNode json = obj.createObjectNode();
 		PrintWriter out = resp.getWriter();
 		try {
-			UserSignin user = Helper.of(req.getReader()).toModel(UserSignin.class);
-			SigninMessage message = signinService.Signin(user);
+			UserSigninDTO userDTO = Helper.of(req.getReader()).toModel(UserSigninDTO.class);
+			SigninMessage message = signinService.Signin(userDTO);
 			resp.setStatus(message.getStatusCode());
 			json.put("statusCode", message.getStatusCode());
 			if (message.getUserId() != null) {
 				json.put("userId", message.getUserId());
 			}
 			json.put("message", message.getMessage());
-			if (message.getIsAdmin()) {
+			if (message.getIsAdmin() != null) {
 				
 				json.put("isAdmin", message.getIsAdmin());
 			}

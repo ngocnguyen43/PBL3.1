@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
+import com.PBL3.DTO.UserSignupDTO;
 import com.PBL3.helpers.HashPassword;
 import com.PBL3.helpers.Helper;
 import com.PBL3.helpers.JWTGenerator;
@@ -81,11 +82,13 @@ public class UserApi extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("application/json");
 		resp.setContentType("application/x-www-form-urlencoded");
-		User user = Helper.of(req.getReader()).toModel(User.class);
-//		System.out.println(user.getPassword());
-		user.setPassword(HashPassword.HashPW(user.getPassword()));
+		UserSignupDTO userDTO = Helper.of(req.getReader()).toModel(UserSignupDTO.class);
+		userDTO.setPassword(HashPassword.HashPW(userDTO.getPassword()));
+		
+		User user = User.withUserDTO(userDTO);
+//		System.out.println(user.getRole().getRoleCode());
 		user = userService.save(user);
-		System.out.println(user);
+//		System.out.println(user);
 
 	}
 

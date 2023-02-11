@@ -30,6 +30,7 @@ public class UserMapper implements IMapper<User> {
 			role.setRoleCode(result.getString("rolecode"));
 			role.setRoleName(result.getString("rolename"));
 			user.setRole(role);
+
 			return user;
 
 		} catch (SQLException e) {
