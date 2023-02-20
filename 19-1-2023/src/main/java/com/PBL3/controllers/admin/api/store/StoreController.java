@@ -33,7 +33,7 @@ public class StoreController extends HttpServlet {
 		resp.setCharacterEncoding("UTF-8");
 		PrintWriter out = resp.getWriter();
 		ObjectMapper obj = new ObjectMapper();
-
+		System.out.println("ABC");
 		StoreDTO store = Helper.of(req.getReader()).toModel(StoreDTO.class);
 		Message message = storeService.createStoreService(store);
 		String json = obj.writeValueAsString(message);
