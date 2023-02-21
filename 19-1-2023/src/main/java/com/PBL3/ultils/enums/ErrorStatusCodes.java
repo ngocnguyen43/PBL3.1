@@ -10,13 +10,13 @@ public enum ErrorStatusCodes {
 	UnimplementedException(404), HealthCheckFailedException(503),
 
 	;
-    private final int value;
+    private final Integer value;
 
-	private ErrorStatusCodes(int value) {
+	private ErrorStatusCodes(Integer value) {
 		// TODO Auto-generated constructor stub
 		this.value = value;
 	}
-	public int getValue() {
+	public Integer getValue() {
 		return value;
 	}
 }

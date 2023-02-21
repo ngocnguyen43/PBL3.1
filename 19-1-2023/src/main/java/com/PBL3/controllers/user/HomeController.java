@@ -28,7 +28,7 @@ public class HomeController extends HttpServlet {
 	private RoleService roleService;
     public static final char[] salt = "_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()".toCharArray();
     Random random = new Random();
-
+    
 	private static final long serialVersionUID = 1L;
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

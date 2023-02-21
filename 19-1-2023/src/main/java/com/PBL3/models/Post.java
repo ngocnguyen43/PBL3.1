@@ -1,7 +1,5 @@
 package com.PBL3.models;
 
-import java.util.UUID;
-
 public class Post extends AbstractModel {
 	private String postId;
 	private String userId;

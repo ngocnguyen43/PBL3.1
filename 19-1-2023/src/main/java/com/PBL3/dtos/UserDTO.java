@@ -6,12 +6,17 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class UserDTO {
 	private Integer roleId;
-	private String fullName;
-	private Integer gender;
-	private String nationalId;
+	private String companyName;
+	private String taxIndentity;
+	private String businessId;
 	private String phoneNumber;
+	private String faxNumber;
 	private String email;
+	private String fullName;
+	private String nationalId;
+	private String userNumber;
 	private Integer action = 1;
+	private String password;
 
 	public Integer getRoleId() {
 		return roleId;
@@ -21,28 +26,28 @@ public class UserDTO {
 		this.roleId = roleId;
 	}
 
-	public String getFullName() {
-		return fullName;
+	public String getCompanyName() {
+		return companyName;
 	}
 
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 
-	public Integer getGender() {
-		return gender;
+	public String getTaxIndentity() {
+		return taxIndentity;
 	}
 
-	public void setGender(Integer gender) {
-		this.gender = gender;
+	public void setTaxIndentity(String taxIndentity) {
+		this.taxIndentity = taxIndentity;
 	}
 
-	public String getNationalId() {
-		return nationalId;
+	public String getBusinessId() {
+		return businessId;
 	}
 
-	public void setNationalId(String nationalId) {
-		this.nationalId = nationalId;
+	public void setBusinessId(String businessId) {
+		this.businessId = businessId;
 	}
 
 	public String getPhoneNumber() {
@@ -53,12 +58,44 @@ public class UserDTO {
 		this.phoneNumber = phoneNumber;
 	}
 
+	public String getFaxNumber() {
+		return faxNumber;
+	}
+
+	public void setFaxNumber(String faxNumber) {
+		this.faxNumber = faxNumber;
+	}
+
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public String getNationalId() {
+		return nationalId;
+	}
+
+	public void setNationalId(String nationalId) {
+		this.nationalId = nationalId;
+	}
+
+	public String getUserNumber() {
+		return userNumber;
+	}
+
+	public void setUserNumber(String userNumber) {
+		this.userNumber = userNumber;
 	}
 
 	public Integer getAction() {
@@ -76,7 +113,5 @@ public class UserDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	private String password;
 
 }

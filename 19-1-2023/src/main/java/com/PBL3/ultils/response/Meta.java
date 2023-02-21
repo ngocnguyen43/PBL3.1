@@ -10,12 +10,15 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(Include.NON_NULL)
-@JsonPropertyOrder({ "message", "error_code", "status_code" })
+//@JsonPropertyOrder({ "message", "error_code", "status_code" })
 public class Meta {
 
-	private int status_code;
+	private Integer statusCode;
+	@JsonInclude( value = Include.NON_DEFAULT)
+	private Integer errorCode ;
+	
 
-	private int error_code ;
+	
 
 	private String error;
 	private String message;
@@ -23,12 +26,12 @@ public class Meta {
 	private Meta() {
 	}
 
-	public int getStatusCode() {
-		return this.status_code;
+	public Integer getStatusCode() {
+		return this.statusCode;
 	}
 
-	public int getErrCode() {
-		return this.error_code;
+	public Integer getErrCode() {
+		return this.errorCode;
 	}
 
 	public String getMessage() {
@@ -43,17 +46,17 @@ public class Meta {
 	}
 
 	public static class Builder {
-		private int status_code;
-		private int error_code ;
+		private Integer statusCode;
+		private Integer errorCode ;
 		private String message;
 		private String error;
 
 		public Builder(int status_code) {
-			this.status_code = status_code;
+			this.statusCode = status_code;
 		}
 
 		public Builder withErrCode(int errCode) {
-			this.error_code = errCode;
+			this.errorCode = errCode;
 			return this;
 		}
 
@@ -69,8 +72,8 @@ public class Meta {
 
 		public Meta build() {
 			Meta meta = new Meta();
-			meta.status_code = this.status_code;
-			meta.error_code = this.error_code;
+			meta.statusCode = this.statusCode;
+			meta.errorCode = this.errorCode;
 			meta.message = this.message;
 			meta.error = this.error;
 			return meta;

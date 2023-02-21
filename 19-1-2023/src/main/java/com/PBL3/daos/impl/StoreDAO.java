@@ -6,19 +6,22 @@ import java.util.UUID;
 import com.PBL3.daos.IStoreDAO;
 import com.PBL3.models.Store;
 import com.PBL3.ultils.mapper.StoreMapper;
+import com.PBL3.ultils.mapper.UserMapper;
 
 public class StoreDAO extends AbstractDAO<Store> implements IStoreDAO {
 
 	@Override
 	public List<Store> findAll() {
-		String sql = "SELECT * FROM stores WHERE action = 1";
+		String sql = "SELECT * FROM stores ";
 		return query(sql, new StoreMapper());
 	}
 
 	@Override
-	public Store findByStoreId(String id) {
+	public Store findByStoreNumber(String number) {
 		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM stores WHERE number = ?";
+		List<Store> stores = query(sql, new StoreMapper(), number);
+		return stores.isEmpty() ? null : stores.get(0);
 	}
 
 	@Override
@@ -30,6 +33,13 @@ public class StoreDAO extends AbstractDAO<Store> implements IStoreDAO {
 		insert(sql, storeId, store.getStoreName(), store.getStoreAddress(), store.getNumber(), store.getDescription(),
 				store.getKindof(), store.getAction());
 		return storeId;
+	}
+
+	@Override
+	public Store findByStoreId(String id) {
+		String sql = "SELECT * FROM stores WHERE storeId = ?";
+		List<Store> stores = query(sql, new StoreMapper(), id);
+		return stores.isEmpty() ? null : stores.get(0);
 	}
 
 }

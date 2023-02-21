@@ -51,7 +51,7 @@ public class AuthRepositoty implements IAuthRepository {
 		if (!DecryptPassword.Decrypt(password, hashedPassword))
 			throw new InvalidCredentialsException("Wrong password");
 
-		String userId = user.getUserId();
+		String userId = user.getId();
 		claims.put("userId", userId);
 		claims.put("role", user.getRole().getRoleCode());
 		String accessToken = JWT.generate(claims);

@@ -12,13 +12,17 @@ public class UserMapper implements IMapper<User> {
 	public User mapRow(ResultSet result) {
 		User user = new User();
 		try {
-			user.setUserId(result.getString("userId"));
-			user.setRoleId(result.getInt("roleId"));
-			user.setFullName(result.getString("fullname"));
+			user.setId(result.getString("user_id"));
+			user.setRoleId(result.getInt("role_id"));
+			user.setCompanyName(result.getString("company_name"));
+			user.setTaxIndentity(result.getString("tax_indentification_number"));
+			user.setBusinessId(result.getString("business_id"));
+			user.setPhoneNumber(result.getString("phone_number"));
+			user.setFaxNumber(result.getString("fax_number"));
 			user.setEmail(result.getString("email"));
-			user.setNationalId(result.getString("nationalid"));
-			user.setGender(result.getInt("genderId"));
-			user.setPhoneNumber(result.getString("phonenumber"));
+			user.setFullName(result.getString("full_name"));
+			user.setNationalId(result.getString("national_id"));
+			user.setUserNumber(result.getString("user_number"));
 			user.setPassword(result.getString("password"));
 			user.setAction(result.getInt("action"));
 			user.setModifiedBy(result.getString("modifiedBy"));

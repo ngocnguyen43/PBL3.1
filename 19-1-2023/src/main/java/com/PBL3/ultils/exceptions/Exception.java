@@ -1,8 +1,5 @@
 package com.PBL3.ultils.exceptions;
 
-import com.PBL3.ultils.enums.ErrorCodes;
-import com.PBL3.ultils.enums.ErrorStatusCodes;
-
 public class Exception extends Throwable {
 	/**
 	 * 

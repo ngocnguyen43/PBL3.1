@@ -7,6 +7,8 @@ import com.PBL3.models.Store;
 public interface IStoreDAO extends GenericDAO<Store> {
 	List<Store> findAll();
 	
+	Store findByStoreNumber(String id);
+	
 	Store findByStoreId(String id);
 	
 	String save(Store store);

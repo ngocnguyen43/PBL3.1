@@ -1,45 +1,19 @@
 package com.PBL3.models;
 
 public class User extends AbstractModel {
-	private String userId;
 	private Integer roleId;
+	private String companyName;
+	private String taxIndentity;
+	private String businessId;
+	private String phoneNumber;
+	private String faxNumber;
+	private String email;
 	private String fullName;
 	private String nationalId;
-	private Integer gender;
-	private String phoneNumber;
-	private String email;
-//	private String userName;
-	private String password;
+	private String userNumber;
 	private Integer action = 1;
-	private Role role ;
-	
-//	public static  User withUserDTO(UserDTO tempUser) {
-//		User user =new User();
-//		user.setRoleId(tempUser.getRoleId());
-//		user.setFirstName(tempUser.getFirstName());
-//		user.setLastName(tempUser.getLastName());
-//		user.setGender(tempUser.getGenderId());
-//		user.setNationalId(tempUser.getNationalId());
-//		user.setPhoneNumber(tempUser.getPhoneNumber());
-//		user.setEmail(tempUser.getEmail());
-//		user.setPassword(tempUser.getPassword());
-//		return user;
-//	}
-	public Integer getAction() {
-		return action;
-	}
-
-	public void setAction(Integer action) {
-		this.action = action;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+	private String password;
+	private Role role;
 
 	public Integer getRoleId() {
 		return roleId;
@@ -49,38 +23,44 @@ public class User extends AbstractModel {
 		this.roleId = roleId;
 	}
 
-	public String getFullName() {
-		return fullName;
+	public String getCompanyName() {
+		return companyName;
 	}
 
-	public void setFullName(String fullname) {
-		this.fullName = fullname;
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 
-
-
-	public String getNationalId() {
-		return nationalId;
+	public String getTaxIndentity() {
+		return taxIndentity;
 	}
 
-	public void setNationalId(String nationalId) {
-		this.nationalId = nationalId;
+	public void setTaxIndentity(String taxIndentity) {
+		this.taxIndentity = taxIndentity;
 	}
 
-	public Integer getGender() {
-		return gender;
+	public String getBusinessId() {
+		return businessId;
 	}
 
-	public void setGender(Integer gender) {
-		this.gender = gender;
+	public void setBusinessId(String businessId) {
+		this.businessId = businessId;
 	}
 
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(String phonenumber) {
-		this.phoneNumber = phonenumber;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getFaxNumber() {
+		return faxNumber;
+	}
+
+	public void setFaxNumber(String faxNumber) {
+		this.faxNumber = faxNumber;
 	}
 
 	public String getEmail() {
@@ -91,12 +71,36 @@ public class User extends AbstractModel {
 		this.email = email;
 	}
 
-	public Role getRole() {
-		return role;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public String getNationalId() {
+		return nationalId;
+	}
+
+	public void setNationalId(String nationalId) {
+		this.nationalId = nationalId;
+	}
+
+	public String getUserNumber() {
+		return userNumber;
+	}
+
+	public void setUserNumber(String userNumber) {
+		this.userNumber = userNumber;
+	}
+
+	public Integer getAction() {
+		return action;
+	}
+
+	public void setAction(Integer action) {
+		this.action = action;
 	}
 
 	public String getPassword() {
@@ -105,6 +109,14 @@ public class User extends AbstractModel {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 }

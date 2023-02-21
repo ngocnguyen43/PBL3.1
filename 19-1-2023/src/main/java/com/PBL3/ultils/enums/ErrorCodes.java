@@ -7,13 +7,13 @@ public enum ErrorCodes {
 	RegistrationFailedException(12), NotFoundException(13), InternalServerException(14), InvalidPropertiesException(15),
 	InvalidEndpointException(16), UnexpectedException(17), UnimplementedException(18), HealthCheckFailedException(19);
 
-    private final int value;
+    private final Integer value;
 
-	private ErrorCodes(int value) {
+	private ErrorCodes(Integer value) {
 		// TODO Auto-generated constructor stub
 		this.value = value;
 	}
-	public int getValue() {
+	public Integer getValue() {
 		return value;
 	}
 }
