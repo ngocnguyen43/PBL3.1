@@ -1,9 +1,9 @@
-package com.PBL3.dtos;
+package com.PBL3.models;
 
-public class BusinessTypesDTO {
+public class BusinessTypes extends AbstractModel {
+
 	private String businessId;
 	private String typeName;
-	private String modifiedBy;
 
 	public String getBusinessId() {
 		return businessId;
@@ -20,13 +20,4 @@ public class BusinessTypesDTO {
 	public void setTypeName(String typeName) {
 		this.typeName = typeName;
 	}
-
-	public String getModifiedBy() {
-		return modifiedBy;
-	}
-
-	public void setModifiedBy(String modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
-
 }

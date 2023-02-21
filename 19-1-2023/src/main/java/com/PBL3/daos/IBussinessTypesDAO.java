@@ -1,7 +1,8 @@
 package com.PBL3.daos;
 
-import com.PBL3.models.BussinessTypes;
+import com.PBL3.models.BusinessTypes;
 
-public interface IBussinessTypesDAO extends GenericDAO<BussinessTypes>{
-	String save(BussinessTypes bussinessTypes);
+public interface IBussinessTypesDAO extends GenericDAO<BusinessTypes>{
+	String save(BusinessTypes businessTypes);
+	BusinessTypes findOne(String name);
 }

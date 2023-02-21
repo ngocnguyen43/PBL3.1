@@ -25,4 +25,12 @@ public class BusinessDAO extends AbstractDAO<Business> implements IBusinessDAO {
 		return businesses.isEmpty() ? null : businesses.get(0);
 	}
 
+	@Override
+	public Business findOneById(String id) {
+		// TODO Auto-generated method stub
+		String sql = "SELECT * FROM business WHERE business_id = ?";
+		List<Business> businesses = query(sql, new BusinessMapper(), id);
+		return businesses.isEmpty() ? null : businesses.get(0);
+	}
+
 }
