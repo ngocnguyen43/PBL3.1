@@ -7,12 +7,12 @@ import com.PBL3.dtos.UserSigninDTO;
 import com.PBL3.models.User;
 import com.PBL3.repositories.IAuthRepository;
 import com.PBL3.services.IAuthService;
-import com.PBL3.ultils.exceptions.authExceptions.InvalidCredentialsException;
-import com.PBL3.ultils.exceptions.authExceptions.RegistrationFailedException;
-import com.PBL3.ultils.exceptions.dbExceptions.DuplicateEntryException;
-import com.PBL3.ultils.helpers.Helper;
-import com.PBL3.ultils.response.Message;
-import com.PBL3.ultils.response.Meta;
+import com.PBL3.utils.exceptions.authExceptions.InvalidCredentialsException;
+import com.PBL3.utils.exceptions.authExceptions.RegistrationFailedException;
+import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
+import com.PBL3.utils.helpers.Helper;
+import com.PBL3.utils.response.Message;
+import com.PBL3.utils.response.Meta;
 
 public class AuthService implements IAuthService {
 

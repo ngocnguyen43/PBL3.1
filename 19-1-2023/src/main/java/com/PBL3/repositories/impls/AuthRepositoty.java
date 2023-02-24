@@ -8,15 +8,15 @@ import javax.ws.rs.NotFoundException;
 import com.PBL3.daos.IUserDAO;
 import com.PBL3.models.User;
 import com.PBL3.repositories.IAuthRepository;
-import com.PBL3.ultils.exceptions.authExceptions.InvalidCredentialsException;
-import com.PBL3.ultils.exceptions.authExceptions.RegistrationFailedException;
-import com.PBL3.ultils.exceptions.dbExceptions.DuplicateEntryException;
-import com.PBL3.ultils.helpers.DecryptPassword;
-import com.PBL3.ultils.helpers.JWTGeneration;
-import com.PBL3.ultils.helpers.RandomTokenGenearation;
-import com.PBL3.ultils.response.Data;
-import com.PBL3.ultils.response.Message;
-import com.PBL3.ultils.response.Meta;
+import com.PBL3.utils.exceptions.authExceptions.InvalidCredentialsException;
+import com.PBL3.utils.exceptions.authExceptions.RegistrationFailedException;
+import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
+import com.PBL3.utils.helpers.DecryptPassword;
+import com.PBL3.utils.helpers.JWTGeneration;
+import com.PBL3.utils.helpers.RandomTokenGenearation;
+import com.PBL3.utils.response.Data;
+import com.PBL3.utils.response.Message;
+import com.PBL3.utils.response.Meta;
 
 public class AuthRepositoty implements IAuthRepository {
 

@@ -1,10 +1,10 @@
 package com.PBL3.repositories;
 
 import com.PBL3.models.User;
-import com.PBL3.ultils.exceptions.authExceptions.InvalidCredentialsException;
-import com.PBL3.ultils.exceptions.authExceptions.RegistrationFailedException;
-import com.PBL3.ultils.exceptions.dbExceptions.DuplicateEntryException;
-import com.PBL3.ultils.response.Message;
+import com.PBL3.utils.exceptions.authExceptions.InvalidCredentialsException;
+import com.PBL3.utils.exceptions.authExceptions.RegistrationFailedException;
+import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
+import com.PBL3.utils.response.Message;
 
 public interface IAuthRepository {
 	Message registerUser(User user) throws DuplicateEntryException, InvalidCredentialsException, Exception, RegistrationFailedException;

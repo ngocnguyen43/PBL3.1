@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.PBL3.daos.IUserDAO;
 import com.PBL3.models.User;
-import com.PBL3.ultils.helpers.HashPassword;
-import com.PBL3.ultils.helpers.IDGeneration;
-import com.PBL3.ultils.mapper.UserMapper;
+import com.PBL3.utils.helpers.HashPassword;
+import com.PBL3.utils.helpers.IDGeneration;
+import com.PBL3.utils.mapper.UserMapper;
 
 public class UserDAO extends AbstractDAO<User> implements IUserDAO {
 

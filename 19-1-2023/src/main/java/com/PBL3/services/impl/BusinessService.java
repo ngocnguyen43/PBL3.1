@@ -1,21 +1,23 @@
 package com.PBL3.services.impl;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 
 import com.PBL3.dtos.BusinessDTO;
 import com.PBL3.models.Business;
 import com.PBL3.repositories.IBusinessRepository;
 import com.PBL3.services.IBusinessService;
-import com.PBL3.ultils.exceptions.dbExceptions.CreateFailedException;
-import com.PBL3.ultils.exceptions.dbExceptions.DuplicateEntryException;
-import com.PBL3.ultils.helpers.Helper;
-import com.PBL3.ultils.helpers.IDGeneration;
-import com.PBL3.ultils.response.Message;
-import com.PBL3.ultils.response.Meta;
+import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
+import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
+import com.PBL3.utils.helpers.Helper;
+import com.PBL3.utils.helpers.IDGeneration;
+import com.PBL3.utils.response.Message;
+import com.PBL3.utils.response.Meta;
 
 public class BusinessService implements IBusinessService {
-	@Inject 
+	@Inject
 	private IBusinessRepository businessRepository;
+
 	@Override
 	public Message createBusiness(BusinessDTO businessDTO) {
 		// TODO Auto-generated method stub
@@ -23,22 +25,25 @@ public class BusinessService implements IBusinessService {
 			Business business = Helper.objectMapper(businessDTO, Business.class);
 			String id = IDGeneration.generate();
 			business.setId(id);
-			Message message = businessRepository.createBusines(business);
+			businessRepository.createBusines(business);
+
+			Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Created Successfully").build();
+			Message message = new Message.Builder(meta).build();
 			return message;
-		}
-		catch(DuplicateEntryException | CreateFailedException e){
-			Meta meta = new Meta.Builder(e.getStatusCode()).withErrCode(e.getErrorCode()).withError(e.getMessage()).build();
+		} catch (DuplicateEntryException | CreateFailedException e) {
+			Meta meta = new Meta.Builder(e.getStatusCode()).withErrCode(e.getErrorCode()).withError(e.getMessage())
+					.build();
 			Message message = new Message.Builder(meta).build();
 			return message;
 		}
 
 		catch (Exception e) {
 			// TODO: handle exception
-			Meta meta = new Meta.Builder(500).withError(e.getMessage()).build();
+			Meta meta = new Meta.Builder(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).withError(e.getMessage()).build();
 			Message message = new Message.Builder(meta).build();
 			return message;
 
 		}
 	}
-	
+
 }

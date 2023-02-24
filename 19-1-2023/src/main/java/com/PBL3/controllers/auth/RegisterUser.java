@@ -10,11 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.PBL3.config.ResponseConfig;
 import com.PBL3.dtos.UserDTO;
 import com.PBL3.services.IAuthService;
 import com.PBL3.services.IUserService;
-import com.PBL3.ultils.helpers.Helper;
-import com.PBL3.ultils.response.Message;
+import com.PBL3.utils.helpers.Helper;
+import com.PBL3.utils.response.Message;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebServlet(urlPatterns = {"/api/v1/auth/register"})
@@ -32,7 +33,8 @@ public class RegisterUser extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //		// TODO Auto-generated method stub
 		req.setCharacterEncoding("UTF-8");
-		resp.setContentType("application/json");
+//		resp.setContentType("application/json");
+		ResponseConfig.ConfigHeader(resp);
 		ObjectMapper obj = new ObjectMapper();
 		PrintWriter out = resp.getWriter();
 		UserDTO userDTO = Helper.of(req.getReader()).toModel(UserDTO.class);

@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.PBL3.services.IUserService;
-import com.PBL3.ultils.exceptions.Exception;
-import com.PBL3.ultils.exceptions.apiExcpetions.InvalidEndpointException;
-import com.PBL3.ultils.exceptions.authExceptions.UnauthorizedException;
-import com.PBL3.ultils.response.Message;
-import com.PBL3.ultils.response.Meta;
+import com.PBL3.utils.exceptions.Exception;
+import com.PBL3.utils.exceptions.apiExcpetions.InvalidEndpointException;
+import com.PBL3.utils.exceptions.authExceptions.UnauthorizedException;
+import com.PBL3.utils.response.Message;
+import com.PBL3.utils.response.Meta;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebServlet(urlPatterns = { "/api/v1/admin/user/*" })

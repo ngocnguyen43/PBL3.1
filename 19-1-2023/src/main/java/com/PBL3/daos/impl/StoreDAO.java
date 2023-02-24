@@ -5,8 +5,8 @@ import java.util.UUID;
 
 import com.PBL3.daos.IStoreDAO;
 import com.PBL3.models.Store;
-import com.PBL3.ultils.mapper.StoreMapper;
-import com.PBL3.ultils.mapper.UserMapper;
+import com.PBL3.utils.mapper.StoreMapper;
+import com.PBL3.utils.mapper.UserMapper;
 
 public class StoreDAO extends AbstractDAO<Store> implements IStoreDAO {
 

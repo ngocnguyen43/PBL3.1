@@ -9,11 +9,11 @@ import com.PBL3.daos.IUserDAO;
 import com.PBL3.dtos.UserDTO;
 import com.PBL3.models.User;
 import com.PBL3.services.IUserService;
-import com.PBL3.ultils.helpers.HashPassword;
-import com.PBL3.ultils.helpers.Helper;
-import com.PBL3.ultils.response.Data;
-import com.PBL3.ultils.response.Message;
-import com.PBL3.ultils.response.Meta;
+import com.PBL3.utils.helpers.HashPassword;
+import com.PBL3.utils.helpers.Helper;
+import com.PBL3.utils.response.Data;
+import com.PBL3.utils.response.Message;
+import com.PBL3.utils.response.Meta;
 import com.auth0.jwt.interfaces.Header;
 
 public class UserService implements IUserService {

@@ -1,18 +1,19 @@
 package com.PBL3.services.impl;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 
 import com.PBL3.dtos.BusinessTypesDTO;
 import com.PBL3.models.BusinessTypes;
 import com.PBL3.repositories.IBusinessTypesRepository;
 import com.PBL3.services.IBusinessTypesService;
-import com.PBL3.ultils.exceptions.dbExceptions.CreateFailedException;
-import com.PBL3.ultils.exceptions.dbExceptions.DuplicateEntryException;
-import com.PBL3.ultils.exceptions.dbExceptions.NotFoundException;
-import com.PBL3.ultils.helpers.Helper;
-import com.PBL3.ultils.helpers.IDGeneration;
-import com.PBL3.ultils.response.Message;
-import com.PBL3.ultils.response.Meta;
+import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
+import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
+import com.PBL3.utils.exceptions.dbExceptions.NotFoundException;
+import com.PBL3.utils.helpers.Helper;
+import com.PBL3.utils.helpers.IDGeneration;
+import com.PBL3.utils.response.Message;
+import com.PBL3.utils.response.Meta;
 
 public class BusinessTypesService implements IBusinessTypesService {
 
@@ -26,7 +27,9 @@ public class BusinessTypesService implements IBusinessTypesService {
 			BusinessTypes businessTypes = Helper.objectMapper(businessTypesDTO, BusinessTypes.class);
 			String id = IDGeneration.generate();
 			businessTypes.setId(id);
-			Message message = businessTypesRepository.createBusinessType(businessTypes);
+			businessTypesRepository.createBusinessType(businessTypes);
+			Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Created Succesfully").build();
+			Message message = new Message.Builder(meta).build();
 			return message;
 		} catch (NotFoundException | DuplicateEntryException | CreateFailedException e) {
 			Meta meta = new Meta.Builder(e.getStatusCode()).withErrCode(e.getErrorCode()).withError(e.getMessage())

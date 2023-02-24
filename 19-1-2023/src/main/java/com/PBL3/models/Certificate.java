@@ -1,13 +1,10 @@
 package com.PBL3.models;
 
-import java.sql.*;
-import java.util.*;
-
 public class Certificate extends AbstractModel {
 	private String certificateId;
 	private String name;
 	private String description;
-	private Blob image;
+	private String path;
 	private Boolean action;
 
 	public String getCertificateId() {
@@ -34,13 +31,6 @@ public class Certificate extends AbstractModel {
 		this.description = description;
 	}
 
-	public Blob getImage() {
-		return image;
-	}
-
-	public void setImage(Blob image) {
-		this.image = image;
-	}
 
 	public Boolean getAction() {
 		return action;
@@ -48,6 +38,20 @@ public class Certificate extends AbstractModel {
 
 	public void setAction(Boolean action) {
 		this.action = action;
+	}
+
+	/**
+	 * @return the path
+	 */
+	public String getPath() {
+		return path;
+	}
+
+	/**
+	 * @param path the path to set
+	 */
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 }

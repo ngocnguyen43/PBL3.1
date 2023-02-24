@@ -3,7 +3,7 @@ package com.PBL3.services;
 import java.util.List;
 
 import com.PBL3.models.User;
-import com.PBL3.ultils.response.Message;
+import com.PBL3.utils.response.Message;
 
 public interface IUserService {
 	List<User> findAll();

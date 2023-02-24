@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.PBL3.daos.GenericDAO;
-import com.PBL3.ultils.mapper.IMapper;
+import com.PBL3.utils.mapper.IMapper;
 
 public abstract class AbstractDAO<T> implements GenericDAO<T> {
 	public Connection getConnection() {

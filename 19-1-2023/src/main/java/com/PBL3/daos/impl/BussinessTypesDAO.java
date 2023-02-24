@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.PBL3.daos.IBussinessTypesDAO;
 import com.PBL3.models.BusinessTypes;
-import com.PBL3.ultils.mapper.BusinessTypesMapper;
+import com.PBL3.utils.mapper.BusinessTypesMapper;
 
 public class BussinessTypesDAO extends AbstractDAO<BusinessTypes> implements IBussinessTypesDAO {
 

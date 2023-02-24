@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.PBL3.daos.IRoleDAO;
 import com.PBL3.models.Role;
-import com.PBL3.ultils.mapper.RoleMapper;
+import com.PBL3.utils.mapper.RoleMapper;
 
 public class RoleDAO extends AbstractDAO<Role> implements IRoleDAO {
 
