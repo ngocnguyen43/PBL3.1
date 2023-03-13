@@ -1,10 +1,12 @@
 package com.PBL3.dtos;
 
+import java.sql.Blob;
+
 public class CertificateDTO {
 	private String certificateId;
-	private String name;
+	public String name;
 	private String description;
-	private String path;
+	private Blob path;
 	private Boolean action;
 	
 }
