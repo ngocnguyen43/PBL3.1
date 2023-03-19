@@ -1,13 +1,14 @@
 package com.PBL3.utils.helpers;
 
 import com.google.common.primitives.Bytes;
-import org.apache.commons.io.IOUtils;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 
 public class RequestWrapper extends HttpServletRequestWrapper {
