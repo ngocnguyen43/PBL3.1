@@ -3,6 +3,7 @@ package com.PBL3.controllers.admin.api.certificate;
 import com.PBL3.config.ResponseConfig;
 import com.PBL3.dtos.CertificateDTO;
 import com.PBL3.services.ICertificateService;
+import com.PBL3.utils.helpers.GetQueryParams;
 import com.PBL3.utils.helpers.HandleImage;
 import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.response.Message;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 @WebServlet(urlPatterns = {"/api/v1/private/certificate"})
 @MultipartConfig
@@ -44,5 +46,35 @@ public class CertifiacateController extends HttpServlet {
         resp.setStatus(message.getMeta().getStatusCode().intValue());
         out.print(json);
         out.flush();
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        ResponseConfig.ConfigHeader(resp);
+        ObjectMapper obj = new ObjectMapper();
+        PrintWriter out = resp.getWriter();
+        Message message = certificateService.getAllCertificate();
+        String json = obj.writeValueAsString(message);
+        resp.setStatus(message.getMeta().getStatusCode().intValue());
+        out.print(json);
+        out.flush();
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        ResponseConfig.ConfigHeader(resp);
+        ObjectMapper obj = new ObjectMapper();
+        PrintWriter out = resp.getWriter();
+//        Map<String,String> queries = GetQueryParams.getQueryParameters(req);
+        CertificateDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(CertificateDTO.class);
+//        System.out.println(new ObjectMapper().writeValueAsString(queries));
+        System.out.println(new ObjectMapper().writeValueAsString(req.getParameterMap()));
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Map<String,String> queries = GetQueryParams.getQueryParameters(req);
     }
 }

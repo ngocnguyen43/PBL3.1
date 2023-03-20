@@ -15,10 +15,10 @@ public class HandleImage {
 
     public static String save(HttpServletRequest request){
 
-        Part filePart = null;
+        Part filePart = null ;
         try {
             filePart = request.getPart("file");
-        String fileName = filePart.getSubmittedFileName();
+            String fileName = filePart.getSubmittedFileName();
         String id = IDGeneration.generate();
         String[] fileNameSplits = fileName.split("\\.");
         int extensionIndex = fileNameSplits.length - 1;
@@ -28,9 +28,7 @@ public class HandleImage {
             part.write("D:\\PBL3.1\\public\\" + id+"."+fileNameSplits[extensionIndex]);
         }
         return path;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ServletException e) {
+        } catch (IOException | ServletException e) {
             throw new RuntimeException(e);
         }
     }

@@ -2,6 +2,7 @@ package com.PBL3.daos.impl;
 
 import com.PBL3.daos.ICertificateDAO;
 import com.PBL3.models.Certificate;
+import com.PBL3.utils.mapper.CertificateMapper;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class CertificateDAO  extends AbstractDAO<Certificate> implements ICertif
 
     @Override
     public List<Certificate> findAll() {
-        return null;
+        String sql = "SELECT * FROM certificates";
+        return query(sql,new CertificateMapper());
     }
 }
