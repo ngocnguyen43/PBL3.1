@@ -1,19 +1,11 @@
 package com.PBL3.models;
 
 public class Certificate extends AbstractModel {
-	private String certificateId;
 	private String name;
 	private String description;
 	private String path;
 	private Boolean action;
 
-	public String getCertificateId() {
-		return certificateId;
-	}
-
-	public void setCertificateId(String certificateId) {
-		this.certificateId = certificateId;
-	}
 
 	public String getName() {
 		return name;

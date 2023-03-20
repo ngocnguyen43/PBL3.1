@@ -9,8 +9,9 @@ public class CertificateDAO  extends AbstractDAO<Certificate> implements ICertif
 
     @Override
     public String save(Certificate domain) {
-        String sql = "INSERT INTO certificates (name,description,image,action,modified_by) VALUES (?,?,?,?,?)";
-        insert(sql , domain.getName(),domain.getDescription(),domain.getPath(),domain.getAction(),domain.getModifiedBy());
+        Integer action = domain.getAction() ? 1 : 0;
+        String sql = "INSERT INTO certificates (certificate_id,name,description,image,action,modified_by) VALUES (?,?,?,?,?,?)";
+        insert(sql ,domain.getId(), domain.getName(),domain.getDescription(),domain.getPath(),action,domain.getModifiedBy());
         return domain.getId();
     }
 
