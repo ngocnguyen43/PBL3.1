@@ -7,4 +7,8 @@ public interface ICertificateService {
     Message createCertificate(CertificateDTO dto);
     Message getAllCertificate();
 
+    Message deleteCertificate(String id);
+
+    Message updateCertificate(CertificateDTO dto);
+
 }

@@ -24,7 +24,7 @@ public class HandleImage {
         int extensionIndex = fileNameSplits.length - 1;
         String path = null;
         for (Part part : request.getParts()) {
-            path =  "\\" + id+"."+fileNameSplits[extensionIndex];
+            path =  "/" + id+"."+fileNameSplits[extensionIndex];
             part.write("D:\\PBL3.1\\public\\" + id+"."+fileNameSplits[extensionIndex]);
         }
         return path;

@@ -4,6 +4,8 @@ import com.PBL3.dtos.CertificateDTO;
 import com.PBL3.models.Certificate;
 import com.PBL3.repositories.ICeritificateRepository;
 import com.PBL3.services.ICertificateService;
+import com.PBL3.utils.enums.ErrorStatusCodes;
+import com.PBL3.utils.exceptions.authExceptions.InvalidCredentialsException;
 import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
 import com.PBL3.utils.exceptions.dbExceptions.NotFoundException;
 import com.PBL3.utils.helpers.Helper;
@@ -49,6 +51,36 @@ public class CertificateService implements ICertificateService {
             return new Message.Builder(meta).withData(data).build();
         } catch (NotFoundException e) {
             Meta meta = new Meta.Builder(HttpServletResponse.SC_NOT_FOUND).withMessage(e.getMessage()).build();
+
+            return new Message.Builder(meta).build();
+        }
+    }
+
+    @Override
+    public Message deleteCertificate(String id) {
+        try {
+            ceritificateRepository.deleteCertificate(id);
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_ACCEPTED).withMessage("Delete Success").build();
+
+            return new Message.Builder(meta).build();
+        }catch (InvalidCredentialsException e){
+            Meta meta = new Meta.Builder( ErrorStatusCodes.InvalidCredentialsException.getValue()).withMessage(e.getMessage()).build();
+
+            return new Message.Builder(meta).build();
+        }
+    }
+
+    @Override
+    public Message updateCertificate(CertificateDTO dto) {
+        Certificate domain = Helper.objectMapper(dto,Certificate.class);
+        System.out.print(domain.getId());
+        try{
+            ceritificateRepository.findOne(domain.getId());
+            ceritificateRepository.updateCertificate(domain);
+            Meta meta = new Meta.Builder(201).withMessage("Update Success!").build();
+            return new Message.Builder(meta).build();
+        }catch (NotFoundException | InvalidCredentialsException e){
+            Meta meta = new Meta.Builder( ErrorStatusCodes.InvalidCredentialsException.getValue()).withMessage(e.getMessage()).build();
 
             return new Message.Builder(meta).build();
         }

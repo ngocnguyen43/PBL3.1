@@ -3,14 +3,14 @@ package com.PBL3.dtos;
 import java.sql.Blob;
 
 public class CertificateDTO {
-	private String certificateId;
+	private String id;
 
-	public String getCertificateId() {
-		return certificateId;
+	public String getId() {
+		return id;
 	}
 
-	public void setCertificateId(String certificateId) {
-		this.certificateId = certificateId;
+	public void setId(String certificateId) {
+		this.id = certificateId;
 	}
 
 	public String getName() {

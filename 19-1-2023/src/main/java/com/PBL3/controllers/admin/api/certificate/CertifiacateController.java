@@ -3,6 +3,7 @@ package com.PBL3.controllers.admin.api.certificate;
 import com.PBL3.config.ResponseConfig;
 import com.PBL3.dtos.CertificateDTO;
 import com.PBL3.services.ICertificateService;
+import com.PBL3.utils.helpers.CheckContainsFile;
 import com.PBL3.utils.helpers.GetQueryParams;
 import com.PBL3.utils.helpers.HandleImage;
 import com.PBL3.utils.helpers.Helper;
@@ -69,12 +70,34 @@ public class CertifiacateController extends HttpServlet {
         PrintWriter out = resp.getWriter();
 //        Map<String,String> queries = GetQueryParams.getQueryParameters(req);
         CertificateDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(CertificateDTO.class);
-//        System.out.println(new ObjectMapper().writeValueAsString(queries));
+
+        if (CheckContainsFile.check(req)){
+            String path = HandleImage.save(req);
+            dto.setPath(path);
+        }
+        System.out.println(new ObjectMapper().writeValueAsString(dto));
+//        System.out.println(CheckContainsFile.check(req));
         System.out.println(new ObjectMapper().writeValueAsString(req.getParameterMap()));
+//        System.out.println(req.getPart("file").getSize());
+        Message message = certificateService.updateCertificate(dto);
+        String json = obj.writeValueAsString(message);
+        resp.setStatus(message.getMeta().getStatusCode().intValue());
+        out.print(json);
+        out.flush();
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        ResponseConfig.ConfigHeader(resp);
+        ObjectMapper obj = new ObjectMapper();
+        PrintWriter out = resp.getWriter();
         Map<String,String> queries = GetQueryParams.getQueryParameters(req);
+//        System.out.println(new ObjectMapper().writeValueAsString(queries.get("id")));
+        Message message = certificateService.deleteCertificate(queries.get("id"));
+        String json = obj.writeValueAsString(message);
+        resp.setStatus(message.getMeta().getStatusCode().intValue());
+        out.print(json);
+        out.flush();
     }
 }
