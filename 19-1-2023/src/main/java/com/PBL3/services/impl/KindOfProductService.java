@@ -31,7 +31,8 @@ public class KindOfProductService implements IKindOfProductService {
             return new Message.Builder(meta).build();
         } catch (CreateFailedException e) {
             Meta meta = new Meta.Builder(500).withError(e.getMessage()).build();
-            return new Message.Builder(meta).build();        }
+            return new Message.Builder(meta).build();
+        }
     }
 
     @Override
