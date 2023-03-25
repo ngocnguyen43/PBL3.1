@@ -5,13 +5,16 @@ import com.PBL3.models.ProductModel;
 import com.PBL3.repositories.IProductRepository;
 import com.PBL3.services.IProductService;
 import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
+import com.PBL3.utils.exceptions.dbExceptions.NotFoundException;
 import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.IDGeneration;
+import com.PBL3.utils.response.Data;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 public class ProductService implements IProductService {
     @Inject
@@ -29,5 +32,17 @@ public class ProductService implements IProductService {
             Meta meta = new Meta.Builder(500).withError(e.getMessage()).build();
             return new Message.Builder(meta).build();
         }
+    }
+
+    @Override
+    public Message getAllProducts() {
+        try{
+            List<ProductModel> productModels = iProductRepository.getAllProduct();
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
+            Data data = new Data.Builder(null).withResults(productModels).build();
+            return new Message.Builder(meta).withData(data).build();
+        } catch (NotFoundException e) {
+            Meta meta = new Meta.Builder(500).withError(e.getMessage()).build();
+            return new Message.Builder(meta).build();        }
     }
 }
