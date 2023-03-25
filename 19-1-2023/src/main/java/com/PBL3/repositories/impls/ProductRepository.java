@@ -47,4 +47,14 @@ public class ProductRepository implements IProductRepository {
             throw new UpdateFailedException("Update Product Failed");
         }
     }
+
+    @Override
+    public void deleteProduct(String id) throws UpdateFailedException {
+        try {
+            iProductDAO.deleteOne(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new UpdateFailedException("Delete Product Failed");
+        }
+    }
 }

@@ -13,4 +13,6 @@ public interface IProductRepository {
     List<ProductModel> getAllProduct() throws NotFoundException;
 
     void updateProduct(ProductModel domain) throws UpdateFailedException, NotFoundException;
+
+    void deleteProduct(String id) throws UpdateFailedException;
 }

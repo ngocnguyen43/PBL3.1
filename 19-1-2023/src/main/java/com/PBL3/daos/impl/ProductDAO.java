@@ -34,4 +34,11 @@ public class ProductDAO extends AbstractDAO<ProductModel> implements IProductDAO
 
     }
 
+    @Override
+    public void deleteOne(String id) {
+        String sql = "DELETE FROM products WHERE product_id = ?";
+        delete(sql,id);
+    }
+
+
 }

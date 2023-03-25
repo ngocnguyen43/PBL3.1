@@ -59,4 +59,16 @@ public class ProductService implements IProductService {
             return new Message.Builder(meta).build();
         }
     }
+
+    @Override
+    public Message deleteProduct(String id) {
+        try {
+            iProductRepository.deleteProduct(id);
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
+            return new Message.Builder(meta).build();
+        } catch (UpdateFailedException e) {
+            Meta meta = new Meta.Builder(e.getStatusCode()).withError(e.getMessage()).build();
+            return new Message.Builder(meta).build();
+        }
+    }
 }

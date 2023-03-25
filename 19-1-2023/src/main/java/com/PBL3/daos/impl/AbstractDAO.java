@@ -94,6 +94,7 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
 		PreparedStatement statement = null;
 		try {
 			connection = getConnection();
+			connection.setAutoCommit(false);
 			statement = connection.prepareStatement(sql);
 			setParams(statement, params);
 			statement.executeUpdate();
@@ -127,6 +128,43 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
 	@Override
 	public void insert(String sql, Object... params) {
 		// TODO Auto-generated method stub
+		Connection connection = null;
+		PreparedStatement statement = null;
+		try {
+			connection = getConnection();
+			connection.setAutoCommit(false);
+			statement = connection.prepareStatement(sql);
+			setParams(statement, params);
+			statement.executeUpdate();
+			connection.commit();
+//			return params[0];
+
+		} catch (SQLException e) {
+			if (connection != null) {
+				try {
+					connection.rollback();
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+				if (statement != null) {
+					statement.close();
+				}
+
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void delete(String sql, Object... params) {
 		Connection connection = null;
 		PreparedStatement statement = null;
 		try {

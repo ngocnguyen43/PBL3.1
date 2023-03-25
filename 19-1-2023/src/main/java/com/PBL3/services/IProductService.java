@@ -7,4 +7,6 @@ public interface IProductService {
     Message createNewProduct(ProductDTO dto);
     Message getAllProducts();
     Message updateProduct(ProductDTO dto);
+
+    Message deleteProduct(String id);
 }

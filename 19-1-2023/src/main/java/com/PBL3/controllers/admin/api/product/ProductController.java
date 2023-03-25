@@ -38,9 +38,18 @@ public class ProductController extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         ResponseConfig.ConfigHeader(resp);
         ProductDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(ProductDTO.class);
-        System.out.println(new ObjectMapper().writeValueAsString(dto));
         Message message = iProductService.updateProduct(dto);
-        resp.setStatus(message.getMeta().getStatusCode().intValue());
+        resp.setStatus(message.getMeta().getStatusCode());
+        resp.getWriter().print(new ObjectMapper().writeValueAsString(message));
+        resp.getWriter().flush();
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        ResponseConfig.ConfigHeader(resp);
+        Message message = iProductService.deleteProduct(req.getParameter("id"));
+        resp.setStatus(message.getMeta().getStatusCode());
         resp.getWriter().print(new ObjectMapper().writeValueAsString(message));
         resp.getWriter().flush();
     }
