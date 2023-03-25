@@ -20,4 +20,18 @@ public class ProductDAO extends AbstractDAO<ProductModel> implements IProductDAO
         return query(sql,new ProductMapper());
     }
 
+    @Override
+    public void updateProduct(ProductModel domain) {
+        String sql = "UPDATE products SET product_name = ?,kindof = ?,action = ?,modified_by = ? WHERE product_id = ?";
+        update(sql,domain.getProductName(),domain.getKindof(),domain.getAction(),domain.getModifiedBy(),domain.getId());
+    }
+
+    @Override
+    public ProductModel findOne(String id) {
+        String sql = "SELECT * FROM products WHERE product_id = ?";
+        List<ProductModel> productModels = query(sql,new ProductMapper(),id);
+        return productModels.isEmpty() ? null   : productModels.get(0);
+
+    }
+
 }

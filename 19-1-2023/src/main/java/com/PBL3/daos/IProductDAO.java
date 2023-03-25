@@ -9,4 +9,8 @@ public interface IProductDAO extends GenericDAO<ProductModel> {
     void save(ProductModel domain);
 
     List<ProductModel> findAll();
+
+    void updateProduct(ProductModel domain);
+
+    ProductModel findOne(String id);
 }

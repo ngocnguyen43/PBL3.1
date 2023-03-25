@@ -1,6 +1,18 @@
 package com.PBL3.dtos;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude (JsonInclude.Include.NON_NULL)
 public class ProductDTO {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    String id;
     String userId;
 
     String productName;

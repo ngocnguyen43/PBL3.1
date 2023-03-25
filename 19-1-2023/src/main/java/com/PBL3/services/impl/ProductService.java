@@ -6,6 +6,7 @@ import com.PBL3.repositories.IProductRepository;
 import com.PBL3.services.IProductService;
 import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
 import com.PBL3.utils.exceptions.dbExceptions.NotFoundException;
+import com.PBL3.utils.exceptions.dbExceptions.UpdateFailedException;
 import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.IDGeneration;
 import com.PBL3.utils.response.Data;
@@ -44,5 +45,18 @@ public class ProductService implements IProductService {
         } catch (NotFoundException e) {
             Meta meta = new Meta.Builder(500).withError(e.getMessage()).build();
             return new Message.Builder(meta).build();        }
+    }
+
+    @Override
+    public Message updateProduct(ProductDTO dto) {
+        try{
+            ProductModel domain = Helper.objectMapper(dto,ProductModel.class);
+            iProductRepository.updateProduct(domain);
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
+            return new Message.Builder(meta).build();
+        } catch (NotFoundException|UpdateFailedException e) {
+            Meta meta = new Meta.Builder(e.getStatusCode()).withError(e.getMessage()).build();
+            return new Message.Builder(meta).build();
+        }
     }
 }

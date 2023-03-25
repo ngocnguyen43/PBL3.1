@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {Constants.URL_V1+ "/product"})
+@WebServlet(urlPatterns = {Constants.URL_V1+Constants.PRIVATE+ "/product"})
 @MultipartConfig
 public class ProductController extends HttpServlet {
     @Inject
@@ -28,6 +28,18 @@ public class ProductController extends HttpServlet {
         ResponseConfig.ConfigHeader(resp);
         ProductDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(ProductDTO.class);
         Message message = iProductService.createNewProduct(dto);
+        resp.setStatus(message.getMeta().getStatusCode().intValue());
+        resp.getWriter().print(new ObjectMapper().writeValueAsString(message));
+        resp.getWriter().flush();
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        ResponseConfig.ConfigHeader(resp);
+        ProductDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(ProductDTO.class);
+        System.out.println(new ObjectMapper().writeValueAsString(dto));
+        Message message = iProductService.updateProduct(dto);
         resp.setStatus(message.getMeta().getStatusCode().intValue());
         resp.getWriter().print(new ObjectMapper().writeValueAsString(message));
         resp.getWriter().flush();
