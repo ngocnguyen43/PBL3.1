@@ -15,7 +15,8 @@ public class ProductCertificateDAO extends AbstractDAO<ProductCertificatesModel>
 
     @Override
     public void deleteOne(String id) {
-
+        String sql = "DELETE FROM product_certificates WHERE id = ?";
+        delete(sql,id);
     }
 
     @Override
