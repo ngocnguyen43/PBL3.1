@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.PBL3.config.ResponseConfig;
 import com.PBL3.dtos.UserDTO;
+import com.PBL3.models.User;
 import com.PBL3.services.IAuthService;
 import com.PBL3.services.IUserService;
 import com.PBL3.utils.helpers.Helper;
@@ -19,6 +21,7 @@ import com.PBL3.utils.response.Message;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebServlet(urlPatterns = {"/api/v1/auth/register"})
+@MultipartConfig
 public class RegisterUser extends HttpServlet {
 
 	/**
@@ -37,8 +40,7 @@ public class RegisterUser extends HttpServlet {
 		ResponseConfig.ConfigHeader(resp);
 		ObjectMapper obj = new ObjectMapper();
 		PrintWriter out = resp.getWriter();
-		UserDTO userDTO = Helper.of(req.getReader()).toModel(UserDTO.class);
-////		User user = Helper.objectMapper(userDTO, User.class);
+		UserDTO userDTO = Helper.paramsToString(req.getParameterMap()).toModel(UserDTO.class);
 		Message message = authService.Register(userDTO);
 		String json = obj.writeValueAsString(message);
 		resp.setStatus(message.getMeta().getStatusCode());

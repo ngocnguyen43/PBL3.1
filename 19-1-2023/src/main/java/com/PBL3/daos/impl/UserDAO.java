@@ -36,22 +36,22 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
 		String sql = "INSERT INTO users (user_id," 
 				+ "role_id," 
 				+"company_name,"
-				+ "tax_indentification_number,"
+				+ "tax_identification_number,"
 				+ "business_id,"
 				+ "phone_number,"
-				+ "fax_number"
+				+ "fax_number,"
 				+ "email,"
 				+ "full_name," 
 				+ "national_id," 
 				+ "user_number," 
 				+  "password," 
 				+ "action," 
-				+ "modifiedBy)" + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "modified_by)" + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		// helper
 		String id = IDGeneration.generate();
 		// helper hashed password
 //		String taxId = user.getTaxIndentity() != null ? user.getTaxIndentity() : null;
-		insert(sql, id, user.getRoleId(), user.getCompanyName(), user.getTaxIndentity(), user.getBusinessId(),
+		insert(sql, id, user.getRoleId(), user.getCompanyName() , user.getTaxIndentity(), user.getBusinessId(),
 				user.getPhoneNumber(), user.getFaxNumber(),user.getEmail(),user.getFullName(),user.getNationalId()
 				,user.getUserNumber(), password, user.getAction(), user.getModifiedBy());
 		return id;
