@@ -18,7 +18,7 @@ public class KindOfProductRepository implements IKindOfProductRepository {
 
             iKindOfProductDAO.save(domain);
         }catch (Exception e){
-            throw new CreateFailedException("Create New Kind Failed");
+            throw new CreateFailedException("Create New Product Kind Failed");
         }
     }
 
