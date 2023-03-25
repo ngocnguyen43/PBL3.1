@@ -43,7 +43,6 @@ public class ProductController extends HttpServlet {
         resp.getWriter().print(new ObjectMapper().writeValueAsString(message));
         resp.getWriter().flush();
     }
-
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
