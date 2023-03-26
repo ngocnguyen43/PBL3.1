@@ -1,10 +1,11 @@
 package com.PBL3.models;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class PlanModel extends AbstractModel{
     String companyId;
-    Date time;
+    Timestamp time;
 
     String path;
 
@@ -18,11 +19,11 @@ public class PlanModel extends AbstractModel{
         this.companyId = companyId;
     }
 
-    public Date getTime() {
+    public Timestamp getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(Timestamp time) {
         this.time = time;
     }
 

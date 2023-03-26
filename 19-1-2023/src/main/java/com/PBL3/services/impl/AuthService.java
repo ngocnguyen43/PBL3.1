@@ -12,6 +12,7 @@ import com.PBL3.utils.exceptions.authExceptions.RegistrationFailedException;
 import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
 import com.PBL3.utils.exceptions.dbExceptions.NotFoundException;
 import com.PBL3.utils.helpers.Helper;
+import com.PBL3.utils.helpers.IDGeneration;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,10 +40,16 @@ public class AuthService implements IAuthService {
 	}
 
 	@Override
-	public Message Register(UserDTO userDTO) {
+	public Message Register(UserDTO userDTO ,String type) {
 
 		try {
 			User user = Helper.objectMapper(userDTO, User.class);
+			if (type.equals("company")){
+				String id = IDGeneration.generate();
+				String taxtId = IDGeneration.generate(10);
+				user.setCompanyId(id);
+				user.setTaxIndentity(taxtId);
+			}
 			return authRepository.registerUser(user);
 
 		} catch (DuplicateEntryException | InvalidCredentialsException | RegistrationFailedException|NotFoundException e) {

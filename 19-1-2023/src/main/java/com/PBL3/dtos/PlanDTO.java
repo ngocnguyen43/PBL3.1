@@ -1,25 +1,18 @@
 package com.PBL3.dtos;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class PlanDTO {
-    String id;
     String companyId;
-    Date time;
+    Timestamp time;
 
     String path;
 
-    Integer action;
+    Integer action = 1;
 
     String modifiedBy;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getCompanyId() {
         return companyId;
@@ -33,7 +26,7 @@ public class PlanDTO {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(Timestamp time) {
         this.time = time;
     }
 

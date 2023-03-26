@@ -12,5 +12,9 @@ public class IDGeneration {
 		Random random = new Random();
 		String nanoId = NanoIdUtils.randomNanoId(random, salt, 23);
 		return nanoId;
+	}	public static String generate(Integer length) {
+		Random random = new Random();
+		String nanoId = NanoIdUtils.randomNanoId(random, salt, length);
+		return nanoId;
 	}
 }

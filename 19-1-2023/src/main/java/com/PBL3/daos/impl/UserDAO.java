@@ -34,7 +34,8 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
 		String password = HashPassword.HashPW(user.getPassword());
 
 		String sql = "INSERT INTO users (user_id," 
-				+ "role_id," 
+				+ "role_id,"
+				+"company_id,"
 				+"company_name,"
 				+ "tax_identification_number,"
 				+ "business_id,"
@@ -46,12 +47,12 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
 				+ "user_number," 
 				+  "password," 
 				+ "action," 
-				+ "modified_by)" + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "modified_by)" + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		// helper
 		String id = IDGeneration.generate();
 		// helper hashed password
 //		String taxId = user.getTaxIndentity() != null ? user.getTaxIndentity() : null;
-		insert(sql, id, user.getRoleId(), user.getCompanyName() , user.getTaxIndentity(), user.getBusinessId(),
+		insert(sql, id, user.getRoleId(),user.getCompanyId(), user.getCompanyName() , user.getTaxIndentity(), user.getBusinessId(),
 				user.getPhoneNumber(), user.getFaxNumber(),user.getEmail(),user.getFullName(),user.getNationalId()
 				,user.getUserNumber(), password, user.getAction(), user.getModifiedBy());
 		return id;
@@ -75,6 +76,16 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
 //		String sql = "SELECT * FROM users INNER JOIN roles ON users.roleId = roles.roleId WHERE email = ? ";
 
 		List<User> users = query(sql, new UserMapper(), email);
+
+		return users.isEmpty() ? null : users.get(0);
+	}
+
+	@Override
+	public User findByCompanyId(String companyId) {
+		String sql = "SELECT * FROM users INNER JOIN roles ON users.role_id = roles.role_id WHERE company_id = ? ";
+//		String sql = "SELECT * FROM users INNER JOIN roles ON users.roleId = roles.roleId WHERE email = ? ";
+
+		List<User> users = query(sql, new UserMapper(), companyId);
 
 		return users.isEmpty() ? null : users.get(0);
 	}

@@ -1,12 +1,8 @@
 package com.PBL3.daos.impl;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.PBL3.daos.GenericDAO;
@@ -77,6 +73,8 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
 					statement.setString(index, (String) parameter);
 				} else if (parameter instanceof Integer) {
 					statement.setInt(index, (Integer) parameter);
+				} else if (parameter instanceof Timestamp) {
+					statement.setTimestamp(index,(Timestamp) parameter);
 				} else  {
 					statement.setNull(index,Types.NULL );
 				}
