@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import com.PBL3.utils.response.Message;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebServlet(urlPatterns = {"/api/v1/private/business"})
+@MultipartConfig
 public class BusinessController extends HttpServlet {
 
 	/**
@@ -32,7 +34,7 @@ public class BusinessController extends HttpServlet {
 		resp.setContentType("application/json");
 		ObjectMapper obj = new ObjectMapper();
 		PrintWriter out = resp.getWriter();
-		BusinessDTO bussinessDto = Helper.of(req.getReader()).toModel(BusinessDTO.class);
+		BusinessDTO bussinessDto = Helper.paramsToString(req.getParameterMap()).toModel(BusinessDTO.class);
 		Message message = businessService.createBusiness(bussinessDto);
 		String json = obj.writeValueAsString(message);
 		resp.setStatus(message.getMeta().getStatusCode().intValue());

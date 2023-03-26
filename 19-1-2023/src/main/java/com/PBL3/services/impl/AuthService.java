@@ -10,9 +10,12 @@ import com.PBL3.services.IAuthService;
 import com.PBL3.utils.exceptions.authExceptions.InvalidCredentialsException;
 import com.PBL3.utils.exceptions.authExceptions.RegistrationFailedException;
 import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
+import com.PBL3.utils.exceptions.dbExceptions.NotFoundException;
 import com.PBL3.utils.helpers.Helper;
+import com.PBL3.utils.helpers.IDGeneration;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class AuthService implements IAuthService {
 
@@ -23,40 +26,41 @@ public class AuthService implements IAuthService {
 	public Message Signin(UserSigninDTO tempUser) {
 		try {
 			User user = Helper.objectMapper(tempUser, User.class);
-			Message message = authRepository.loginUser(user);
-			return message;
-		} catch (InvalidCredentialsException e) {
+			return authRepository.loginUser(user);
+		} catch (InvalidCredentialsException| NotFoundException e) {
 			Meta meta = new Meta.Builder(e.getStatusCode()).withError(e.getMessage()).build();
-			Message message = new Message.Builder(meta).build();
-			return message;
+			return new Message.Builder(meta).build();
+
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
-			Meta meta = new Meta.Builder(500).withError("HAHAA").build();
-			Message message = new Message.Builder(meta).build();
-			return message;
+			Meta meta = new Meta.Builder(500).withError("Login Error").build();
+			return new Message.Builder(meta).build();
 		}
 //		
 	}
 
 	@Override
-	public Message Register(UserDTO userDTO) {
+	public Message Register(UserDTO userDTO ,String type) {
 
 		try {
 			User user = Helper.objectMapper(userDTO, User.class);
-			Message message = authRepository.registerUser(user);
-			return message;
-		} catch (DuplicateEntryException | InvalidCredentialsException | RegistrationFailedException e) {
+			if (type != null && type.equals("company")){
+				String id = IDGeneration.generate();
+				String taxtId = IDGeneration.generate(10);
+				user.setCompanyId(id);
+				user.setTaxIndentity(taxtId);
+			}
+			return authRepository.registerUser(user);
+
+		} catch (DuplicateEntryException | InvalidCredentialsException | RegistrationFailedException|NotFoundException e) {
 			Meta meta = new Meta.Builder(e.getStatusCode()).withErrCode(e.getErrorCode()).withError(e.getMessage())
 					.build();
-			Message message = new Message.Builder(meta).build();
-			return message;
+			return new Message.Builder(meta).build();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			Meta meta = new Meta.Builder(500).withError("HAHAA").build();
-			Message message = new Message.Builder(meta).build();
-			return message;
-
+			return new Message.Builder(meta).build();
 		}
 
 	}

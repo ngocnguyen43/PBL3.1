@@ -14,8 +14,9 @@ public class UserMapper implements IMapper<User> {
 		try {
 			user.setId(result.getString("user_id"));
 			user.setRoleId(result.getInt("role_id"));
+			user.setCompanyId(result.getString("company_id"));
 			user.setCompanyName(result.getString("company_name"));
-			user.setTaxIndentity(result.getString("tax_indentification_number"));
+			user.setTaxIndentity(result.getString("tax_identification_number"));
 			user.setBusinessId(result.getString("business_id"));
 			user.setPhoneNumber(result.getString("phone_number"));
 			user.setFaxNumber(result.getString("fax_number"));
@@ -25,13 +26,13 @@ public class UserMapper implements IMapper<User> {
 			user.setUserNumber(result.getString("user_number"));
 			user.setPassword(result.getString("password"));
 			user.setAction(result.getInt("action"));
-			user.setModifiedBy(result.getString("modifiedBy"));
-			user.setCreatedAt(result.getTimestamp("createdAt"));
-			user.setUpdatedAt(result.getTimestamp("updatedAt"));
+			user.setModifiedBy(result.getString("modified_by"));
+			user.setCreatedAt(result.getTimestamp("created_at"));
+			user.setUpdatedAt(result.getTimestamp("updated_at"));
 			Role role = new Role();
-			role.setRoleId(result.getInt("roleId"));
-			role.setRoleCode(result.getString("rolecode"));
-			role.setRoleName(result.getString("rolename"));
+			role.setRoleId(result.getInt("role_id"));
+			role.setRoleCode(result.getString("role_code"));
+			role.setRoleName(result.getString("role_name"));
 			user.setRole(role);
 
 
