@@ -27,4 +27,18 @@ public class PlanDAO extends AbstractDAO<PlanModel> implements IPlanDAO {
         update(sql , domain.getTime(),domain.getId());
     }
 
+    @Override
+    public void inactivePlan(String id) {
+        PlanModel plan = findOneWithoutJoin(id);
+        String sql = "UPDATE plans SET action = ? WHERE plan_id = ?";
+        update(sql,plan.getAction() == 1 ? 0 : 1, id);
+    }
+
+    @Override
+    public PlanModel findOneWithoutJoin(String id) {
+        String sql = "SELECT * FROM plans WHERE plan_id = ?";
+        List<PlanModel> plans =  query(sql,new PlanMapper(),id);
+        return plans.isEmpty() ? null : plans.get(0);
+    }
+
 }

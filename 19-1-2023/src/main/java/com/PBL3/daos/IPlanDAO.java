@@ -7,4 +7,7 @@ public interface IPlanDAO extends GenericDAO<PlanModel> {
     PlanModel findOneByPlanId(String id);
 
     void updateTime(PlanModel domain);
+    void inactivePlan(String id);
+
+    PlanModel findOneWithoutJoin(String id);
 }

@@ -2,6 +2,7 @@ package com.PBL3.utils.mapper;
 
 import com.PBL3.models.PlanInspectorModel;
 import com.PBL3.models.PlanModel;
+import com.PBL3.utils.helpers.CheckFieldExist;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,7 +23,7 @@ public class PlanMapper implements IMapper<PlanModel> {
             plan.setCreatedAt(result.getTimestamp("created_at"));
             plan.setUpdatedAt(result.getTimestamp("updated_at"));
             List<PlanInspectorModel> inspectors = new ArrayList<>();
-            while(!result.isAfterLast()){
+            while(!result.isAfterLast() && CheckFieldExist.checkExist(result,"inspector")){
                 PlanInspectorModel temp = new PlanInspectorModel();
                 temp.setUserId(result.getString("inspector"));
                 temp.setAction(result.getInt("status"));

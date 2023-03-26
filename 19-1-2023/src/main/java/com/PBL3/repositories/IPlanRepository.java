@@ -12,4 +12,6 @@ public interface IPlanRepository {
     PlanModel findOneById(String id) throws NotFoundException;
 
     void updateTime(PlanModel domain) throws NotFoundException, UpdateFailedException, InvalidPropertiesException;
+
+    void inactivePlan(String id) throws InvalidPropertiesException, UpdateFailedException;
 }

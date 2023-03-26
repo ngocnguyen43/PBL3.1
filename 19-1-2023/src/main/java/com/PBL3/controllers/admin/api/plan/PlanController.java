@@ -49,6 +49,10 @@ public class PlanController extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         ResponseConfig.ConfigHeader(resp);
+        Message message = iPlanService.inactivePlan(req.getParameter("id"));
+        resp.setStatus(message.getMeta().getStatusCode());
+        resp.getWriter().print(new ObjectMapper().writeValueAsString(message));
+        resp.getWriter().flush();
     }
 
     @Override

@@ -52,4 +52,15 @@ public class PlanRepository implements IPlanRepository {
         }
 
     }
+
+    @Override
+    public void inactivePlan(String id) throws InvalidPropertiesException, UpdateFailedException {
+        if (id == null ) throw new InvalidPropertiesException("Plan Id is Invalid");
+        try {
+
+         iPlanDAO.inactivePlan(id);
+        }catch (Exception e){
+            throw  new UpdateFailedException("Inactivve Plan Failed");
+        }
+    }
 }
