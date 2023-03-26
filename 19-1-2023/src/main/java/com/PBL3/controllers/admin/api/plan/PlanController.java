@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet(urlPatterns = {Constants.URL_V1 +Constants.PRIVATE + "/plan" })
+@WebServlet(urlPatterns = {Constants.URL_V1 +Constants.PRIVATE + "/admin/plan" })
 @MultipartConfig
 public class PlanController extends HttpServlet {
     @Inject
@@ -38,15 +38,26 @@ public class PlanController extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         ResponseConfig.ConfigHeader(resp);
+        PlanDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(PlanDTO.class);
+        Message message = iPlanService.updateTime(dto);
+        resp.setStatus(message.getMeta().getStatusCode());
+        resp.getWriter().print(new ObjectMapper().writeValueAsString(message));
+        resp.getWriter().flush();
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+        req.setCharacterEncoding("UTF-8");
+        ResponseConfig.ConfigHeader(resp);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+        req.setCharacterEncoding("UTF-8");
+        ResponseConfig.ConfigHeader(resp);
+        Message message = iPlanService.getOneById(req.getParameter("id"));
+        resp.setStatus(message.getMeta().getStatusCode());
+        resp.getWriter().print(new ObjectMapper().writeValueAsString(message));
+        resp.getWriter().flush();
     }
 }

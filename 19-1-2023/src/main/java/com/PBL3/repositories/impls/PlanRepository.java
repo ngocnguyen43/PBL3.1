@@ -8,6 +8,7 @@ import com.PBL3.repositories.IPlanRepository;
 import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
 import com.PBL3.utils.exceptions.dbExceptions.InvalidPropertiesException;
 import com.PBL3.utils.exceptions.dbExceptions.NotFoundException;
+import com.PBL3.utils.exceptions.dbExceptions.UpdateFailedException;
 import com.PBL3.utils.helpers.TimestampConvert;
 
 import javax.inject.Inject;
@@ -29,5 +30,26 @@ public class PlanRepository implements IPlanRepository {
         }catch (Exception e){
             throw new CreateFailedException("Create Plan Failed");
         }
+    }
+
+    @Override
+    public PlanModel findOneById(String id) throws NotFoundException {
+        PlanModel plan = iPlanDAO.findOneByPlanId(id);
+        if (plan == null) throw new NotFoundException("Plan Not Found");
+        return plan;
+    }
+
+    @Override
+    public void updateTime(PlanModel domain) throws NotFoundException, UpdateFailedException, InvalidPropertiesException {
+        if (domain.getId() == null || domain.getTime() == null) throw new InvalidPropertiesException("Invalid Plan Id or Plan Time");
+        PlanModel plan = iPlanDAO.findOneByPlanId(domain.getId());
+        if (plan == null) throw new NotFoundException("Plan Not Found");
+        domain.setTime(TimestampConvert.convert(domain.getTime().getTime()));
+        try{
+            iPlanDAO.updateTime(domain);
+        }catch (Exception e){
+            throw new UpdateFailedException("Update Plan Failed");
+        }
+
     }
 }

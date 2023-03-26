@@ -1,9 +1,12 @@
 package com.PBL3.utils.mapper;
 
+import com.PBL3.models.PlanInspectorModel;
 import com.PBL3.models.PlanModel;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlanMapper implements IMapper<PlanModel> {
     @Override
@@ -16,8 +19,17 @@ public class PlanMapper implements IMapper<PlanModel> {
             plan.setTime(result.getTimestamp("time"));
             plan.setPath(result.getString("path"));
             plan.setModifiedBy(result.getString("modified_by"));
-            plan.setCreatedAt(result.getTimestamp("create_at"));
-            plan.setUpdatedAt(result.getTimestamp("update_at"));
+            plan.setCreatedAt(result.getTimestamp("created_at"));
+            plan.setUpdatedAt(result.getTimestamp("updated_at"));
+            List<PlanInspectorModel> inspectors = new ArrayList<>();
+            while(!result.isAfterLast()){
+                PlanInspectorModel temp = new PlanInspectorModel();
+                temp.setUserId(result.getString("inspector"));
+                temp.setAction(result.getInt("status"));
+                inspectors.add(temp);
+                result.next();
+            }
+            plan.setInspectors(inspectors);
             return  plan;
         } catch (SQLException e) {
             e.printStackTrace();

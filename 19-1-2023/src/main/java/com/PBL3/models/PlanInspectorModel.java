@@ -1,5 +1,9 @@
 package com.PBL3.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+
 public class PlanInspectorModel extends AbstractModel {
     String planId;
     String userId;

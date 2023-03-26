@@ -14,7 +14,7 @@ public class TimestampConvert {
 
         } catch (Exception e) { //this generic but you can control another types of exception
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 }

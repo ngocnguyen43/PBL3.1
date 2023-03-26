@@ -4,6 +4,16 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 public class PlanDTO {
+    String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     String companyId;
     Timestamp time;
 
