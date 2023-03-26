@@ -16,6 +16,7 @@ import com.PBL3.utils.response.Meta;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 public class PlanService implements IPlanService {
     @Inject
@@ -71,5 +72,19 @@ public class PlanService implements IPlanService {
             Meta meta = new Meta.Builder(e.getStatusCode()).withError(e.getMessage()).build();
             return new Message.Builder(meta).build();
         }
+    }
+
+    @Override
+    public Message getAll() {
+        try {
+             List<PlanModel> plans =  iPlanRepository.findAll();
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
+            Data data = new Data.Builder(null).withResults(plans).build();
+            return new Message.Builder(meta).withData(data).build();
+        }catch (NotFoundException e) {
+            Meta meta = new Meta.Builder(e.getStatusCode()).withError(e.getMessage()).build();
+            return new Message.Builder(meta).build();
+        }
+
     }
 }

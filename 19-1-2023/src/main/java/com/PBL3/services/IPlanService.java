@@ -11,4 +11,6 @@ public interface IPlanService {
     Message updateTime(PlanDTO dto);
 
     Message inactivePlan(String id);
+
+    Message getAll();
 }

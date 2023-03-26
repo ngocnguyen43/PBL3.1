@@ -12,6 +12,7 @@ import com.PBL3.utils.exceptions.dbExceptions.UpdateFailedException;
 import com.PBL3.utils.helpers.TimestampConvert;
 
 import javax.inject.Inject;
+import java.util.List;
 
 public class PlanRepository implements IPlanRepository {
     @Inject
@@ -62,5 +63,12 @@ public class PlanRepository implements IPlanRepository {
         }catch (Exception e){
             throw  new UpdateFailedException("Inactivve Plan Failed");
         }
+    }
+
+    @Override
+    public List<PlanModel> findAll() throws NotFoundException {
+        List<PlanModel> plans = iPlanDAO.findAll();
+        if (plans == null) throw new NotFoundException("Plans Not Found");
+        return plans;
     }
 }
