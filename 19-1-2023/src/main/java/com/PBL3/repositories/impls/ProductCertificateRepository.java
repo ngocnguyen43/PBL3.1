@@ -11,7 +11,7 @@ import javax.inject.Inject;
 
 public class ProductCertificateRepository implements IProductCertificateRepository {
     @Inject
-    IProductCertificateDAO iProductCertificateDAO;
+    private IProductCertificateDAO iProductCertificateDAO;
     @Override
     public void createOne(ProductCertificatesModel domain) throws DuplicateEntryException, CreateFailedException {
         ProductCertificatesModel old = iProductCertificateDAO.findOne(domain.getId());

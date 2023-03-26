@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ProductCertificateService implements IProductCertificateServie {
     @Inject
-    IProductCertificateRepository iProductCertificateRepository;
+    private IProductCertificateRepository iProductCertificateRepository;
     @Override
     public Message createOne(ProductCertificateDTO dto) {
         try{

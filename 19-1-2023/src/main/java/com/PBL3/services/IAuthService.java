@@ -6,5 +6,5 @@ import com.PBL3.utils.response.Message;
 
 public interface IAuthService {
 	Message Signin(UserSigninDTO user);
-	Message Register(UserDTO user);
+	Message Register(UserDTO user,String type);
 }

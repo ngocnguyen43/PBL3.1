@@ -6,6 +6,16 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class UserDTO {
 	private Integer roleId;
+	private  String companyId;
+
+	public String getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
+	}
+
 	private String companyName;
 	private String taxIndentity;
 	private String businessId;

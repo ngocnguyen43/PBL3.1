@@ -21,7 +21,7 @@ import java.io.IOException;
 @MultipartConfig
 public class ProductsCertificatesController extends HttpServlet {
     @Inject
-    IProductCertificateServie iProductCertificateServie;
+    private IProductCertificateServie iProductCertificateServie;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");

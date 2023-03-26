@@ -2,6 +2,16 @@ package com.PBL3.models;
 
 public class User extends AbstractModel {
 	private Integer roleId;
+	private  String companyId;
+
+	public String getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
+	}
+
 	private String companyName;
 	private String taxIndentity;
 	private String businessId;

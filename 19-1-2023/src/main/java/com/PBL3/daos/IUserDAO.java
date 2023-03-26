@@ -10,6 +10,8 @@ public interface IUserDAO extends GenericDAO<User> {
 	User findByUserId(String id);
 	
 	User findByEmail(String email);
+
+	User findByCompanyId(String companyId);
 	
 	User findByNationalId(String nationalId);
 	
