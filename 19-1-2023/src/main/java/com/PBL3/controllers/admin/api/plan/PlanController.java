@@ -3,7 +3,7 @@ package com.PBL3.controllers.admin.api.plan;
 import com.PBL3.config.ResponseConfig;
 import com.PBL3.dtos.PlanDTO;
 import com.PBL3.services.IPlanService;
-import com.PBL3.utils.Constants.*;
+import com.PBL3.utils.Constants.Constants;
 import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.response.Message;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,7 +22,7 @@ import java.io.IOException;
 @MultipartConfig
 public class PlanController extends HttpServlet {
     @Inject
-    IPlanService iPlanService;
+   private IPlanService iPlanService;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");

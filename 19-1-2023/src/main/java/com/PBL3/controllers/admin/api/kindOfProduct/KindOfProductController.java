@@ -22,7 +22,7 @@ import java.io.PrintWriter;
 public class KindOfProductController extends HttpServlet {
 
     @Inject
-    IKindOfProductService iKindOfProductService;
+    private IKindOfProductService iKindOfProductService;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");

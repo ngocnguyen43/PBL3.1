@@ -9,6 +9,7 @@ import com.PBL3.utils.exceptions.dbExceptions.InvalidPropertiesException;
 import com.PBL3.utils.exceptions.dbExceptions.NotFoundException;
 import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.IDGeneration;
+import com.PBL3.utils.helpers.TimestampConvert;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
 
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class PlanService implements IPlanService {
     @Inject
-    IPlanRepository iPlanRepository;
+    private IPlanRepository iPlanRepository;
     @Override
     public Message createOne(PlanDTO dto) {
         try{

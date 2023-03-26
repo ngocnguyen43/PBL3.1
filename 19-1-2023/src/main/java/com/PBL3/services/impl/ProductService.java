@@ -19,7 +19,7 @@ import java.util.List;
 
 public class ProductService implements IProductService {
     @Inject
-    IProductRepository iProductRepository;
+    private IProductRepository iProductRepository;
     @Override
     public Message createNewProduct(ProductDTO dto) {
         try{

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class KindOfProductRepository implements IKindOfProductRepository {
     @Inject
-    IKindOfProductDAO iKindOfProductDAO;
+    private IKindOfProductDAO iKindOfProductDAO;
     @Override
     public void createNewKind(KindOfProductModel domain) throws CreateFailedException {
         try{

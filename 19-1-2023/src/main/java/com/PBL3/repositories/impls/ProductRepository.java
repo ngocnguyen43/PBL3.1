@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ProductRepository implements IProductRepository {
     @Inject
-    IProductDAO iProductDAO;
+    private IProductDAO iProductDAO;
     @Override
     public void createNewProduct(ProductModel domain) throws CreateFailedException {
         try{

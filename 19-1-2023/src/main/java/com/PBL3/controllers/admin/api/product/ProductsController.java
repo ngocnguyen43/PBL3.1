@@ -17,7 +17,7 @@ import java.io.IOException;
 @WebServlet(urlPatterns = {Constants.URL_V1 + Constants.PRIVATE+ "/products"})
 public class ProductsController extends HttpServlet {
     @Inject
-    IProductService iProductService;
+    private IProductService iProductService;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
