@@ -1,7 +1,12 @@
 package com.PBL3.controllers.auth;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import com.PBL3.config.ResponseConfig;
+import com.PBL3.dtos.UserSigninDTO;
+import com.PBL3.services.IAuthService;
+import com.PBL3.utils.Constants.Constants;
+import com.PBL3.utils.helpers.Helper;
+import com.PBL3.utils.response.Message;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -10,17 +15,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
-import com.PBL3.config.ResponseConfig;
-import com.PBL3.dtos.UserSigninDTO;
-import com.PBL3.services.IAuthService;
-import com.PBL3.utils.helpers.Helper;
-import com.PBL3.utils.response.Message;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-@WebServlet(urlPatterns = { "/api/v1/auth/signin" })
+@WebServlet(urlPatterns = {Constants.URL_V1 + Constants.AUTH + "/login" })
 @MultipartConfig
-public class UserSignin extends HttpServlet {
+public class LoginUser extends HttpServlet {
 
 	/**
 	 * 
@@ -31,13 +30,12 @@ public class UserSignin extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		PrintWriter out = resp.getWriter();
 		ResponseConfig.ConfigHeader(resp);
 		req.setCharacterEncoding("UTF-8");
 		UserSigninDTO user = Helper.paramsToString(req.getParameterMap()).toModel(UserSigninDTO.class);
 		Message message = signinService.Signin(user);
 		resp.setStatus(message.getMeta().getStatusCode());
-		out.print(new ObjectMapper().writeValueAsString(message));
-		out.flush();
+		resp.getWriter().print(new ObjectMapper().writeValueAsString(message));
+		resp.getWriter().flush();
 	}
 }

@@ -61,7 +61,7 @@ public class PlanRepository implements IPlanRepository {
 
          iPlanDAO.inactivePlan(id);
         }catch (Exception e){
-            throw  new UpdateFailedException("Inactivve Plan Failed");
+            throw  new UpdateFailedException("Inactive Plan Failed");
         }
     }
 

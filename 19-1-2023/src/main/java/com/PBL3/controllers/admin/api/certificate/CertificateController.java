@@ -3,6 +3,7 @@ package com.PBL3.controllers.admin.api.certificate;
 import com.PBL3.config.ResponseConfig;
 import com.PBL3.dtos.CertificateDTO;
 import com.PBL3.services.ICertificateService;
+import com.PBL3.utils.Constants.Constants;
 import com.PBL3.utils.helpers.CheckContainsFile;
 import com.PBL3.utils.helpers.GetQueryParams;
 import com.PBL3.utils.helpers.HandleImage;
@@ -18,12 +19,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/api/v1/private/certificate"})
+@WebServlet(urlPatterns = {Constants.URL_V1 + Constants.PRIVATE +"/certificate"})
 @MultipartConfig
-public class CertifiacateController extends HttpServlet {
+public class CertificateController extends HttpServlet {
 
     /**
      *
@@ -35,40 +35,30 @@ public class CertifiacateController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         req.setCharacterEncoding("UTF-8");
-//			resp.setContentType("application/json");
         ResponseConfig.ConfigHeader(resp);
-        ObjectMapper obj = new ObjectMapper();
-        PrintWriter out = resp.getWriter();
         String path = HandleImage.save(req);
         CertificateDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(CertificateDTO.class);
         dto.setPath(path);
         Message message = certificateService.createCertificate(dto);
-        String json = obj.writeValueAsString(message);
-        resp.setStatus(message.getMeta().getStatusCode().intValue());
-        out.print(json);
-        out.flush();
+        resp.setStatus(message.getMeta().getStatusCode());
+        resp.getWriter().print(new ObjectMapper().writeValueAsString(message));
+        resp.getWriter().flush();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         ResponseConfig.ConfigHeader(resp);
-        ObjectMapper obj = new ObjectMapper();
-        PrintWriter out = resp.getWriter();
         Message message = certificateService.getAllCertificate();
-        String json = obj.writeValueAsString(message);
-        resp.setStatus(message.getMeta().getStatusCode().intValue());
-        out.print(json);
-        out.flush();
+        resp.setStatus(message.getMeta().getStatusCode());
+        resp.getWriter().print(new ObjectMapper().writeValueAsString(message));
+        resp.getWriter().flush();
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         ResponseConfig.ConfigHeader(resp);
-        ObjectMapper obj = new ObjectMapper();
-        PrintWriter out = resp.getWriter();
-//        Map<String,String> queries = GetQueryParams.getQueryParameters(req);
         CertificateDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(CertificateDTO.class);
 
         if (CheckContainsFile.check(req)){
@@ -80,24 +70,20 @@ public class CertifiacateController extends HttpServlet {
         System.out.println(new ObjectMapper().writeValueAsString(req.getParameterMap()));
 //        System.out.println(req.getPart("file").getSize());
         Message message = certificateService.updateCertificate(dto);
-        String json = obj.writeValueAsString(message);
-        resp.setStatus(message.getMeta().getStatusCode().intValue());
-        out.print(json);
-        out.flush();
+        resp.setStatus(message.getMeta().getStatusCode());
+        resp.getWriter().print(new ObjectMapper().writeValueAsString(message));
+        resp.getWriter().flush();
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         ResponseConfig.ConfigHeader(resp);
-        ObjectMapper obj = new ObjectMapper();
-        PrintWriter out = resp.getWriter();
         Map<String,String> queries = GetQueryParams.getQueryParameters(req);
 //        System.out.println(new ObjectMapper().writeValueAsString(queries.get("id")));
         Message message = certificateService.deleteCertificate(queries.get("id"));
-        String json = obj.writeValueAsString(message);
-        resp.setStatus(message.getMeta().getStatusCode().intValue());
-        out.print(json);
-        out.flush();
+        resp.setStatus(message.getMeta().getStatusCode());
+        resp.getWriter().print( new ObjectMapper().writeValueAsString(message));
+        resp.getWriter().flush();
     }
 }
