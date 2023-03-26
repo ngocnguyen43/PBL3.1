@@ -44,7 +44,7 @@ public class AuthService implements IAuthService {
 
 		try {
 			User user = Helper.objectMapper(userDTO, User.class);
-			if (type.equals("company")){
+			if (type != null && type.equals("company")){
 				String id = IDGeneration.generate();
 				String taxtId = IDGeneration.generate(10);
 				user.setCompanyId(id);

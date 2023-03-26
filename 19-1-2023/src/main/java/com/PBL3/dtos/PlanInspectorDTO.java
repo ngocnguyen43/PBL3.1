@@ -14,7 +14,7 @@ public class PlanInspectorDTO  {
     String planId;
     String userId;
 
-    Integer action;
+    Integer action = 1;
 
     public String getPlanId() {
         return planId;

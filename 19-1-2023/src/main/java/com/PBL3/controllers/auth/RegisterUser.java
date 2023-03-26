@@ -41,7 +41,7 @@ public class RegisterUser extends HttpServlet {
 		ObjectMapper obj = new ObjectMapper();
 		PrintWriter out = resp.getWriter();
 		UserDTO userDTO = Helper.paramsToString(req.getParameterMap()).toModel(UserDTO.class);
-		Message message = authService.Register(userDTO,"company");
+		Message message = authService.Register(userDTO,null);
 		String json = obj.writeValueAsString(message);
 		resp.setStatus(message.getMeta().getStatusCode());
 		out.print(json);

@@ -9,4 +9,9 @@ public class PlanDAO extends AbstractDAO<PlanModel> implements IPlanDAO {
         String sql = "INSERT INTO plans (plan_id,company_id,action,time,path,modified_by) VALUES (?,?,?,?,?,?)";
         insert(sql,domain.getId(),domain.getCompanyId(),domain.getAction(),domain.getTime(),domain.getPath(),domain.getModifiedBy());
     }
+
+    @Override
+    public PlanModel findOneByPlanId(String id) {
+        return null;
+    }
 }
