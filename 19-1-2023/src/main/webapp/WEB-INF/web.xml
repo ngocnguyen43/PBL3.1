@@ -12,4 +12,22 @@
 	<session-config>
 		<tracking-mode>COOKIE</tracking-mode>
 	</session-config>
+<!--	<servlet>-->
+<!--		<servlet-name>AdminServlet</servlet-name>-->
+<!--		<servlet-class>com.PBL3.controllers.admin.api.plan.PlanController</servlet-class>-->
+<!--	</servlet>-->
+
+<!--&lt;!&ndash;	<servlet-mapping>&ndash;&gt;-->
+<!--&lt;!&ndash;		<servlet-name>AdminServlet</servlet-name>&ndash;&gt;-->
+<!--&lt;!&ndash;		<url-pattern>/plan</url-pattern>&ndash;&gt;-->
+<!--&lt;!&ndash;	</servlet-mapping>&ndash;&gt;-->
+
+<!--	<filter>-->
+<!--		<filter-name>f1</filter-name>-->
+<!--		<filter-class>com.PBL3.filter.TestFilter</filter-class>-->
+<!--	</filter>-->
+<!--	<filter-mapping>-->
+<!--		<filter-name>f1</filter-name>-->
+<!--		<servlet-name>AdminServlet</servlet-name>-->
+<!--	</filter-mapping>-->
 </web-app>
