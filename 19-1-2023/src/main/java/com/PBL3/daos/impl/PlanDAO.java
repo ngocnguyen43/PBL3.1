@@ -36,7 +36,7 @@ public class PlanDAO extends AbstractDAO<PlanModel> implements IPlanDAO {
 
     @Override
     public PlanModel findOneWithoutJoin(String id) {
-        String sql = "SELECT * FROM plans WHERE plan_id = ?";
+        String sql = "SELECT * FROM login.plans WHERE plan_id = ?";
         List<PlanModel> plans =  query(sql,new PlanMapper(),id);
         return plans.isEmpty() ? null : plans.get(0);
     }

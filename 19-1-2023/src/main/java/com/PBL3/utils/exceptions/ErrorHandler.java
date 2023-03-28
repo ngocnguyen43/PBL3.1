@@ -20,8 +20,9 @@ public class ErrorHandler {
     }
     static  public void handle(HttpServletResponse res, Callable<Message> function ) throws IOException {
         try {
-            res.setStatus(function.call().getMeta().getStatusCode());
-            res.getWriter().print(new ObjectMapper().writeValueAsString(function.call()));
+            Message message = function.call();
+            res.setStatus(message.getMeta().getStatusCode());
+            res.getWriter().print(new ObjectMapper().writeValueAsString(message));
             res.getWriter().flush();
         }
         catch (java.lang.Exception e) {
