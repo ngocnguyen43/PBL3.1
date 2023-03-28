@@ -1,4 +1,4 @@
-package com.PBL3.controllers.admin.api;
+package com.PBL3.controllers.admin;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

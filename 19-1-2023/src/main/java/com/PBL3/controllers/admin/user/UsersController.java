@@ -1,4 +1,4 @@
-package com.PBL3.controllers.admin.api.user;
+package com.PBL3.controllers.admin.user;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

@@ -1,4 +1,4 @@
-package com.PBL3.controllers.admin.api.certificate;
+package com.PBL3.controllers.admin.certificate;
 
 import com.PBL3.dtos.CertificateDTO;
 import com.PBL3.services.ICertificateService;

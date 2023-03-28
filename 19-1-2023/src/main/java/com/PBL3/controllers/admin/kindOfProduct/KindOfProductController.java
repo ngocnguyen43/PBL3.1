@@ -1,4 +1,4 @@
-package com.PBL3.controllers.admin.api.kindOfProduct;
+package com.PBL3.controllers.admin.kindOfProduct;
 
 import com.PBL3.dtos.KindOfProductDTO;
 import com.PBL3.services.IKindOfProductService;

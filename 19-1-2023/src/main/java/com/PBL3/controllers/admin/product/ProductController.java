@@ -1,4 +1,4 @@
-package com.PBL3.controllers.admin.api.product;
+package com.PBL3.controllers.admin.product;
 
 import com.PBL3.dtos.ProductDTO;
 import com.PBL3.services.IProductService;

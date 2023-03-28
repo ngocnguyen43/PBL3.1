@@ -1,6 +1,6 @@
-package com.PBL3.controllers.admin.api.product;
+package com.PBL3.controllers.admin.report;
 
-import com.PBL3.services.IProductService;
+import com.PBL3.services.IReportService;
 import com.PBL3.utils.Constants.Constants;
 import com.PBL3.utils.exceptions.ErrorHandler;
 
@@ -12,13 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {Constants.URL_V1 + Constants.PRIVATE + "/products"})
-public class ProductsController extends HttpServlet {
+@WebServlet(urlPatterns = {Constants.URL_V1 + Constants.PRIVATE + "/reports"})
+public class ReportsController extends HttpServlet {
     @Inject
-    private IProductService iProductService;
+    private IReportService iReportService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ErrorHandler.handle(resp, () -> iProductService.getAllProducts());
+        ErrorHandler.handle(resp, () -> iReportService.findAll());
     }
 }

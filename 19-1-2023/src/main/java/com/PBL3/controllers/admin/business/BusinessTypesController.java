@@ -1,7 +1,7 @@
-package com.PBL3.controllers.admin.api.report;
+package com.PBL3.controllers.admin.business;
 
-import com.PBL3.dtos.ReportDTO;
-import com.PBL3.services.IReportService;
+import com.PBL3.dtos.BusinessTypesDTO;
+import com.PBL3.services.IBusinessTypesService;
 import com.PBL3.utils.Constants.Constants;
 import com.PBL3.utils.exceptions.ErrorHandler;
 import com.PBL3.utils.helpers.Helper;
@@ -15,15 +15,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {Constants.URL_V1 + Constants.PRIVATE + "/report"})
+@WebServlet(urlPatterns = {Constants.URL_V1 + Constants.PRIVATE + "/business/type"})
 @MultipartConfig
-public class ReportController extends HttpServlet {
+public class BusinessTypesController extends HttpServlet {
+
+    private static final long serialVersionUID = 1L;
     @Inject
-    private IReportService iReportService;
+    private IBusinessTypesService businessTypesService;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ReportDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(ReportDTO.class);
-        ErrorHandler.handle(resp, () -> iReportService.createOne(dto));
+        BusinessTypesDTO businessTypeDto = Helper.paramsToString(req.getParameterMap()).toModel(BusinessTypesDTO.class);
+        ErrorHandler.handle(resp, () -> businessTypesService.createBusinessType(businessTypeDto));
     }
+
 }

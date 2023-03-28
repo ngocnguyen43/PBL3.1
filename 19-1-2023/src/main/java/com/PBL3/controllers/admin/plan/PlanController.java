@@ -1,4 +1,4 @@
-package com.PBL3.controllers.admin.api.plan;
+package com.PBL3.controllers.admin.plan;
 
 import com.PBL3.dtos.PlanDTO;
 import com.PBL3.services.IPlanService;

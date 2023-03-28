@@ -1,4 +1,4 @@
-package com.PBL3.controllers.admin.api.user;
+package com.PBL3.controllers.admin.user;
 
 import com.PBL3.services.IUserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
