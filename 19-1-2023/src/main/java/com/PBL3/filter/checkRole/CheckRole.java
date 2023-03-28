@@ -8,6 +8,7 @@ import java.util.Objects;
 public class CheckRole {
     public static boolean handle(HttpServletRequest req,Object... roles){
         String decoded = Objects.requireNonNull(JWTVerify.verifyingJWT(req.getHeader("ACCESS_TOKEN"))).getClaim("role").asString();
+//        System.out.println(roles[0].equals(decoded));
         try{
             for (Object role : roles) {
                 if (role.equals(decoded)) return true;

@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {Constants.URL_V1 + Constants.PRIVATE +"/*"})
-public class PrivateFilter implements Filter {
+@WebFilter(urlPatterns = {Constants.URL_V1 + Constants.PRIVATE+Constants.SUPERVISIOR +"/*"})
+public class ModeratorFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -23,7 +23,7 @@ public class PrivateFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse res = (HttpServletResponse) servletResponse;
-        if (CheckRole.handle(req,"MOD","ADM")){
+        if (CheckRole.handle(req,"MOD")){
             filterChain.doFilter(servletRequest,servletResponse);
         }else {
             Meta meta = new Meta.Builder(HttpServletResponse.SC_FORBIDDEN).withMessage("Forbidden!").build();

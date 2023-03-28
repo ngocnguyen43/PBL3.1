@@ -72,6 +72,8 @@ public class CertificateService implements ICertificateService {
     public Message updateCertificate(CertificateDTO dto) {
         Certificate domain = Helper.objectMapper(dto,Certificate.class);
         System.out.print(domain.getId());
+
+        //not found exception error
         try{
             certificateRepository.findOne(domain.getId());
             certificateRepository.updateCertificate(domain);
@@ -79,7 +81,6 @@ public class CertificateService implements ICertificateService {
             return new Message.Builder(meta).build();
         }catch (NotFoundException | InvalidCredentialsException e){
             Meta meta = new Meta.Builder( ErrorStatusCodes.InvalidCredentialsException.getValue()).withMessage(e.getMessage()).build();
-
             return new Message.Builder(meta).build();
         }
     }
