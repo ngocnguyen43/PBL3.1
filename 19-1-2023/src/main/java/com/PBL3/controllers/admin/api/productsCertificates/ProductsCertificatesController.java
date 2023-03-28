@@ -15,19 +15,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {Constants.URL_V1 + Constants.PRIVATE +"/product/certificate"})
+@WebServlet(urlPatterns = {Constants.URL_V1 + Constants.PRIVATE + "/product/certificate"})
 @MultipartConfig
 public class ProductsCertificatesController extends HttpServlet {
     @Inject
     private IProductCertificateServie iProductCertificateServie;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductCertificateDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(ProductCertificateDTO.class);
-        ErrorHandler.handle(resp,()->iProductCertificateServie.createOne(dto));
+        ErrorHandler.handle(resp, () -> iProductCertificateServie.createOne(dto));
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ErrorHandler.handle(resp,()->iProductCertificateServie.deleteOne(req.getParameter("id")));
+        ErrorHandler.handle(resp, () -> iProductCertificateServie.deleteOne(req.getParameter("id")));
     }
 }

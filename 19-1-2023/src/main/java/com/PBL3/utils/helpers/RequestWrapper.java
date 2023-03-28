@@ -1,4 +1,3 @@
-
 package com.PBL3.utils.helpers;
 
 import com.google.common.primitives.Bytes;
@@ -19,10 +18,10 @@ public class RequestWrapper extends HttpServletRequestWrapper {
     // end::variables[]
 
     /**
-     - Constructs a request object wrapping the given request.
-     *
-     - @param request The request to wrap
-     - @throws IllegalArgumentException if the request is null
+     * - Constructs a request object wrapping the given request.
+     * <p>
+     * - @param request The request to wrap
+     * - @throws IllegalArgumentException if the request is null
      */
     public RequestWrapper(HttpServletRequest request) {
         super(request);
@@ -59,7 +58,7 @@ public class RequestWrapper extends HttpServletRequestWrapper {
 
     private static class CustomServletInputStream extends ServletInputStream {
 
-        private ByteArrayInputStream buffer;
+        private final ByteArrayInputStream buffer;
 
         public CustomServletInputStream(byte[] contents) {
             this.buffer = new ByteArrayInputStream(contents);

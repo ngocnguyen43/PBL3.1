@@ -18,10 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 public class ProductCertificateService implements IProductCertificateServie {
     @Inject
     private IProductCertificateRepository iProductCertificateRepository;
+
     @Override
     public Message createOne(ProductCertificateDTO dto) {
-        try{
-            ProductCertificatesModel domain = Helper.objectMapper(dto,ProductCertificatesModel.class);
+        try {
+            ProductCertificatesModel domain = Helper.objectMapper(dto, ProductCertificatesModel.class);
             String id = IDGeneration.generate();
             domain.setId(id);
             iProductCertificateRepository.createOne(domain);
@@ -36,7 +37,7 @@ public class ProductCertificateService implements IProductCertificateServie {
 
     @Override
     public Message deleteOne(String id) {
-        try{
+        try {
             iProductCertificateRepository.deleteOne(id);
             Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("Delete Product Certificate Success!").build();
             return new Message.Builder(meta).build();

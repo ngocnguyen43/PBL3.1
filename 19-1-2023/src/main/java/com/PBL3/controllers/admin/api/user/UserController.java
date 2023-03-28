@@ -1,9 +1,7 @@
 package com.PBL3.controllers.admin.api.user;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.List;
+import com.PBL3.services.IUserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -11,31 +9,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
-import com.PBL3.services.IUserService;
-import com.PBL3.utils.exceptions.Exception;
-import com.PBL3.utils.exceptions.apiExcpetions.InvalidEndpointException;
-import com.PBL3.utils.exceptions.authExceptions.UnauthorizedException;
-import com.PBL3.utils.response.Message;
-import com.PBL3.utils.response.Meta;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-@WebServlet(urlPatterns = { "/api/v1/admin/user/*" })
+@WebServlet(urlPatterns = {"/api/v1/admin/user/*"})
 public class UserController extends HttpServlet {
 
-	/**
-	 * 
-	 */
-	@Inject
-	private IUserService userService;
-	private static final long serialVersionUID = -7630254703535243920L;
+    private static final long serialVersionUID = -7630254703535243920L;
+    /**
+     *
+     */
+    @Inject
+    private IUserService userService;
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setContentType("application/json");
-		resp.setCharacterEncoding("UTF-8");
-		PrintWriter out = resp.getWriter();
-		ObjectMapper obj = new ObjectMapper();
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        PrintWriter out = resp.getWriter();
+        ObjectMapper obj = new ObjectMapper();
 //		Message message = new Message();
 //		String json = null;
 //		try {
@@ -75,11 +67,12 @@ public class UserController extends HttpServlet {
 //
 //		}
 //		out.print(json);
-	}
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
-	}
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // TODO Auto-generated method stub
+        super.doPost(req, resp);
+    }
 
 }

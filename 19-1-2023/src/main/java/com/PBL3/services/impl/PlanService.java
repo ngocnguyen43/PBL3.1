@@ -21,10 +21,11 @@ import java.util.List;
 public class PlanService implements IPlanService {
     @Inject
     private IPlanRepository iPlanRepository;
+
     @Override
     public Message createOne(PlanDTO dto) {
-        try{
-            PlanModel domain = Helper.objectMapper(dto,PlanModel.class);
+        try {
+            PlanModel domain = Helper.objectMapper(dto, PlanModel.class);
             String id = IDGeneration.generate();
             domain.setId(id);
             iPlanRepository.createOne(domain);
@@ -38,7 +39,7 @@ public class PlanService implements IPlanService {
 
     @Override
     public Message getOneById(String id) {
-        try{
+        try {
             PlanModel plan = iPlanRepository.findOneById(id);
             Data data = new Data.Builder(null).withResults(plan).build();
             Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
@@ -52,7 +53,7 @@ public class PlanService implements IPlanService {
     @Override
     public Message updateTime(PlanDTO dto) {
         try {
-            PlanModel domain = Helper.objectMapper(dto,PlanModel.class);
+            PlanModel domain = Helper.objectMapper(dto, PlanModel.class);
             iPlanRepository.updateTime(domain);
             Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
             return new Message.Builder(meta).build();
@@ -68,7 +69,7 @@ public class PlanService implements IPlanService {
             iPlanRepository.inactivePlan(id);
             Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
             return new Message.Builder(meta).build();
-        }catch (InvalidPropertiesException | UpdateFailedException e) {
+        } catch (InvalidPropertiesException | UpdateFailedException e) {
             Meta meta = new Meta.Builder(e.getStatusCode()).withError(e.getMessage()).build();
             return new Message.Builder(meta).build();
         }
@@ -77,11 +78,11 @@ public class PlanService implements IPlanService {
     @Override
     public Message getAll() {
         try {
-             List<PlanModel> plans =  iPlanRepository.findAll();
+            List<PlanModel> plans = iPlanRepository.findAll();
             Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
             Data data = new Data.Builder(null).withResults(plans).build();
             return new Message.Builder(meta).withData(data).build();
-        }catch (NotFoundException e) {
+        } catch (NotFoundException e) {
             Meta meta = new Meta.Builder(e.getStatusCode()).withError(e.getMessage()).build();
             return new Message.Builder(meta).build();
         }

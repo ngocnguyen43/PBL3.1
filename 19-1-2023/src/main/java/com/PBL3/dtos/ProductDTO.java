@@ -2,8 +2,14 @@ package com.PBL3.dtos;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-@JsonInclude (JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductDTO {
+    String id;
+    String userId;
+    String productName;
+    String kindof;
+    Integer action = 1;
+
     public String getId() {
         return id;
     }
@@ -12,15 +18,6 @@ public class ProductDTO {
         this.id = id;
     }
 
-    String id;
-    String userId;
-
-    String productName;
-
-    String kindof;
-
-
-    Integer action = 1;
     public String getUserId() {
         return userId;
     }

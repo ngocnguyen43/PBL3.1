@@ -4,7 +4,7 @@ import com.PBL3.models.Certificate;
 
 import java.sql.ResultSet;
 
-public class CertificateMapper implements  IMapper<Certificate> {
+public class CertificateMapper implements IMapper<Certificate> {
     @Override
     public Certificate mapRow(ResultSet result) {
         Certificate certificate = new Certificate();
@@ -18,7 +18,7 @@ public class CertificateMapper implements  IMapper<Certificate> {
             certificate.setCreatedAt(result.getTimestamp("created_at"));
             certificate.setUpdatedAt(result.getTimestamp("updated_at"));
             return certificate;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

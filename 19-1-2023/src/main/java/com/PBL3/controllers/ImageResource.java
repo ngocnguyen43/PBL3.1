@@ -22,14 +22,14 @@ public class ImageResource extends HttpServlet {
      *
      */
     private static final long serialVersionUID = 1L;
-    private static final String UPLOAD_DIRECTORY = "public";
+    private static final String UPLOAD_DIRECTORY = "image";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // TODO Auto-generated method stub
         OutputStream out = resp.getOutputStream();
         String encodings = req.getHeader("Accept-Encoding");
-		resp.setHeader("Content-Encoding", "x-compress");
+        resp.setHeader("Content-Encoding", "x-compress");
         String pathInfo = req.getPathInfo();
         String[] parts = pathInfo.substring(1).split("/");
 

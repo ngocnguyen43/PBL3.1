@@ -18,9 +18,9 @@ import java.io.IOException;
 @WebServlet(urlPatterns = {Constants.URL_V1 + Constants.AUTH + "/register"})
 @MultipartConfig
 public class RegisterUser extends HttpServlet {
+    private static final long serialVersionUID = 5425347944387647554L;
     @Inject
     private IAuthService authService;
-    private static final long serialVersionUID = 5425347944387647554L;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

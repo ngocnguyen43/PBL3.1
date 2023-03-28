@@ -23,7 +23,7 @@ public class PlanInspectorService implements IPlanInspectorService {
     @Override
     public Message createOne(PlanInspectorDTO dto) {
         try {
-            PlanInspectorModel domain = Helper.objectMapper(dto,PlanInspectorModel.class);
+            PlanInspectorModel domain = Helper.objectMapper(dto, PlanInspectorModel.class);
             String id = IDGeneration.generate();
             domain.setId(id);
             iPlanInspectorRepository.createOne(domain);
@@ -38,7 +38,7 @@ public class PlanInspectorService implements IPlanInspectorService {
     @Override
     public Message deactive(PlanInspectorDTO dto) {
         try {
-            PlanInspectorModel domain = Helper.objectMapper(dto,PlanInspectorModel.class);
+            PlanInspectorModel domain = Helper.objectMapper(dto, PlanInspectorModel.class);
             iPlanInspectorRepository.deactiveInspector(domain);
             Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Inactive Inspector in Plan Successfully!").build();
             return new Message.Builder(meta).build();

@@ -1,21 +1,5 @@
 package com.PBL3.utils.helpers;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
@@ -23,8 +7,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
+import java.io.*;
+import java.util.*;
 
-public class MultipartMap extends HashMap<String,Object> {
+public class MultipartMap extends HashMap<String, Object> {
 
     private static final String ATTRIBUTE_NAME = "parts";
     private static final String CONTENT_DISPOSITION = "content-disposition";
@@ -35,8 +21,8 @@ public class MultipartMap extends HashMap<String,Object> {
     // Vars ---------------------------------------------------------------------------------------
 
     private String encoding;
-    private String location;
-    private boolean multipartConfigured;
+    private final String location;
+    private final boolean multipartConfigured;
 
     // Constructors -------------------------------------------------------------------------------
 
@@ -45,14 +31,14 @@ public class MultipartMap extends HashMap<String,Object> {
      * the request. The file upload location will be extracted from <code>@MultipartConfig</code>
      * of the servlet. When the encoding is not specified in the given request, then it will default
      * to <tt>UTF-8</tt>.
+     *
      * @param multipartRequest The multipart request to construct the multipart map for.
-     * @param servlet The servlet which is responsible for the given request.
+     * @param servlet          The servlet which is responsible for the given request.
      * @throws ServletException If something fails at Servlet level.
-     * @throws IOException If something fails at I/O level.
+     * @throws IOException      If something fails at I/O level.
      */
     public MultipartMap(HttpServletRequest multipartRequest, Servlet servlet)
-            throws ServletException, IOException
-    {
+            throws ServletException, IOException {
         this(multipartRequest, new MultipartConfigElement(
                 servlet.getClass().getAnnotation(MultipartConfig.class)).getLocation(), true);
     }
@@ -60,14 +46,14 @@ public class MultipartMap extends HashMap<String,Object> {
     /**
      * Construct multipart map based on the given multipart request and file upload location. When
      * the encoding is not specified in the given request, then it will default to <tt>UTF-8</tt>.
+     *
      * @param multipartRequest The multipart request to construct the multipart map for.
-     * @param location The location to save uploaded files in.
+     * @param location         The location to save uploaded files in.
      * @throws ServletException If something fails at Servlet level.
-     * @throws IOException If something fails at I/O level.
+     * @throws IOException      If something fails at I/O level.
      */
     public MultipartMap(HttpServletRequest multipartRequest, String location)
-            throws ServletException, IOException
-    {
+            throws ServletException, IOException {
         this(multipartRequest, location, false);
     }
 
@@ -76,8 +62,7 @@ public class MultipartMap extends HashMap<String,Object> {
      */
     private MultipartMap
     (HttpServletRequest multipartRequest, String location, boolean multipartConfigured)
-            throws ServletException, IOException
-    {
+            throws ServletException, IOException {
         multipartRequest.setAttribute(ATTRIBUTE_NAME, this);
 
         this.encoding = multipartRequest.getCharacterEncoding();
@@ -128,7 +113,7 @@ public class MultipartMap extends HashMap<String,Object> {
     public String[] getParameterValues(String name) {
         Object value = super.get(name);
         if (value instanceof File) {
-            return new String[] { ((File) value).getName() };
+            return new String[]{((File) value).getName()};
         }
         return (String[]) value;
     }
@@ -150,7 +135,7 @@ public class MultipartMap extends HashMap<String,Object> {
             if (value instanceof String[]) {
                 map.put(entry.getKey(), (String[]) value);
             } else {
-                map.put(entry.getKey(), new String[] { ((File) value).getName() });
+                map.put(entry.getKey(), new String[]{((File) value).getName()});
             }
         }
         return map;
@@ -158,6 +143,7 @@ public class MultipartMap extends HashMap<String,Object> {
 
     /**
      * Returns uploaded file associated with given request parameter name.
+     *
      * @param name Request parameter name to return the associated uploaded file for.
      * @return Uploaded file associated with given request parameter name.
      * @throws IllegalArgumentException If this field is actually a Text field.
@@ -192,7 +178,7 @@ public class MultipartMap extends HashMap<String,Object> {
                 new BufferedReader(new InputStreamReader(part.getInputStream(), encoding));
         StringBuilder value = new StringBuilder();
         char[] buffer = new char[DEFAULT_BUFFER_SIZE];
-        for (int length = 0; (length = reader.read(buffer)) > 0;) {
+        for (int length = 0; (length = reader.read(buffer)) > 0; ) {
             value.append(buffer, 0, length);
         }
         return value.toString();
@@ -207,7 +193,7 @@ public class MultipartMap extends HashMap<String,Object> {
 
         if (values == null) {
             // Not in parameter map yet, so add as new value.
-            put(name, new String[] { getValue(part) });
+            put(name, new String[]{getValue(part)});
         } else {
             // Multiple field values, so add new value to existing array.
             int length = values.length;
@@ -246,12 +232,16 @@ public class MultipartMap extends HashMap<String,Object> {
                 input = new BufferedInputStream(part.getInputStream(), DEFAULT_BUFFER_SIZE);
                 output = new BufferedOutputStream(new FileOutputStream(file), DEFAULT_BUFFER_SIZE);
                 byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
-                for (int length = 0; ((length = input.read(buffer)) > 0);) {
+                for (int length = 0; ((length = input.read(buffer)) > 0); ) {
                     output.write(buffer, 0, length);
                 }
             } finally {
-                if (output != null) try { output.close(); } catch (IOException logOrIgnore) { /**/ }
-                if (input != null) try { input.close(); } catch (IOException logOrIgnore) { /**/ }
+                if (output != null) try {
+                    output.close();
+                } catch (IOException logOrIgnore) { /**/ }
+                if (input != null) try {
+                    input.close();
+                } catch (IOException logOrIgnore) { /**/ }
             }
         }
 

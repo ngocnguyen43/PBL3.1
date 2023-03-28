@@ -12,14 +12,15 @@ import javax.inject.Inject;
 public class ProductCertificateRepository implements IProductCertificateRepository {
     @Inject
     private IProductCertificateDAO iProductCertificateDAO;
+
     @Override
     public void createOne(ProductCertificatesModel domain) throws DuplicateEntryException, CreateFailedException {
         ProductCertificatesModel old = iProductCertificateDAO.findOne(domain.getId());
-        if (old != null && (!domain.getCertificateId().equals( old.getCertificateId()) || !domain.getProductId().equals( old.getProductId())))
+        if (old != null && (!domain.getCertificateId().equals(old.getCertificateId()) || !domain.getProductId().equals(old.getProductId())))
             throw new DuplicateEntryException("Product's Certificate is Existed");
-        try{
+        try {
             iProductCertificateDAO.createOne(domain);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw new CreateFailedException("Create Product's Certificate failed");
         }
@@ -29,7 +30,7 @@ public class ProductCertificateRepository implements IProductCertificateReposito
     public void deleteOne(String id) throws UpdateFailedException {
         try {
             iProductCertificateDAO.deleteOne(id);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw new UpdateFailedException("Delete Product's Certificate Failed");
         }

@@ -5,7 +5,7 @@ import com.PBL3.utils.enums.ErrorStatusCodes;
 import com.PBL3.utils.exceptions.Exception;
 
 public class ForeignKeyViolationException extends Exception {
-    public ForeignKeyViolationException(String message){
+    public ForeignKeyViolationException(String message) {
         this.message = message;
         this.statusCode = ErrorStatusCodes.ForeignKeyViolationException.getValue();
         this.errorCode = ErrorCodes.ForeignKeyViolationException.getValue();

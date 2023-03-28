@@ -1,31 +1,32 @@
 package com.PBL3.models;
 
-public class Role  {
-	private Integer roleId;
-	private String roleCode;
-	private String roleName;
-	public Integer getRoleId() {
-		return roleId;
-	}
+public class Role {
+    private Integer roleId;
+    private String roleCode;
+    private String roleName;
 
-	public void setRoleId(Integer roleId) {
-		this.roleId = roleId;
-	}
+    public Integer getRoleId() {
+        return roleId;
+    }
 
-	public String getRoleCode() {
-		return roleCode;
-	}
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
+    }
 
-	public void setRoleCode(String roleCode) {
-		this.roleCode = roleCode;
-	}
+    public String getRoleCode() {
+        return roleCode;
+    }
 
-	public String getRoleName() {
-		return roleName;
-	}
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode;
+    }
 
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
 
 }

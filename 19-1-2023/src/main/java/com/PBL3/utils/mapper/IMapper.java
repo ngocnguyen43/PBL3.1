@@ -4,6 +4,6 @@ import java.sql.ResultSet;
 
 
 public interface IMapper<T> {
-	T mapRow(ResultSet result);
-	
+    T mapRow(ResultSet result);
+
 }

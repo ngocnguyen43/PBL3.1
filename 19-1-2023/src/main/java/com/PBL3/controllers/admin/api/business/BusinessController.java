@@ -20,13 +20,14 @@ import java.io.IOException;
 @MultipartConfig
 public class BusinessController extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
-	@Inject
-	private IBusinessService businessService;
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		BusinessDTO businessDto = Helper.paramsToString(req.getParameterMap()).toModel(BusinessDTO.class);
-		Message message = businessService.createBusiness(businessDto);
-		ErrorHandler.handle(resp,()->businessService.createBusiness(businessDto));
-	}
+    private static final long serialVersionUID = 1L;
+    @Inject
+    private IBusinessService businessService;
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        BusinessDTO businessDto = Helper.paramsToString(req.getParameterMap()).toModel(BusinessDTO.class);
+        Message message = businessService.createBusiness(businessDto);
+        ErrorHandler.handle(resp, () -> businessService.createBusiness(businessDto));
+    }
 }

@@ -1,35 +1,34 @@
 package com.PBL3.models;
 
 import java.sql.Blob;
-import java.util.UUID;
 
 public class StoreImage {
-	private String imageId;
-	private String storeId;
-	private Blob image;
+    private String imageId;
+    private String storeId;
+    private Blob image;
 
-	public String getImageId() {
-		return imageId;
-	}
+    public String getImageId() {
+        return imageId;
+    }
 
-	public void setImageId(String imageId) {
-		this.imageId = imageId;
-	}
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
+    }
 
-	public String getStoreId() {
-		return storeId;
-	}
+    public String getStoreId() {
+        return storeId;
+    }
 
-	public void setStoreId(String storeId) {
-		this.storeId = storeId;
-	}
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
+    }
 
-	public Blob getImage() {
-		return image;
-	}
+    public Blob getImage() {
+        return image;
+    }
 
-	public void setImage(Blob image) {
-		this.image = image;
-	}
+    public void setImage(Blob image) {
+        this.image = image;
+    }
 
 }

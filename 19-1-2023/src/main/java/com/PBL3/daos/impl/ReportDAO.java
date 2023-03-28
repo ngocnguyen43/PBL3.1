@@ -15,8 +15,14 @@ public class ReportDAO extends AbstractDAO<ReportModel> implements IReportDAO {
 
     @Override
     public ReportModel findOneByPlanId(String id) {
-        String sql = "SELECT * FROM login.reports WHERE plan_id = ?";
-        List<ReportModel> reports = query(sql,new ReportMapper(),id);
+        String sql = "SELECT * FROM reports WHERE plan_id = ?";
+        List<ReportModel> reports = query(sql, new ReportMapper(), id);
         return reports.isEmpty() ? null : reports.get(0);
+    }
+
+    @Override
+    public List<ReportModel> findAll() {
+        String sql = "SELECT * FROM reports ";
+        return query(sql, new ReportMapper());
     }
 }

@@ -18,9 +18,9 @@ import java.io.IOException;
 @WebServlet(urlPatterns = {Constants.URL_V1 + Constants.AUTH + "/login"})
 @MultipartConfig
 public class LoginUser extends HttpServlet {
+    private static final long serialVersionUID = -975955435760814368L;
     @Inject
     private IAuthService signinService;
-    private static final long serialVersionUID = -975955435760814368L;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

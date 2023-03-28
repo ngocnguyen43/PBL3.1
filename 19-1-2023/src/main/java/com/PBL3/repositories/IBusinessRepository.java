@@ -5,5 +5,5 @@ import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
 import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
 
 public interface IBusinessRepository {
-	void createBusines(Business business) throws DuplicateEntryException, CreateFailedException;
+    void createBusines(Business business) throws DuplicateEntryException, CreateFailedException;
 }

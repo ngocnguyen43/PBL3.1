@@ -9,7 +9,7 @@ public class ProductMapper implements IMapper<ProductModel> {
     @Override
     public ProductModel mapRow(ResultSet result) {
         ProductModel product = new ProductModel();
-        try{
+        try {
             product.setId(result.getString("product_id"));
             product.setUserId(result.getString("user_id"));
             product.setProductName(result.getString("product_name"));

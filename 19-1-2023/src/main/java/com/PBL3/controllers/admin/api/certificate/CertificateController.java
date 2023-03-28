@@ -6,8 +6,8 @@ import com.PBL3.utils.Constants.Constants;
 import com.PBL3.utils.exceptions.ErrorHandler;
 import com.PBL3.utils.helpers.CheckContainsFile;
 import com.PBL3.utils.helpers.GetQueryParams;
-import com.PBL3.utils.helpers.HandleImage;
 import com.PBL3.utils.helpers.Helper;
+import com.PBL3.utils.helpers.SaveFile;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -28,7 +28,7 @@ public class CertificateController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String path = HandleImage.save(req);
+        String path = SaveFile.save(req, "image");
         CertificateDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(CertificateDTO.class);
         dto.setPath(path);
         ErrorHandler.handle(resp, () -> certificateService.createCertificate(dto));
@@ -43,7 +43,7 @@ public class CertificateController extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CertificateDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(CertificateDTO.class);
         if (CheckContainsFile.check(req)) {
-            String path = HandleImage.save(req);
+            String path = SaveFile.save(req, "image");
             dto.setPath(path);
         }
         ErrorHandler.handle(resp, () -> certificateService.updateCertificate(dto));

@@ -20,10 +20,11 @@ import java.util.List;
 public class ProductService implements IProductService {
     @Inject
     private IProductRepository iProductRepository;
+
     @Override
     public Message createNewProduct(ProductDTO dto) {
-        try{
-            ProductModel domain = Helper.objectMapper(dto,ProductModel.class);
+        try {
+            ProductModel domain = Helper.objectMapper(dto, ProductModel.class);
             String id = IDGeneration.generate();
             domain.setId(id);
             iProductRepository.createNewProduct(domain);
@@ -37,24 +38,25 @@ public class ProductService implements IProductService {
 
     @Override
     public Message getAllProducts() {
-        try{
+        try {
             List<ProductModel> productModels = iProductRepository.getAllProduct();
             Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
             Data data = new Data.Builder(null).withResults(productModels).build();
             return new Message.Builder(meta).withData(data).build();
         } catch (NotFoundException e) {
             Meta meta = new Meta.Builder(500).withError(e.getMessage()).build();
-            return new Message.Builder(meta).build();        }
+            return new Message.Builder(meta).build();
+        }
     }
 
     @Override
     public Message updateProduct(ProductDTO dto) {
-        try{
-            ProductModel domain = Helper.objectMapper(dto,ProductModel.class);
+        try {
+            ProductModel domain = Helper.objectMapper(dto, ProductModel.class);
             iProductRepository.updateProduct(domain);
             Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
             return new Message.Builder(meta).build();
-        } catch (NotFoundException|UpdateFailedException e) {
+        } catch (NotFoundException | UpdateFailedException e) {
             Meta meta = new Meta.Builder(e.getStatusCode()).withError(e.getMessage()).build();
             return new Message.Builder(meta).build();
         }

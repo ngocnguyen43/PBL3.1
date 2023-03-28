@@ -21,14 +21,15 @@ public class KindOfProductController extends HttpServlet {
 
     @Inject
     private IKindOfProductService iKindOfProductService;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         KindOfProductDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(KindOfProductDTO.class);
-        ErrorHandler.handle(resp,()->iKindOfProductService.createNewKind(dto));
+        ErrorHandler.handle(resp, () -> iKindOfProductService.createNewKind(dto));
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ErrorHandler.handle(resp,()->iKindOfProductService.getAllKinds());
+        ErrorHandler.handle(resp, () -> iKindOfProductService.getAllKinds());
     }
 }

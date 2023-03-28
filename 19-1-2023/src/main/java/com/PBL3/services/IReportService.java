@@ -12,4 +12,6 @@ public interface IReportService {
     Message createOne(ReportDTO dto) throws DuplicateEntryException, CreateFailedException, ForeignKeyViolationException;
 
     ReportModel findOneById(String id) throws NotFoundException;
+
+    Message findAll() throws NotFoundException;
 }

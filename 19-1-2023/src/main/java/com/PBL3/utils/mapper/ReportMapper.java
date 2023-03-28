@@ -5,7 +5,7 @@ import com.PBL3.models.ReportModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ReportMapper implements IMapper<ReportModel>{
+public class ReportMapper implements IMapper<ReportModel> {
     @Override
     public ReportModel mapRow(ResultSet result) {
         ReportModel reportModel = new ReportModel();

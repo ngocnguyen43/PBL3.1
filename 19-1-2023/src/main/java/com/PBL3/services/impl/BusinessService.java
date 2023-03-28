@@ -15,32 +15,30 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 public class BusinessService implements IBusinessService {
-	@Inject
-	private IBusinessRepository businessRepository;
+    @Inject
+    private IBusinessRepository businessRepository;
 
-	@Override
-	public Message createBusiness(BusinessDTO businessDTO) {
-		// TODO Auto-generated method stub
-		try {
-			Business business = Helper.objectMapper(businessDTO, Business.class);
-			String id = IDGeneration.generate();
-			business.setId(id);
-			businessRepository.createBusines(business);
+    @Override
+    public Message createBusiness(BusinessDTO businessDTO) {
+        // TODO Auto-generated method stub
+        try {
+            Business business = Helper.objectMapper(businessDTO, Business.class);
+            String id = IDGeneration.generate();
+            business.setId(id);
+            businessRepository.createBusines(business);
 
-			Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Created Successfully").build();
-			return new Message.Builder(meta).build();
-		} catch (DuplicateEntryException | CreateFailedException e) {
-			Meta meta = new Meta.Builder(e.getStatusCode()).withErrCode(e.getErrorCode()).withError(e.getMessage())
-					.build();
-			return new Message.Builder(meta).build();
-		}
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Created Successfully").build();
+            return new Message.Builder(meta).build();
+        } catch (DuplicateEntryException | CreateFailedException e) {
+            Meta meta = new Meta.Builder(e.getStatusCode()).withErrCode(e.getErrorCode()).withError(e.getMessage())
+                    .build();
+            return new Message.Builder(meta).build();
+        } catch (Exception e) {
+            // TODO: handle exception
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).withError(e.getMessage()).build();
+            return new Message.Builder(meta).build();
 
-		catch (Exception e) {
-			// TODO: handle exception
-			Meta meta = new Meta.Builder(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).withError(e.getMessage()).build();
-			return new Message.Builder(meta).build();
-
-		}
-	}
+        }
+    }
 
 }

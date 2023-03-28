@@ -4,7 +4,7 @@ public class ReportModel extends AbstractModel {
     String planId;
     String title;
     String path;
-    String status ;
+    String status;
 
     public String getPlanId() {
         return planId;
