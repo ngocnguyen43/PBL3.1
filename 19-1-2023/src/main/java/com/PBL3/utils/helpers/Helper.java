@@ -33,7 +33,7 @@ public class Helper {
 				sb.append(line);
 			}
 		} catch (IOException e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
 //		System.out.println(sb.toString());
 		return new Helper(sb.toString());

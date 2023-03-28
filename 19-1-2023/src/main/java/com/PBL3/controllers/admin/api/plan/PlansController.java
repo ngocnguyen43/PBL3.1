@@ -20,6 +20,6 @@ public class PlansController extends HttpServlet {
     private IPlanService iPlanService;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ErrorHandler.handle(resp,iPlanService.getAll());
+        ErrorHandler.handle(resp,()->iPlanService.getAll());
     }
 }

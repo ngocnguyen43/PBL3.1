@@ -10,11 +10,9 @@ public class IDGeneration {
 
 	public static String generate() {
 		Random random = new Random();
-		String nanoId = NanoIdUtils.randomNanoId(random, salt, 23);
-		return nanoId;
+		return NanoIdUtils.randomNanoId(random, salt, 23);
 	}	public static String generate(Integer length) {
 		Random random = new Random();
-		String nanoId = NanoIdUtils.randomNanoId(random, salt, length);
-		return nanoId;
+		return NanoIdUtils.randomNanoId(random, salt, length);
 	}
 }
