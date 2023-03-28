@@ -4,10 +4,8 @@ import com.PBL3.config.ResponseConfig;
 import com.PBL3.dtos.CertificateDTO;
 import com.PBL3.services.ICertificateService;
 import com.PBL3.utils.Constants.Constants;
-import com.PBL3.utils.helpers.CheckContainsFile;
-import com.PBL3.utils.helpers.GetQueryParams;
-import com.PBL3.utils.helpers.HandleImage;
-import com.PBL3.utils.helpers.Helper;
+import com.PBL3.utils.exceptions.ErrorHandler;
+import com.PBL3.utils.helpers.*;
 import com.PBL3.utils.response.Message;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -18,6 +16,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -33,26 +33,15 @@ public class CertificateController extends HttpServlet {
     private ICertificateService certificateService;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        req.setCharacterEncoding("UTF-8");
-        ResponseConfig.ConfigHeader(resp);
         String path = HandleImage.save(req);
         CertificateDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(CertificateDTO.class);
         dto.setPath(path);
-        Message message = certificateService.createCertificate(dto);
-        resp.setStatus(message.getMeta().getStatusCode());
-        resp.getWriter().print(new ObjectMapper().writeValueAsString(message));
-        resp.getWriter().flush();
+        ErrorHandler.handle(resp,()->certificateService.createCertificate(dto));
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
-        ResponseConfig.ConfigHeader(resp);
-        Message message = certificateService.getAllCertificate();
-        resp.setStatus(message.getMeta().getStatusCode());
-        resp.getWriter().print(new ObjectMapper().writeValueAsString(message));
-        resp.getWriter().flush();
+        ErrorHandler.handle(resp,()->certificateService.getAllCertificate());
     }
 
     @Override

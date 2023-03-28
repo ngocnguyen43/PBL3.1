@@ -28,7 +28,6 @@ public class CertificateService implements ICertificateService {
             Certificate domain = Helper.objectMapper(dto, Certificate.class);
             String id = IDGeneration.generate();
             domain.setId(id);
-            System.out.println(new ObjectMapper().writeValueAsString(domain));
             certificateRepository.createCertificate(domain);
             Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Created Certificate Successfully").build();
             return new Message.Builder(meta).build();
