@@ -1,20 +1,13 @@
 package com.PBL3.services.impl;
 
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
-
 import com.PBL3.daos.IUserDAO;
-import com.PBL3.dtos.UserDTO;
 import com.PBL3.models.User;
 import com.PBL3.services.IUserService;
 import com.PBL3.utils.helpers.HashPassword;
-import com.PBL3.utils.helpers.Helper;
-import com.PBL3.utils.response.Data;
 import com.PBL3.utils.response.Message;
-import com.PBL3.utils.response.Meta;
-import com.auth0.jwt.interfaces.Header;
+
+import javax.inject.Inject;
+import java.util.List;
 
 public class UserService implements IUserService {
 

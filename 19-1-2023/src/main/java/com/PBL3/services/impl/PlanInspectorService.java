@@ -15,7 +15,7 @@ import com.PBL3.utils.response.Meta;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
-public class PlanIspectorService implements IPlanInspectorService {
+public class PlanInspectorService implements IPlanInspectorService {
     @Inject
     private IPlanInspectorRepository iPlanInspectorRepository;
 

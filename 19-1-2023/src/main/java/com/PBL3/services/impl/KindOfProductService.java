@@ -27,7 +27,7 @@ public class KindOfProductService implements IKindOfProductService {
             String id = IDGeneration.generate();
             domain.setId(id);
             iKindOfProductRepository.createNewKind(domain);
-            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Created New Kind Succesfully").build();
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Created New Kind Successfully").build();
             return new Message.Builder(meta).build();
         } catch (CreateFailedException e) {
             Meta meta = new Meta.Builder(500).withError(e.getMessage()).build();

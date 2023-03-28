@@ -1,10 +1,5 @@
 package com.PBL3.repositories.impls;
 
-import java.util.HashMap;
-
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
-
 import com.PBL3.daos.IUserDAO;
 import com.PBL3.models.User;
 import com.PBL3.repositories.IAuthRepository;
@@ -18,9 +13,12 @@ import com.PBL3.utils.helpers.RandomTokenGenearation;
 import com.PBL3.utils.response.Data;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class AuthRepositoty implements IAuthRepository {
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+
+public class AuthRepository implements IAuthRepository {
 
 	@Inject
 	private IUserDAO userDao;

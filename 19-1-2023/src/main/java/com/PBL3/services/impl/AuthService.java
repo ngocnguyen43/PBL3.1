@@ -1,7 +1,5 @@
 package com.PBL3.services.impl;
 
-import javax.inject.Inject;
-
 import com.PBL3.dtos.UserDTO;
 import com.PBL3.dtos.UserSigninDTO;
 import com.PBL3.models.User;
@@ -15,7 +13,8 @@ import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.IDGeneration;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
+import javax.inject.Inject;
 
 public class AuthService implements IAuthService {
 
@@ -59,7 +58,7 @@ public class AuthService implements IAuthService {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			Meta meta = new Meta.Builder(500).withError("HAHAA").build();
+			Meta meta = new Meta.Builder(500).withError("Create New User Failed").build();
 			return new Message.Builder(meta).build();
 		}
 

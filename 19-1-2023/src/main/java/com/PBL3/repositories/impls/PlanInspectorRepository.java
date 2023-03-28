@@ -27,12 +27,12 @@ public class PlanInspectorRepository implements IPlanInspectorRepository {
     @Override
     public void deactiveInspector(PlanInspectorModel domain) throws NotFoundException, CreateFailedException {
         PlanInspectorModel isExisted = iPlanInspectorDAO.findOne(domain.getUserId(),domain.getPlanId());
-        if (isExisted == null) throw new NotFoundException("Inpector isn't Existed in Plan");
+        if (isExisted == null) throw new NotFoundException("Inspector isn't Existed in Plan");
         try {
             iPlanInspectorDAO.inactiveInspector(domain.getUserId(), domain.getPlanId());
         }catch (Exception e){
             e.printStackTrace();
-            throw new CreateFailedException("Deactive Inspector in Plan Failed");
+            throw new CreateFailedException("Inactive Inspector in Plan Failed");
         }
     }
 }

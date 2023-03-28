@@ -21,16 +21,15 @@ import java.util.List;
 
 public class CertificateService implements ICertificateService {
     @Inject
-    private ICeritificateRepository ceritificateRepository;
+    private ICeritificateRepository certificateRepository;
 
     public Message createCertificate(CertificateDTO dto) {
         try {
             Certificate domain = Helper.objectMapper(dto, Certificate.class);
             String id = IDGeneration.generate();
             domain.setId(id);
-            System.out.println(new ObjectMapper().writeValueAsString(domain));
-            ceritificateRepository.createCertificate(domain);
-            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Created Certificate Succesfully").build();
+            certificateRepository.createCertificate(domain);
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Created Certificate Successfully").build();
             return new Message.Builder(meta).build();
 
         } catch (CreateFailedException e) {
@@ -45,7 +44,7 @@ public class CertificateService implements ICertificateService {
     @Override
     public Message getAllCertificate() {
         try {
-            List<Certificate> certificateList = ceritificateRepository.findAll();
+            List<Certificate> certificateList = certificateRepository.findAll();
             Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("Success").build();
             Data data = new Data.Builder(null).withResults(certificateList).build();
             return new Message.Builder(meta).withData(data).build();
@@ -59,9 +58,8 @@ public class CertificateService implements ICertificateService {
     @Override
     public Message deleteCertificate(String id) {
         try {
-            ceritificateRepository.deleteCertificate(id);
+            certificateRepository.deleteCertificate(id);
             Meta meta = new Meta.Builder(HttpServletResponse.SC_ACCEPTED).withMessage("Delete Success").build();
-
             return new Message.Builder(meta).build();
         }catch (InvalidCredentialsException e){
             Meta meta = new Meta.Builder( ErrorStatusCodes.InvalidCredentialsException.getValue()).withMessage(e.getMessage()).build();
@@ -74,14 +72,15 @@ public class CertificateService implements ICertificateService {
     public Message updateCertificate(CertificateDTO dto) {
         Certificate domain = Helper.objectMapper(dto,Certificate.class);
         System.out.print(domain.getId());
+
+        //not found exception error
         try{
-            ceritificateRepository.findOne(domain.getId());
-            ceritificateRepository.updateCertificate(domain);
+            certificateRepository.findOne(domain.getId());
+            certificateRepository.updateCertificate(domain);
             Meta meta = new Meta.Builder(201).withMessage("Update Success!").build();
             return new Message.Builder(meta).build();
         }catch (NotFoundException | InvalidCredentialsException e){
             Meta meta = new Meta.Builder( ErrorStatusCodes.InvalidCredentialsException.getValue()).withMessage(e.getMessage()).build();
-
             return new Message.Builder(meta).build();
         }
     }

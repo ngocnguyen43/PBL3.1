@@ -1,8 +1,5 @@
 package com.PBL3.services.impl;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
-
 import com.PBL3.dtos.BusinessDTO;
 import com.PBL3.models.Business;
 import com.PBL3.repositories.IBusinessRepository;
@@ -13,6 +10,9 @@ import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.IDGeneration;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 
 public class BusinessService implements IBusinessService {
 	@Inject
@@ -28,20 +28,17 @@ public class BusinessService implements IBusinessService {
 			businessRepository.createBusines(business);
 
 			Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Created Successfully").build();
-			Message message = new Message.Builder(meta).build();
-			return message;
+			return new Message.Builder(meta).build();
 		} catch (DuplicateEntryException | CreateFailedException e) {
 			Meta meta = new Meta.Builder(e.getStatusCode()).withErrCode(e.getErrorCode()).withError(e.getMessage())
 					.build();
-			Message message = new Message.Builder(meta).build();
-			return message;
+			return new Message.Builder(meta).build();
 		}
 
 		catch (Exception e) {
 			// TODO: handle exception
 			Meta meta = new Meta.Builder(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).withError(e.getMessage()).build();
-			Message message = new Message.Builder(meta).build();
-			return message;
+			return new Message.Builder(meta).build();
 
 		}
 	}

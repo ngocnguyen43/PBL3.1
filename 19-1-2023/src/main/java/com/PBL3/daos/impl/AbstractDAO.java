@@ -1,12 +1,11 @@
 package com.PBL3.daos.impl;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import com.PBL3.daos.GenericDAO;
 import com.PBL3.utils.mapper.IMapper;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AbstractDAO<T> implements GenericDAO<T> {
 	public Connection getConnection() {

@@ -1,6 +1,6 @@
 package com.PBL3.controllers.auth;
 
-import com.PBL3.dtos.UserDTO;
+import com.PBL3.dtos.UserSigninDTO;
 import com.PBL3.services.IAuthService;
 import com.PBL3.utils.Constants.Constants;
 import com.PBL3.utils.exceptions.ErrorHandler;
@@ -15,17 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {Constants.URL_V1 + Constants.AUTH + "/register"})
+@WebServlet(urlPatterns = {Constants.URL_V1 + Constants.AUTH + "/login"})
 @MultipartConfig
-public class RegisterUser extends HttpServlet {
+public class LoginUser extends HttpServlet {
     @Inject
-    private IAuthService authService;
-    private static final long serialVersionUID = 5425347944387647554L;
+    private IAuthService signinService;
+    private static final long serialVersionUID = -975955435760814368L;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserDTO userDTO = Helper.paramsToString(req.getParameterMap()).toModel(UserDTO.class);
-        ErrorHandler.handle(resp, authService.Register(userDTO, null));
+        UserSigninDTO user = Helper.paramsToString(req.getParameterMap()).toModel(UserSigninDTO.class);
+        ErrorHandler.handle(resp, signinService.Signin(user));
     }
-
 }

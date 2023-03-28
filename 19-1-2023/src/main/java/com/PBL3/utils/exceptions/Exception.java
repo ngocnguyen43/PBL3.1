@@ -1,6 +1,6 @@
 package com.PBL3.utils.exceptions;
 
-public class Exception extends Throwable {
+public class Exception extends java.lang.Exception {
 	/**
 	 * 
 	 */

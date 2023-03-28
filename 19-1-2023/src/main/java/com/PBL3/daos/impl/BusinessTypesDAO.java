@@ -2,11 +2,11 @@ package com.PBL3.daos.impl;
 
 import java.util.List;
 
-import com.PBL3.daos.IBussinessTypesDAO;
+import com.PBL3.daos.IBusinessTypesDAO;
 import com.PBL3.models.BusinessTypes;
 import com.PBL3.utils.mapper.BusinessTypesMapper;
 
-public class BussinessTypesDAO extends AbstractDAO<BusinessTypes> implements IBussinessTypesDAO {
+public class BusinessTypesDAO extends AbstractDAO<BusinessTypes> implements IBusinessTypesDAO {
 
 	@Override
 	public String save(BusinessTypes businessTypes) {

@@ -28,19 +28,16 @@ public class BusinessTypesService implements IBusinessTypesService {
 			String id = IDGeneration.generate();
 			businessTypes.setId(id);
 			businessTypesRepository.createBusinessType(businessTypes);
-			Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Created Succesfully").build();
-			Message message = new Message.Builder(meta).build();
-			return message;
+			Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Created Successfully").build();
+			return new Message.Builder(meta).build();
 		} catch (NotFoundException | DuplicateEntryException | CreateFailedException e) {
 			Meta meta = new Meta.Builder(e.getStatusCode()).withErrCode(e.getErrorCode()).withError(e.getMessage())
 					.build();
-			Message message = new Message.Builder(meta).build();
-			return message;
+			return new Message.Builder(meta).build();
 		} catch (Exception e) {
 			// TODO: handle exception
 			Meta meta = new Meta.Builder(500).withError(e.getMessage()).build();
-			Message message = new Message.Builder(meta).build();
-			return message;
+			return new Message.Builder(meta).build();
 		}
 
 	}
