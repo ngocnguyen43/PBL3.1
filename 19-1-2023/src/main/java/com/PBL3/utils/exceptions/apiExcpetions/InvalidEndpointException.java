@@ -13,6 +13,6 @@ public class InvalidEndpointException extends com.PBL3.utils.exceptions.Exceptio
     public InvalidEndpointException() {
         this.errorCode = ErrorCodes.InvalidEndpointException.getValue();
         this.statusCode = ErrorStatusCodes.InvalidEndpointException.getValue();
-        this.message = "URI not found";
+        this.message = "URL Not Found";
     }
 }

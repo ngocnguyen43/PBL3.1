@@ -22,7 +22,7 @@ public class AuthService implements IAuthService {
     private IAuthRepository authRepository;
 
     @Override
-    public Message Signin(UserSigninDTO tempUser) {
+    public Message Login(UserSigninDTO tempUser) {
         try {
             User user = Helper.objectMapper(tempUser, User.class);
             return authRepository.loginUser(user);

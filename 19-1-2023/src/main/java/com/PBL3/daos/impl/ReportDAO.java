@@ -21,8 +21,21 @@ public class ReportDAO extends AbstractDAO<ReportModel> implements IReportDAO {
     }
 
     @Override
+    public ReportModel findOneByReportId(String id) {
+        String sql = "SELECT * FROM reports WHERE report_id = ?";
+        List<ReportModel> reports = query(sql, new ReportMapper(), id);
+        return reports.isEmpty() ? null : reports.get(0);
+    }
+
+    @Override
     public List<ReportModel> findAll() {
         String sql = "SELECT * FROM reports ";
         return query(sql, new ReportMapper());
+    }
+
+    @Override
+    public void updateReportStatus(String id) {
+        String sql = "UPDATE login.reports SET status = 'accepted' WHERE report_id = ?";
+        update(sql, id);
     }
 }

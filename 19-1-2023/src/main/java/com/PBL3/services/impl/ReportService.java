@@ -6,10 +6,7 @@ import com.PBL3.dtos.ReportDTO;
 import com.PBL3.models.PlanModel;
 import com.PBL3.models.ReportModel;
 import com.PBL3.services.IReportService;
-import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
-import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
-import com.PBL3.utils.exceptions.dbExceptions.ForeignKeyViolationException;
-import com.PBL3.utils.exceptions.dbExceptions.NotFoundException;
+import com.PBL3.utils.exceptions.dbExceptions.*;
 import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.IDGeneration;
 import com.PBL3.utils.response.Data;
@@ -45,10 +42,12 @@ public class ReportService implements IReportService {
     }
 
     @Override
-    public ReportModel findOneById(String id) throws NotFoundException {
+    public Message findOneById(String id) throws NotFoundException {
         ReportModel report = iReportDAO.findOneByPlanId(id);
         if (report == null) throw new NotFoundException("Report Not Found");
-        return report;
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
+        Data data = new Data.Builder(null).withResults(report).build();
+        return new Message.Builder(meta).withData(data).build();
     }
 
     @Override
@@ -58,5 +57,18 @@ public class ReportService implements IReportService {
         Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK").build();
         Data data = new Data.Builder(null).withResults(reports).build();
         return new Message.Builder(meta).withData(data).build();
+    }
+
+    @Override
+    public Message updateStatus(String id) throws NotFoundException, UpdateFailedException {
+        ReportModel report = iReportDAO.findOneByReportId(id);
+        if (report == null) throw new NotFoundException("Report Not Found");
+        try {
+            iReportDAO.updateReportStatus(id);
+        } catch (Exception e) {
+            throw new UpdateFailedException("Update Report Failed");
+        }
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("Update Successfully").build();
+        return new Message.Builder(meta).build();
     }
 }

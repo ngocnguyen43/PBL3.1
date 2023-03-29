@@ -5,6 +5,7 @@ import com.PBL3.services.IReportService;
 import com.PBL3.utils.Constants.Constants;
 import com.PBL3.utils.exceptions.ErrorHandler;
 import com.PBL3.utils.helpers.Helper;
+import com.PBL3.utils.helpers.SaveFile;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -24,6 +25,18 @@ public class ReportController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ReportDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(ReportDTO.class);
+        String path = SaveFile.save(req,"document");
+        dto.setPath(path);
         ErrorHandler.handle(resp, () -> iReportService.createOne(dto));
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ErrorHandler.handle(resp,()->iReportService.findOneById(req.getParameter("id")));
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPut(req, resp);
     }
 }

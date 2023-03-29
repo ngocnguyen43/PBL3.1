@@ -1,5 +1,6 @@
 package com.PBL3.utils.exceptions;
 
+import com.PBL3.utils.exceptions.apiExcpetions.InvalidEndpointException;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,6 +34,16 @@ public class ErrorHandler {
             } else {
                 throw new RuntimeException(e);
             }
+        }
+    }
+    static  public void handle(HttpServletResponse res, InvalidEndpointException e){
+        try {
+            Meta meta = new Meta.Builder(e.statusCode).withError(e.message).build();
+            res.setStatus(e.statusCode);
+            res.getWriter().print(new ObjectMapper().writeValueAsString(meta));
+            res.getWriter().flush();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
         }
     }
 }
