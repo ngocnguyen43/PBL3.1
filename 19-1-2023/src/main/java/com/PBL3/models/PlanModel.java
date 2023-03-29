@@ -3,17 +3,19 @@ package com.PBL3.models;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 //@JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class PlanModel extends AbstractModel{
+public class PlanModel extends AbstractModel {
     String companyId;
     Timestamp time;
 
     String path;
 
     Integer action;
+    //    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private List<PlanInspectorModel> inspectors;
 
     public String getCompanyId() {
         return companyId;
@@ -46,8 +48,6 @@ public class PlanModel extends AbstractModel{
     public void setAction(Integer action) {
         this.action = action;
     }
-//    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private List<PlanInspectorModel> inspectors;
 
     public List<PlanInspectorModel> getInspectors() {
         return inspectors;

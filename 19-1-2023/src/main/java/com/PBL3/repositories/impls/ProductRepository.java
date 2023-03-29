@@ -13,11 +13,12 @@ import java.util.List;
 public class ProductRepository implements IProductRepository {
     @Inject
     private IProductDAO iProductDAO;
+
     @Override
     public void createNewProduct(ProductModel domain) throws CreateFailedException {
-        try{
+        try {
             iProductDAO.save(domain);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw new CreateFailedException("Create Product Failed");
         }
@@ -31,8 +32,8 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public void updateProduct(ProductModel domain) throws UpdateFailedException,NotFoundException {
-        ProductModel existedProduct= iProductDAO.findOne(domain.getId());
+    public void updateProduct(ProductModel domain) throws UpdateFailedException, NotFoundException {
+        ProductModel existedProduct = iProductDAO.findOne(domain.getId());
         if (existedProduct == null) throw new NotFoundException("Product Not Found");
         if (domain.getProductName() == null) domain.setProductName(existedProduct.getProductName());
         if (domain.getUserId() == null) domain.setUserId(existedProduct.getUserId());
@@ -40,9 +41,9 @@ public class ProductRepository implements IProductRepository {
         if (domain.getAction() == null) domain.setAction(existedProduct.getAction());
         if (domain.getModifiedBy() == null) domain.setModifiedBy(existedProduct.getModifiedBy());
 
-        try{
+        try {
             iProductDAO.updateProduct(domain);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw new UpdateFailedException("Update Product Failed");
         }

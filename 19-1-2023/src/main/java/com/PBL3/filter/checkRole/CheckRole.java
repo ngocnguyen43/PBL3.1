@@ -6,16 +6,16 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
 public class CheckRole {
-    public static boolean handle(HttpServletRequest req,Object... roles){
-        String decoded = Objects.requireNonNull(JWTVerify.verifyingJWT(req.getHeader("ACCESS_TOKEN"))).getClaim("role").asString();
+    public static boolean check(HttpServletRequest req, Object... roles) {
 //        System.out.println(roles[0].equals(decoded));
-        try{
+        try {
+            String decoded = Objects.requireNonNull(JWTVerify.verifyingJWT(req.getHeader("ACCESS_TOKEN"))).getClaim("role").asString();
             for (Object role : roles) {
                 if (role.equals(decoded)) return true;
             }
             return false;
-        }catch (Exception e){
-            e.printStackTrace();
+        } catch (Exception e) {
+//            e.printStackTrace();
             return false;
         }
     }

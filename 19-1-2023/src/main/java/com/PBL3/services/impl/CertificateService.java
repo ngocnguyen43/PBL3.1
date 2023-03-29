@@ -13,7 +13,6 @@ import com.PBL3.utils.helpers.IDGeneration;
 import com.PBL3.utils.response.Data;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -61,8 +60,8 @@ public class CertificateService implements ICertificateService {
             certificateRepository.deleteCertificate(id);
             Meta meta = new Meta.Builder(HttpServletResponse.SC_ACCEPTED).withMessage("Delete Success").build();
             return new Message.Builder(meta).build();
-        }catch (InvalidCredentialsException e){
-            Meta meta = new Meta.Builder( ErrorStatusCodes.InvalidCredentialsException.getValue()).withMessage(e.getMessage()).build();
+        } catch (InvalidCredentialsException e) {
+            Meta meta = new Meta.Builder(ErrorStatusCodes.InvalidCredentialsException.getValue()).withMessage(e.getMessage()).build();
 
             return new Message.Builder(meta).build();
         }
@@ -70,17 +69,17 @@ public class CertificateService implements ICertificateService {
 
     @Override
     public Message updateCertificate(CertificateDTO dto) {
-        Certificate domain = Helper.objectMapper(dto,Certificate.class);
+        Certificate domain = Helper.objectMapper(dto, Certificate.class);
         System.out.print(domain.getId());
 
         //not found exception error
-        try{
+        try {
             certificateRepository.findOne(domain.getId());
             certificateRepository.updateCertificate(domain);
             Meta meta = new Meta.Builder(201).withMessage("Update Success!").build();
             return new Message.Builder(meta).build();
-        }catch (NotFoundException | InvalidCredentialsException e){
-            Meta meta = new Meta.Builder( ErrorStatusCodes.InvalidCredentialsException.getValue()).withMessage(e.getMessage()).build();
+        } catch (NotFoundException | InvalidCredentialsException e) {
+            Meta meta = new Meta.Builder(ErrorStatusCodes.InvalidCredentialsException.getValue()).withMessage(e.getMessage()).build();
             return new Message.Builder(meta).build();
         }
     }

@@ -11,9 +11,9 @@ import javax.servlet.http.Part;
 import java.io.*;
 import java.util.Collection;
 
-public class CachedBodyHttpServletRequest  extends HttpServletRequestWrapper {
-    private byte[] cachedBody;
+public class CachedBodyHttpServletRequest extends HttpServletRequestWrapper {
     Collection<Part> part;
+    private final byte[] cachedBody;
 
     public CachedBodyHttpServletRequest(HttpServletRequest request) throws IOException, ServletException {
         super(request);
@@ -26,14 +26,26 @@ public class CachedBodyHttpServletRequest  extends HttpServletRequestWrapper {
     public ServletInputStream getInputStream() throws IOException {
         return new CachedBodyServletInputStream(this.cachedBody);
     }
+
     @Override
     public BufferedReader getReader() throws IOException {
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(this.cachedBody);
         return new BufferedReader(new InputStreamReader(byteArrayInputStream));
     }
-     static class CachedBodyServletInputStream extends ServletInputStream {
 
-        private InputStream cachedBodyInputStream;
+    @Override
+    public Part getPart(String name) throws IOException, ServletException {
+        return super.getPart(name);
+    }
+
+    @Override
+    public Collection<Part> getParts() throws IOException, ServletException {
+        return this.getParts();
+    }
+
+    static class CachedBodyServletInputStream extends ServletInputStream {
+
+        private final InputStream cachedBodyInputStream;
 
         public CachedBodyServletInputStream(byte[] cachedBody) {
             this.cachedBodyInputStream = new ByteArrayInputStream(cachedBody);
@@ -62,15 +74,5 @@ public class CachedBodyHttpServletRequest  extends HttpServletRequestWrapper {
         public int read() throws IOException {
             return cachedBodyInputStream.read();
         }
-    }
-
-    @Override
-    public Part getPart(String name) throws IOException, ServletException {
-        return super.getPart(name);
-    }
-
-    @Override
-    public Collection<Part> getParts() throws IOException, ServletException {
-        return this.getParts();
     }
 }

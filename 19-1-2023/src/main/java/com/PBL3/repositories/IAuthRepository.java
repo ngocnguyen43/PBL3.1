@@ -8,7 +8,7 @@ import com.PBL3.utils.exceptions.dbExceptions.NotFoundException;
 import com.PBL3.utils.response.Message;
 
 public interface IAuthRepository {
-	Message registerUser(User user) throws DuplicateEntryException, InvalidCredentialsException, Exception, RegistrationFailedException, NotFoundException;
+    Message registerUser(User user) throws Exception;
 
-	Message loginUser(User user) throws InvalidCredentialsException, Exception, NotFoundException;
+    Message loginUser(User user) throws Exception;
 }

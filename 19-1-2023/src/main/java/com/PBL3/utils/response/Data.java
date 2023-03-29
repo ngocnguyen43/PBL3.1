@@ -11,58 +11,58 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(Include.NON_NULL)
 public class Data {
-	@JsonProperty("ACCESS_TOKEN")
-	private String accessToken;
-	@JsonProperty("REFRESH_TOKEN")
+    @JsonProperty("ACCESS_TOKEN")
+    private String accessToken;
+    @JsonProperty("REFRESH_TOKEN")
 
-	private String refreshToken;
-	private Object result = null;
+    private String refreshToken;
+    private Object result = null;
 
-	public String getAccessToken() {
-		return accessToken;
-	}
+    private Data() {
+    }
 
-	public String getRefreshToken() {
-		return refreshToken;
-	}
+    public String getAccessToken() {
+        return accessToken;
+    }
 
-	public Object getResult() {
-		return result;
-	}
+    public String getRefreshToken() {
+        return refreshToken;
+    }
 
-	private Data() {
-	}
+    public Object getResult() {
+        return result;
+    }
 
-	public static class Builder {
-		private String accessToken;
-		private String refreshToken;
-		private Object result;
+    public static class Builder {
+        private String accessToken;
+        private String refreshToken;
+        private Object result;
 
-		public Builder(String token) {
-			this.accessToken = token;
-		}
+        public Builder(String token) {
+            this.accessToken = token;
+        }
 
-		public Builder withAccessToken(String token) {
-			this.accessToken = token;
-			return this;
-		}
+        public Builder withAccessToken(String token) {
+            this.accessToken = token;
+            return this;
+        }
 
-		public Builder withRefreshToken(String token) {
-			this.refreshToken = token;
-			return this;
-		}
+        public Builder withRefreshToken(String token) {
+            this.refreshToken = token;
+            return this;
+        }
 
-		public Builder withResults(Object obj) {
-			this.result = obj;
-			return this;
-		}
+        public Builder withResults(Object obj) {
+            this.result = obj;
+            return this;
+        }
 
-		public Data build() {
-			Data body = new Data();
-			body.accessToken = this.accessToken;
-			body.refreshToken = this.refreshToken;
-			body.result = this.result;
-			return body;
-		}
-	}
+        public Data build() {
+            Data body = new Data();
+            body.accessToken = this.accessToken;
+            body.refreshToken = this.refreshToken;
+            body.result = this.result;
+            return body;
+        }
+    }
 }

@@ -16,7 +16,7 @@ public class PlanDAO extends AbstractDAO<PlanModel> implements IPlanDAO {
     @Override
     public PlanModel findOneByPlanId(String id) {
         String sql = "select login.plans.*,login.plans_inspectors.user_id as inspector,login.plans_inspectors.action as status from login.plans inner join plans_inspectors on login.plans.plan_id = login.plans_inspectors.plan_id WHERE login.plans.plan_id = ?";
-        List<PlanModel> plans =  query(sql,new PlanMapper(),id);
+        List<PlanModel> plans = query(sql, new PlanMapper(), id);
         return plans.isEmpty() ? null : plans.get(0);
 
     }
@@ -24,20 +24,20 @@ public class PlanDAO extends AbstractDAO<PlanModel> implements IPlanDAO {
     @Override
     public void updateTime(PlanModel domain) {
         String sql = "UPDATE plans SET time = ? WHERE plan_id = ?";
-        update(sql , domain.getTime(),domain.getId());
+        update(sql, domain.getTime(), domain.getId());
     }
 
     @Override
     public void inactivePlan(String id) {
         PlanModel plan = findOneWithoutJoin(id);
         String sql = "UPDATE plans SET action = ? WHERE plan_id = ?";
-        update(sql,plan.getAction() == 1 ? 0 : 1, id);
+        update(sql, plan.getAction() == 1 ? 0 : 1, id);
     }
 
     @Override
     public PlanModel findOneWithoutJoin(String id) {
-        String sql = "SELECT * FROM plans WHERE plan_id = ?";
-        List<PlanModel> plans =  query(sql,new PlanMapper(),id);
+        String sql = "SELECT * FROM login.plans WHERE plan_id = ?";
+        List<PlanModel> plans = query(sql, new PlanMapper(), id);
         return plans.isEmpty() ? null : plans.get(0);
     }
 

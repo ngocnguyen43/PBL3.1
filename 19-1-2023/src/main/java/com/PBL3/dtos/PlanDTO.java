@@ -5,6 +5,11 @@ import java.util.Date;
 
 public class PlanDTO {
     String id;
+    String companyId;
+    Timestamp time;
+    String path;
+    Integer action = 1;
+    String modifiedBy;
 
     public String getId() {
         return id;
@@ -13,16 +18,6 @@ public class PlanDTO {
     public void setId(String id) {
         this.id = id;
     }
-
-    String companyId;
-    Timestamp time;
-
-    String path;
-
-    Integer action = 1;
-
-    String modifiedBy;
-
 
     public String getCompanyId() {
         return companyId;

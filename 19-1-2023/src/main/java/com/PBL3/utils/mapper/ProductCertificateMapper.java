@@ -9,7 +9,7 @@ public class ProductCertificateMapper implements IMapper<ProductCertificatesMode
     @Override
     public ProductCertificatesModel mapRow(ResultSet result) {
         ProductCertificatesModel productCertificatesModel = new ProductCertificatesModel();
-        try{
+        try {
             productCertificatesModel.setId(result.getString("id"));
             productCertificatesModel.setProductId(result.getString("product_id"));
             productCertificatesModel.setCertificateId(result.getString("certificate_id"));

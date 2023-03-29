@@ -1,4 +1,4 @@
-package com.PBL3.controllers.admin.api.plan;
+package com.PBL3.controllers.admin.plan;
 
 import com.PBL3.services.IPlanService;
 import com.PBL3.utils.Constants.Constants;
@@ -18,8 +18,9 @@ import java.io.IOException;
 public class PlansController extends HttpServlet {
     @Inject
     private IPlanService iPlanService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ErrorHandler.handle(resp,iPlanService.getAll());
+        ErrorHandler.handle(resp, () -> iPlanService.getAll());
     }
 }

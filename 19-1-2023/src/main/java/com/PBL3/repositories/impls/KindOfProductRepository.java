@@ -12,12 +12,13 @@ import java.util.List;
 public class KindOfProductRepository implements IKindOfProductRepository {
     @Inject
     private IKindOfProductDAO iKindOfProductDAO;
+
     @Override
     public void createNewKind(KindOfProductModel domain) throws CreateFailedException {
-        try{
+        try {
 
             iKindOfProductDAO.save(domain);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new CreateFailedException("Create New Product Kind Failed");
         }
     }

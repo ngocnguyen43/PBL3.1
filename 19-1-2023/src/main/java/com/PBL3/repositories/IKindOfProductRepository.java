@@ -9,5 +9,5 @@ import java.util.List;
 public interface IKindOfProductRepository {
     void createNewKind(KindOfProductModel domain) throws CreateFailedException;
 
-    List<KindOfProductModel> getAllKinds () throws NotFoundException;
+    List<KindOfProductModel> getAllKinds() throws NotFoundException;
 }

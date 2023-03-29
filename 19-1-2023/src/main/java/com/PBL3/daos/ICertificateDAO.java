@@ -4,8 +4,9 @@ import com.PBL3.models.Certificate;
 
 import java.util.List;
 
-public interface ICertificateDAO  extends GenericDAO<Certificate> {
+public interface ICertificateDAO extends GenericDAO<Certificate> {
     String save(Certificate domain);
+
     List<Certificate> findAll();
 
     void delete(String id);

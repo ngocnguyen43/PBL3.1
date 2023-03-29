@@ -6,9 +6,11 @@ import java.util.List;
 
 public interface IPlanDAO extends GenericDAO<PlanModel> {
     void createPlan(PlanModel domain);
+
     PlanModel findOneByPlanId(String id);
 
     void updateTime(PlanModel domain);
+
     void inactivePlan(String id);
 
     PlanModel findOneWithoutJoin(String id);

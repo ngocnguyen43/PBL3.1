@@ -25,15 +25,15 @@ public class CertificateRepository implements ICeritificateRepository {
     }
 
     @Override
-    public List<Certificate> findAll() throws  NotFoundException{
-       List<Certificate> certificates = certificateDAO.findAll();
-       if (certificates == null) throw new NotFoundException("Not Founds Certificates");
-       return certificates;
+    public List<Certificate> findAll() throws NotFoundException {
+        List<Certificate> certificates = certificateDAO.findAll();
+        if (certificates == null) throw new NotFoundException("Not Founds Certificates");
+        return certificates;
     }
 
     @Override
     public void deleteCertificate(String id) throws InvalidCredentialsException {
-        if (id == null) throw  new InvalidCredentialsException("Id is invalid");
+        if (id == null) throw new InvalidCredentialsException("Id is invalid");
         certificateDAO.delete(id);
     }
 
@@ -44,10 +44,10 @@ public class CertificateRepository implements ICeritificateRepository {
             if (old == null) throw new NotFoundException("Certificate not found");
             Certificate newDomain = new Certificate();
             newDomain.setName(domain.getName() == null ? old.getName() : domain.getName());
-            newDomain.setDescription(domain.getDescription() == null   ? old.getDescription() : domain.getDescription());
+            newDomain.setDescription(domain.getDescription() == null ? old.getDescription() : domain.getDescription());
             newDomain.setPath(domain.getPath() == null ? old.getPath() : domain.getPath());
             newDomain.setAction(domain.getAction() == null ? old.getAction() : domain.getAction());
-            newDomain.setModifiedBy(domain.getModifiedBy()== null ? old.getModifiedBy() : domain.getModifiedBy());
+            newDomain.setModifiedBy(domain.getModifiedBy() == null ? old.getModifiedBy() : domain.getModifiedBy());
             certificateDAO.updateCertificateDao(newDomain);
 
         } catch (InvalidCredentialsException e) {
@@ -56,9 +56,9 @@ public class CertificateRepository implements ICeritificateRepository {
     }
 
     @Override
-    public Certificate findOne(String id) throws InvalidCredentialsException,NotFoundException {
-        if (id == null) throw  new InvalidCredentialsException("Id is invalid");
-        Certificate certificate =  certificateDAO.findOne(id);
+    public Certificate findOne(String id) throws InvalidCredentialsException, NotFoundException {
+        if (id == null) throw new InvalidCredentialsException("Id is invalid");
+        Certificate certificate = certificateDAO.findOne(id);
         if (certificate == null) throw new NotFoundException("Certificate Not Found");
         return certificate;
     }

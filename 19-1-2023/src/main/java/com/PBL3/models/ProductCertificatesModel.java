@@ -1,6 +1,6 @@
 package com.PBL3.models;
 
-public class ProductCertificatesModel extends  AbstractModel{
+public class ProductCertificatesModel extends AbstractModel {
     String certificateId;
     String productId;
     Integer action;

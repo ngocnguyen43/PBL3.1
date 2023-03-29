@@ -19,16 +19,17 @@ public class PlanRepository implements IPlanRepository {
     private IPlanDAO iPlanDAO;
     @Inject
     private IUserDAO iUserDAO;
+
     @Override
     public void createOne(PlanModel domain) throws CreateFailedException, InvalidPropertiesException, NotFoundException {
-        User user  = iUserDAO.findByCompanyId(domain.getCompanyId());
-        if(user == null) throw new NotFoundException("Company not found");
+        User user = iUserDAO.findByCompanyId(domain.getCompanyId());
+        if (user == null) throw new NotFoundException("Company not found");
         if (domain.getCompanyId() == null) throw new InvalidPropertiesException("Invalid company Id");
 //        if (domain)
         domain.setTime(TimestampConvert.convert(domain.getTime().getTime()));
-        try{
+        try {
             iPlanDAO.createPlan(domain);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new CreateFailedException("Create Plan Failed");
         }
     }
@@ -42,13 +43,14 @@ public class PlanRepository implements IPlanRepository {
 
     @Override
     public void updateTime(PlanModel domain) throws NotFoundException, UpdateFailedException, InvalidPropertiesException {
-        if (domain.getId() == null || domain.getTime() == null) throw new InvalidPropertiesException("Invalid Plan Id or Plan Time");
+        if (domain.getId() == null || domain.getTime() == null)
+            throw new InvalidPropertiesException("Invalid Plan Id or Plan Time");
         PlanModel plan = iPlanDAO.findOneByPlanId(domain.getId());
         if (plan == null) throw new NotFoundException("Plan Not Found");
         domain.setTime(TimestampConvert.convert(domain.getTime().getTime()));
-        try{
+        try {
             iPlanDAO.updateTime(domain);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new UpdateFailedException("Update Plan Failed");
         }
 
@@ -56,12 +58,12 @@ public class PlanRepository implements IPlanRepository {
 
     @Override
     public void inactivePlan(String id) throws InvalidPropertiesException, UpdateFailedException {
-        if (id == null ) throw new InvalidPropertiesException("Plan Id is Invalid");
+        if (id == null) throw new InvalidPropertiesException("Plan Id is Invalid");
         try {
 
-         iPlanDAO.inactivePlan(id);
-        }catch (Exception e){
-            throw  new UpdateFailedException("Inactive Plan Failed");
+            iPlanDAO.inactivePlan(id);
+        } catch (Exception e) {
+            throw new UpdateFailedException("Inactive Plan Failed");
         }
     }
 

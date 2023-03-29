@@ -7,5 +7,6 @@ import com.PBL3.utils.exceptions.dbExceptions.NotFoundException;
 
 public interface IPlanInspectorRepository {
     void createOne(PlanInspectorModel domain) throws DuplicateEntryException, CreateFailedException;
+
     void deactiveInspector(PlanInspectorModel domain) throws NotFoundException, CreateFailedException;
 }

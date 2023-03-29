@@ -11,18 +11,18 @@ import java.util.List;
 
 public class UserService implements IUserService {
 
-	@Inject
-	private IUserDAO userDao;
+    @Inject
+    private IUserDAO userDao;
 
-	@Override
-	public List<User> findAll() {
-		// TODO Auto-generated method stub
-		return userDao.findAll();
-	}
+    @Override
+    public List<User> findAll() {
+        // TODO Auto-generated method stub
+        return userDao.findAll();
+    }
 
-	@Override
-	public Message findByUserId(String id) {
-		// TODO Auto-generated method stub
+    @Override
+    public Message findByUserId(String id) {
+        // TODO Auto-generated method stub
 //		Message message = new Message();
 //		User user = userDao.findByUserId(id);
 //		if (user != null) {
@@ -38,24 +38,24 @@ public class UserService implements IUserService {
 //			Meta header = new Meta.Builder(HttpServletResponse.SC_NOT_FOUND).withErrCode(6).withMessage("User not found!").build();
 //			message.setHeader(header);
 //		}
-		return null;
-	}
+        return null;
+    }
 
-	@Override
-	public User save(User user) {
-		// TODO Auto-generated method stub
-		user.setPassword(HashPassword.HashPW(user.getPassword()));
-		String userId = userDao.save(user);
-		return userDao.findByUserId(userId);
-	}
+    @Override
+    public User save(User user) {
+        // TODO Auto-generated method stub
+        user.setPassword(HashPassword.HashPW(user.getPassword()));
+        String userId = userDao.save(user);
+        return userDao.findByUserId(userId);
+    }
 
-	@Override
-	public void delete(String userId) {
-		userDao.delete(userId);
-		// TODO Auto-generated method stub
-		
-		
-	}
+    @Override
+    public void delete(String userId) {
+        userDao.delete(userId);
+        // TODO Auto-generated method stub
+
+
+    }
 
 //	@Override
 //	public List<Role> findAll() {

@@ -2,7 +2,6 @@ package com.PBL3.utils.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -13,71 +12,69 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 //@JsonPropertyOrder({ "message", "error_code", "status_code" })
 public class Meta {
 
-	private Integer statusCode;
-	@JsonInclude( value = Include.NON_DEFAULT)
-	private Integer errorCode ;
-	
+    private Integer statusCode;
+    @JsonInclude(value = Include.NON_DEFAULT)
+    private Integer errorCode;
 
-	
 
-	private String error;
-	private String message;
+    private String error;
+    private String message;
 
-	private Meta() {
-	}
+    private Meta() {
+    }
 
-	public Integer getStatusCode() {
-		return this.statusCode;
-	}
+    public Integer getStatusCode() {
+        return this.statusCode;
+    }
 
-	public Integer getErrCode() {
-		return this.errorCode;
-	}
+    public Integer getErrCode() {
+        return this.errorCode;
+    }
 
-	public String getMessage() {
-		return this.message;
-	}
+    public String getMessage() {
+        return this.message;
+    }
 
-	/**
-	 * @return the error
-	 */
-	public String getError() {
-		return error;
-	}
+    /**
+     * @return the error
+     */
+    public String getError() {
+        return error;
+    }
 
-	public static class Builder {
-		private Integer statusCode;
-		private Integer errorCode ;
-		private String message;
-		private String error;
+    public static class Builder {
+        private final Integer statusCode;
+        private Integer errorCode;
+        private String message;
+        private String error;
 
-		public Builder(int status_code) {
-			this.statusCode = status_code;
-		}
+        public Builder(int status_code) {
+            this.statusCode = status_code;
+        }
 
-		public Builder withErrCode(int errCode) {
-			this.errorCode = errCode;
-			return this;
-		}
+        public Builder withErrCode(int errCode) {
+            this.errorCode = errCode;
+            return this;
+        }
 
-		public Builder withMessage(String message) {
-			this.message = message;
-			return this;
-		}
+        public Builder withMessage(String message) {
+            this.message = message;
+            return this;
+        }
 
-		public Builder withError(String error) {
-			this.error = error;
-			return this;
-		}
+        public Builder withError(String error) {
+            this.error = error;
+            return this;
+        }
 
-		public Meta build() {
-			Meta meta = new Meta();
-			meta.statusCode = this.statusCode;
-			meta.errorCode = this.errorCode;
-			meta.message = this.message;
-			meta.error = this.error;
-			return meta;
-		}
-	}
+        public Meta build() {
+            Meta meta = new Meta();
+            meta.statusCode = this.statusCode;
+            meta.errorCode = this.errorCode;
+            meta.message = this.message;
+            meta.error = this.error;
+            return meta;
+        }
+    }
 
 }

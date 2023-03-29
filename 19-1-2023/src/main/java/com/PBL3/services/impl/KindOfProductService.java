@@ -19,11 +19,12 @@ import java.util.List;
 public class KindOfProductService implements IKindOfProductService {
     @Inject
     IKindOfProductRepository iKindOfProductRepository;
+
     @Override
     public Message createNewKind(KindOfProductDTO dto) {
 
-        try{
-            KindOfProductModel domain = Helper.objectMapper(dto,KindOfProductModel.class);
+        try {
+            KindOfProductModel domain = Helper.objectMapper(dto, KindOfProductModel.class);
             String id = IDGeneration.generate();
             domain.setId(id);
             iKindOfProductRepository.createNewKind(domain);
@@ -37,7 +38,7 @@ public class KindOfProductService implements IKindOfProductService {
 
     @Override
     public Message getAllKinds() {
-        try{
+        try {
             List<KindOfProductModel> kindOfProducts = iKindOfProductRepository.getAllKinds();
             Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("Ok").build();
             Data data = new Data.Builder(null).withResults(kindOfProducts).build();

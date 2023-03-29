@@ -20,53 +20,53 @@ import java.util.HashMap;
 
 public class AuthRepository implements IAuthRepository {
 
-	@Inject
-	private IUserDAO userDao;
+    @Inject
+    private IUserDAO userDao;
 
-	@Override
-	public Message registerUser(User domainUser) throws DuplicateEntryException, InvalidCredentialsException, Exception, RegistrationFailedException, NotFoundException {
-		User isEmailExist = userDao.findByEmail(domainUser.getEmail()) ;
-		if (isEmailExist != null)
-			throw new DuplicateEntryException("Email is already used!");
-		User isNationalIdExist = userDao.findByNationalId(domainUser.getNationalId()) ;
-		if (isNationalIdExist != null)
-			throw new DuplicateEntryException("NationalId is already used");
-	
-		String id = userDao.save(domainUser);
+    @Override
+    public Message registerUser(User domainUser) throws Exception {
+        User isEmailExist = userDao.findByEmail(domainUser.getEmail());
+        if (isEmailExist != null)
+            throw new DuplicateEntryException("Email is already used!");
+        User isNationalIdExist = userDao.findByNationalId(domainUser.getNationalId());
+        if (isNationalIdExist != null)
+            throw new DuplicateEntryException("NationalId is already used");
+
+        String id = userDao.save(domainUser);
 //		Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("Login Success!").build();
 //		return  new Message.Builder(meta).build();
-		if (id == null) throw new RegistrationFailedException();
-		try {
-			return loginUser(domainUser);
-		} catch (NotFoundException e) {
-			throw new NotFoundException("User not found!");
-		}
-	}
+        if (id == null) throw new RegistrationFailedException();
+        try {
+            return loginUser(domainUser);
+        } catch (NotFoundException e) {
+            throw new NotFoundException("User not found!");
+        }
+    }
 
-	@Override
-	public Message loginUser(User domainUser) throws InvalidCredentialsException, Exception, NotFoundException {
-		HashMap<String, String> claims = new HashMap<>();
-		JWTGeneration JWT = new JWTGeneration();
-		User isExist = userDao.findByEmail(domainUser.getEmail()) ;
+    @Override
+    public Message loginUser(User domainUser) throws Exception {
+        HashMap<String, String> claims = new HashMap<>();
+        JWTGeneration JWT = new JWTGeneration();
+        User isExist = userDao.findByEmail(domainUser.getEmail());
 //		System.out.println(new ObjectMapper().writeValueAsString(isExist));
-		if (isExist == null	)
-			throw new NotFoundException("User not found!");
-		User user = userDao.findByEmail(domainUser.getEmail());
-		String hashedPassword = user.getPassword();
-		String password = domainUser.getPassword();
-		if (!DecryptPassword.Decrypt(password, hashedPassword))
-			throw new InvalidCredentialsException("Wrong password");
+        if (isExist == null)
+            throw new NotFoundException("User not found!");
+        User user = userDao.findByEmail(domainUser.getEmail());
+        String hashedPassword = user.getPassword();
+        String password = domainUser.getPassword();
+        if (!DecryptPassword.Decrypt(password, hashedPassword))
+            throw new InvalidCredentialsException("Wrong password");
 
-		String userId = user.getId();
-		claims.put("userId", userId);
-		claims.put("role", user.getRole().getRoleCode());
-		String accessToken = JWT.generate(claims);
-		String refreshToken = RandomTokenGenearation.getRandomHexString(40);
+        String userId = user.getId();
+        claims.put("userId", userId);
+        claims.put("role", user.getRole().getRoleCode());
+        String accessToken = JWT.generate(claims);
+        String refreshToken = RandomTokenGenearation.getRandomHexString(40);
 
-		Data data = new Data.Builder(accessToken).withRefreshToken(refreshToken).build();
-		Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("Login Success!").build();
-		return  new Message.Builder(meta).withData(data).build();
+        Data data = new Data.Builder(accessToken).withRefreshToken(refreshToken).build();
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("Login Success!").build();
+        return new Message.Builder(meta).withData(data).build();
 
-	}
+    }
 
 }

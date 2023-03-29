@@ -1,6 +1,6 @@
 package com.PBL3.models;
 
-public class ProductModel extends AbstractModel{
+public class ProductModel extends AbstractModel {
     String userId;
     String productName;
 

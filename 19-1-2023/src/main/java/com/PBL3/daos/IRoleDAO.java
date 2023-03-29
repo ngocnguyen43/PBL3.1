@@ -1,11 +1,11 @@
 package com.PBL3.daos;
 
-import java.util.List;
-
 import com.PBL3.models.Role;
 
-public interface IRoleDAO extends GenericDAO<Role> {
-	List<Role> findAll();
+import java.util.List;
 
-	Role findByRoleId(Integer roleId);
+public interface IRoleDAO extends GenericDAO<Role> {
+    List<Role> findAll();
+
+    Role findByRoleId(Integer roleId);
 }
