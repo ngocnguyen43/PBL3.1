@@ -8,6 +8,7 @@ public interface IReportDAO extends GenericDAO<ReportModel> {
     void createOne(ReportModel domain);
 
     ReportModel findOneByPlanId(String id);
+
     ReportModel findOneByReportId(String id);
 
     List<ReportModel> findAll();

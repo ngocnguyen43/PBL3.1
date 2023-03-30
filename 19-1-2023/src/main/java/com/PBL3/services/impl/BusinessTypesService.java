@@ -1,8 +1,10 @@
 package com.PBL3.services.impl;
 
+import com.PBL3.daos.IBusinessDAO;
+import com.PBL3.daos.IBusinessTypesDAO;
 import com.PBL3.dtos.BusinessTypesDTO;
+import com.PBL3.models.Business;
 import com.PBL3.models.BusinessTypes;
-import com.PBL3.repositories.IBusinessTypesRepository;
 import com.PBL3.services.IBusinessTypesService;
 import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
 import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
@@ -17,28 +19,32 @@ import javax.servlet.http.HttpServletResponse;
 
 public class BusinessTypesService implements IBusinessTypesService {
 
+
+    private IBusinessTypesDAO iBusinessTypesDAO;
     @Inject
-    private IBusinessTypesRepository businessTypesRepository;
+    private IBusinessDAO businessDAO;
 
     @Override
-    public Message createBusinessType(BusinessTypesDTO businessTypesDTO) {
+    public Message createBusinessType(BusinessTypesDTO businessTypesDTO) throws DuplicateEntryException, NotFoundException, CreateFailedException {
         // TODO Auto-generated method stub
+
+        BusinessTypes businessTypes = Helper.objectMapper(businessTypesDTO, BusinessTypes.class);
+        Business business = businessDAO.findOneById(businessTypes.getBusinessId());
+        if (business == null)
+            throw new NotFoundException("Not Found Business to Create Type");
+        BusinessTypes isExisted = iBusinessTypesDAO.findOne(businessTypes.getTypeName());
+        if (isExisted != null)
+            throw new DuplicateEntryException("Business Type has already existed");
+        String id = IDGeneration.generate();
+        businessTypes.setId(id);
         try {
-            BusinessTypes businessTypes = Helper.objectMapper(businessTypesDTO, BusinessTypes.class);
-            String id = IDGeneration.generate();
-            businessTypes.setId(id);
-            businessTypesRepository.createBusinessType(businessTypes);
-            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Created Successfully").build();
-            return new Message.Builder(meta).build();
-        } catch (NotFoundException | DuplicateEntryException | CreateFailedException e) {
-            Meta meta = new Meta.Builder(e.getStatusCode()).withErrCode(e.getErrorCode()).withError(e.getMessage())
-                    .build();
+            iBusinessTypesDAO.save(businessTypes);
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Created Successfully!").build();
             return new Message.Builder(meta).build();
         } catch (Exception e) {
-            // TODO: handle exception
-            Meta meta = new Meta.Builder(500).withError(e.getMessage()).build();
-            return new Message.Builder(meta).build();
+            throw new CreateFailedException("Create new Business Type Failed!");
         }
+
 
     }
 

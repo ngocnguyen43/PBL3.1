@@ -23,6 +23,7 @@ public class ModeratorFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse res = (HttpServletResponse) servletResponse;
+//        ResponseConfig.ConfigHeader((HttpServletResponse) servletResponse);
         if (CheckRole.check(req, "MOD")) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {

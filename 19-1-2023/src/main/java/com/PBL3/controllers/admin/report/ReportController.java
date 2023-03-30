@@ -25,14 +25,14 @@ public class ReportController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ReportDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(ReportDTO.class);
-        String path = SaveFile.save(req,"document");
+        String path = SaveFile.save(req, "document");
         dto.setPath(path);
         ErrorHandler.handle(resp, () -> iReportService.createOne(dto));
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ErrorHandler.handle(resp,()->iReportService.findOneById(req.getParameter("id")));
+        ErrorHandler.handle(resp, () -> iReportService.findOneById(req.getParameter("id")));
     }
 
     @Override

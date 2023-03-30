@@ -18,6 +18,7 @@ import java.io.IOException;
 public class ReportStatusController extends HttpServlet {
     @Inject
     private IReportService iReportService;
+
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ErrorHandler.handle(resp, () -> iReportService.updateStatus(req.getParameter("id")));

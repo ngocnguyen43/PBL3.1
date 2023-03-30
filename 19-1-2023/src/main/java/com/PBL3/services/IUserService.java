@@ -1,12 +1,13 @@
 package com.PBL3.services;
 
 import com.PBL3.models.User;
+import com.PBL3.utils.exceptions.dbExceptions.InvalidPropertiesException;
 import com.PBL3.utils.response.Message;
 
-import java.util.List;
+import javax.ws.rs.NotFoundException;
 
 public interface IUserService {
-    List<User> findAll();
+    Message findAll(String role) throws NotFoundException, InvalidPropertiesException;
 
     Message findByUserId(String id);
 

@@ -3,10 +3,16 @@ package com.PBL3.services.impl;
 import com.PBL3.daos.IUserDAO;
 import com.PBL3.models.User;
 import com.PBL3.services.IUserService;
+import com.PBL3.utils.exceptions.dbExceptions.InvalidPropertiesException;
 import com.PBL3.utils.helpers.HashPassword;
+import com.PBL3.utils.response.Data;
 import com.PBL3.utils.response.Message;
+import com.PBL3.utils.response.Meta;
+import org.apache.commons.lang3.ArrayUtils;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.NotFoundException;
 import java.util.List;
 
 public class UserService implements IUserService {
@@ -15,9 +21,15 @@ public class UserService implements IUserService {
     private IUserDAO userDao;
 
     @Override
-    public List<User> findAll() {
+    public Message findAll(String role) throws NotFoundException, InvalidPropertiesException {
         // TODO Auto-generated method stub
-        return userDao.findAll();
+        String[] roles = {"ADMIN", "MOD"};
+        if (!ArrayUtils.contains(roles, role)) throw new InvalidPropertiesException("Invalid Role");
+        List<User> users = userDao.findAll(role);
+        if (users == null) throw new NotFoundException("Not Found Users");
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
+        Data data = new Data.Builder(null).withResults(users).build();
+        return new Message.Builder(meta).withData(data).build();
     }
 
     @Override

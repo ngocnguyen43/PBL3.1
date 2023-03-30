@@ -23,7 +23,7 @@ public class JWTGeneration {
         keyPair = keyPairGenerator.generateKeyPair();
     }
 
-    public String generate(Map<String, String> payload) throws Exception {
+    public String generate(Map<String, String> payload) {
         Builder tokenBuilder = JWT.create().withExpiresAt(Date.from(Instant.now().plusSeconds(300)))
                 .withIssuedAt(Date.from(Instant.now())).withIssuer("minhngoc");
         payload.entrySet().forEach(action -> tokenBuilder.withClaim(action.getKey(), action.getValue()));

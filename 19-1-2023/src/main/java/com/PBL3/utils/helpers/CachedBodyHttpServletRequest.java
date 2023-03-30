@@ -12,8 +12,8 @@ import java.io.*;
 import java.util.Collection;
 
 public class CachedBodyHttpServletRequest extends HttpServletRequestWrapper {
-    Collection<Part> part;
     private final byte[] cachedBody;
+    Collection<Part> part;
 
     public CachedBodyHttpServletRequest(HttpServletRequest request) throws IOException, ServletException {
         super(request);

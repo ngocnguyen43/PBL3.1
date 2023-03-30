@@ -1,10 +1,12 @@
 package com.PBL3.filter;
 
+import com.PBL3.config.ResponseConfig;
 import com.PBL3.filter.checkRole.CheckRole;
 import com.PBL3.utils.Constants.Constants;
 import com.PBL3.utils.exceptions.ErrorHandler;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -23,6 +25,9 @@ public class AdminFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse res = (HttpServletResponse) servletResponse;
+        ResponseConfig.ConfigHeader(res);
+        System.out.println(new ObjectMapper().writeValueAsString(req.getParameterMap()));
+
         if (CheckRole.check(req, "ADM")) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {

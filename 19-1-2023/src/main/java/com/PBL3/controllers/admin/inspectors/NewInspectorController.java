@@ -1,4 +1,4 @@
-package com.PBL3.controllers.auth;
+package com.PBL3.controllers.admin.inspectors;
 
 import com.PBL3.dtos.UserDTO;
 import com.PBL3.services.IAuthService;
@@ -15,17 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {Constants.URL_V1 + Constants.AUTH + "/register"})
+@WebServlet(Constants.URL_V1 + Constants.PRIVATE + Constants.ADMIN + "/moderators")
 @MultipartConfig
-public class RegisterUser extends HttpServlet {
-    private static final long serialVersionUID = 5425347944387647554L;
+public class NewInspectorController extends HttpServlet {
     @Inject
     private IAuthService authService;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserDTO userDTO = Helper.paramsToString(req.getParameterMap()).toModel(UserDTO.class);
-        ErrorHandler.handle(resp, () -> authService.Register(userDTO, "company"));
+        UserDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(UserDTO.class);
+        ErrorHandler.handle(resp, () -> authService.InspectorRegister(dto));
     }
-
 }

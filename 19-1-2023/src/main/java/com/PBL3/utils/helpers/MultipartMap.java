@@ -19,10 +19,9 @@ public class MultipartMap extends HashMap<String, Object> {
     private static final int DEFAULT_BUFFER_SIZE = 10240; // 10KB.
 
     // Vars ---------------------------------------------------------------------------------------
-
-    private String encoding;
     private final String location;
     private final boolean multipartConfigured;
+    private String encoding;
 
     // Constructors -------------------------------------------------------------------------------
 
