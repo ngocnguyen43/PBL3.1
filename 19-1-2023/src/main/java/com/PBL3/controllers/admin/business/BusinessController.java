@@ -2,7 +2,7 @@ package com.PBL3.controllers.admin.business;
 
 import com.PBL3.dtos.BusinessDTO;
 import com.PBL3.services.IBusinessService;
-import com.PBL3.utils.Constants.Constants;
+import com.PBL3.utils.Constants.EndPoint;
 import com.PBL3.utils.exceptions.ErrorHandler;
 import com.PBL3.utils.helpers.Helper;
 
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {Constants.URL_V1 + Constants.PRIVATE + "/business"})
+@WebServlet(urlPatterns = {EndPoint.V1 + EndPoint.PRIVATE + "/business"})
 @MultipartConfig
 public class BusinessController extends HttpServlet {
 

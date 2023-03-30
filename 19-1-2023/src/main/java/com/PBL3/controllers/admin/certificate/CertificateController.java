@@ -2,7 +2,7 @@ package com.PBL3.controllers.admin.certificate;
 
 import com.PBL3.dtos.CertificateDTO;
 import com.PBL3.services.ICertificateService;
-import com.PBL3.utils.Constants.Constants;
+import com.PBL3.utils.Constants.EndPoint;
 import com.PBL3.utils.exceptions.ErrorHandler;
 import com.PBL3.utils.helpers.CheckContainsFile;
 import com.PBL3.utils.helpers.GetQueryParams;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {Constants.URL_V1 + Constants.PRIVATE + "/certificate"})
+@WebServlet(urlPatterns = {EndPoint.V1 + EndPoint.PRIVATE + "/certificate"})
 @MultipartConfig
 public class CertificateController extends HttpServlet {
     private static final long serialVersionUID = 1L;

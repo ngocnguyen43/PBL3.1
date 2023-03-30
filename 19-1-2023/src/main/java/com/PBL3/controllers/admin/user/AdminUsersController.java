@@ -1,7 +1,7 @@
 package com.PBL3.controllers.admin.user;
 
 import com.PBL3.services.IUserService;
-import com.PBL3.utils.Constants.Constants;
+import com.PBL3.utils.Constants.EndPoint;
 import com.PBL3.utils.exceptions.ErrorHandler;
 
 import javax.inject.Inject;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(Constants.URL_V1 + Constants.PRIVATE + Constants.ADMIN + "/users")
+@WebServlet(EndPoint.V1 + EndPoint.PRIVATE + EndPoint.ADMIN + "/users")
 @MultipartConfig
 //@WebServlet("/api/v1/admin/users")
 public class AdminUsersController extends HttpServlet {

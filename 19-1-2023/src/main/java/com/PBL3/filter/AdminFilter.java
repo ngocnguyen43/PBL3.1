@@ -2,7 +2,7 @@ package com.PBL3.filter;
 
 import com.PBL3.config.ResponseConfig;
 import com.PBL3.filter.checkRole.CheckRole;
-import com.PBL3.utils.Constants.Constants;
+import com.PBL3.utils.Constants.EndPoint;
 import com.PBL3.utils.exceptions.ErrorHandler;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {Constants.URL_V1 + Constants.PRIVATE + Constants.ADMIN + "/*"})
+@WebFilter(urlPatterns = {EndPoint.V1 + EndPoint.PRIVATE + EndPoint.ADMIN + "/*"})
 public class AdminFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
