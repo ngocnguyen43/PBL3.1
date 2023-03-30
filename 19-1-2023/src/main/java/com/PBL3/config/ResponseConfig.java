@@ -8,5 +8,6 @@ public class ResponseConfig {
         res.addHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT,PATCH, DELETE, HEAD");
         res.addHeader("Access-Control-Allow-Headers", "X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept");
         res.setContentType("application/json");
+        res.setCharacterEncoding("UTF-8");
     }
 }

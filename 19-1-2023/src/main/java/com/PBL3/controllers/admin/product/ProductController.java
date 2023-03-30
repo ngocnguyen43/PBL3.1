@@ -2,7 +2,7 @@ package com.PBL3.controllers.admin.product;
 
 import com.PBL3.dtos.ProductDTO;
 import com.PBL3.services.IProductService;
-import com.PBL3.utils.Constants.Constants;
+import com.PBL3.utils.Constants.EndPoint;
 import com.PBL3.utils.exceptions.ErrorHandler;
 import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.response.Message;
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {Constants.URL_V1 + Constants.PRIVATE + "/product"})
+@WebServlet(urlPatterns = {EndPoint.V1 + EndPoint.PRIVATE + "/product"})
 @MultipartConfig
 public class ProductController extends HttpServlet {
     @Inject

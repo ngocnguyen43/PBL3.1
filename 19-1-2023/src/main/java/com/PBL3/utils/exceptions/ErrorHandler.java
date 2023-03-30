@@ -36,7 +36,8 @@ public class ErrorHandler {
             }
         }
     }
-    static  public void handle(HttpServletResponse res, InvalidEndpointException e){
+
+    static public void handle(HttpServletResponse res, InvalidEndpointException e) {
         try {
             Meta meta = new Meta.Builder(e.statusCode).withError(e.message).build();
             res.setStatus(e.statusCode);

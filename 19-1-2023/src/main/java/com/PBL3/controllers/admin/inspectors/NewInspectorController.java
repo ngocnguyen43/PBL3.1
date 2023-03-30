@@ -1,6 +1,6 @@
-package com.PBL3.controllers.auth;
+package com.PBL3.controllers.admin.inspectors;
 
-import com.PBL3.dtos.UserSigninDTO;
+import com.PBL3.dtos.UserDTO;
 import com.PBL3.services.IAuthService;
 import com.PBL3.utils.Constants.EndPoint;
 import com.PBL3.utils.exceptions.ErrorHandler;
@@ -15,19 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {EndPoint.V1 + EndPoint.AUTH + "/login"})
+@WebServlet(EndPoint.V1 + EndPoint.PRIVATE + EndPoint.ADMIN + "/moderators")
 @MultipartConfig
-public class LoginUser extends HttpServlet {
-    private static final long serialVersionUID = -975955435760814368L;
+public class NewInspectorController extends HttpServlet {
     @Inject
-    private IAuthService signinService;
+    private IAuthService authService;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserSigninDTO user = Helper.paramsToString(req.getParameterMap()).toModel(UserSigninDTO.class);
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
-        System.out.println(email + password);
-        ErrorHandler.handle(resp, () -> signinService.Login(email, password));
+        UserDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(UserDTO.class);
+        ErrorHandler.handle(resp, () -> authService.InspectorRegister(dto));
     }
 }

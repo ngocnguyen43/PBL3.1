@@ -2,7 +2,7 @@ package com.PBL3.controllers.admin.plan;
 
 import com.PBL3.dtos.PlanDTO;
 import com.PBL3.services.IPlanService;
-import com.PBL3.utils.Constants.Constants;
+import com.PBL3.utils.Constants.EndPoint;
 import com.PBL3.utils.exceptions.ErrorHandler;
 import com.PBL3.utils.helpers.Helper;
 
@@ -16,11 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet(urlPatterns = {Constants.URL_V1 + Constants.PRIVATE + Constants.ADMIN + "/plan"})
+@WebServlet(urlPatterns = {EndPoint.V1 + EndPoint.PRIVATE + EndPoint.ADMIN + "/plan"})
 @MultipartConfig
 public class PlanController extends HttpServlet {
     @Inject
     private IPlanService iPlanService;
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
