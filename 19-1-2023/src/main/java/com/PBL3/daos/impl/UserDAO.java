@@ -14,7 +14,12 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
     public List<User> findAll(String role) {
         // TODO Auto-generated method stub
         String sql = "SELECT * FROM users INNER JOIN roles ON users.roleId = roles.roleId";
-        final String sql_admin = "SELECT login.users.*,login.roles.role_code,login.roles.role_name FROM login.users INNER JOIN login.roles ON login.users.role_id = login.roles.role_id WHERE login.roles.role_id NOT LIKE 1 ORDER BY role_id,created_at ASC";
+        final String sql_admin =
+                "SELECT login.users.*,login.roles.role_code,login.roles.role_name " +
+                "FROM login.users " +
+                "INNER JOIN login.roles ON login.users.role_id = login.roles.role_id " +
+                "WHERE login.roles.role_id NOT LIKE 1 " +
+                "ORDER BY role_id,created_at ASC";
         final String sql_mod = "SELECT login.users.*,login.roles.role_code,login.roles.role_name FROM login.users INNER JOIN login.roles ON login.users.role_id = login.roles.role_id WHERE login.roles.role_id  LIKE 3 ORDER BY role_id,created_at ASC ";
 //		System.out.println(query(sql, new UserMapper()));
         if (role.equals("ADMIN")) return query(sql_admin, new UserMapper());
@@ -32,7 +37,7 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
     }
 
     @Override
-    public String save(User user) {
+    public void save(User user) {
         // TODO Auto-generated method stub
         String password = HashPassword.HashPW(user.getPassword());
 
@@ -58,8 +63,12 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
         insert(sql, id, user.getRoleId(), user.getCompanyId(), user.getCompanyName(), user.getTaxIndentity(), user.getBusinessId(),
                 user.getPhoneNumber(), user.getFaxNumber(), user.getEmail(), user.getFullName(), user.getNationalId()
                 , user.getUserNumber(), password, user.getAction(), user.getModifiedBy());
-        return id;
 
+    }
+
+    @Override
+    public void update(User user) {
+        String sql = "UPDATE users SET ";
     }
 
     public void delete(String userId) {

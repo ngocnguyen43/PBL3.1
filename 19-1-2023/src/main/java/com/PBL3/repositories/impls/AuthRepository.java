@@ -4,7 +4,6 @@ import com.PBL3.daos.IUserDAO;
 import com.PBL3.models.User;
 import com.PBL3.repositories.IAuthRepository;
 import com.PBL3.utils.exceptions.authExceptions.InvalidCredentialsException;
-import com.PBL3.utils.exceptions.authExceptions.RegistrationFailedException;
 import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
 import com.PBL3.utils.exceptions.dbExceptions.NotFoundException;
 import com.PBL3.utils.helpers.DecryptPassword;
@@ -32,10 +31,10 @@ public class AuthRepository implements IAuthRepository {
         if (isNationalIdExist != null)
             throw new DuplicateEntryException("NationalId is already used");
 
-        String id = userDao.save(domainUser);
-//		Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("Login Success!").build();
+//        String id = userDao.save(domainUser);
+		Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("Login Success!").build();
 //		return  new Message.Builder(meta).build();
-        if (id == null) throw new RegistrationFailedException();
+//        if (id == null) throw new RegistrationFailedException();
         try {
             return loginUser(domainUser);
         } catch (NotFoundException e) {

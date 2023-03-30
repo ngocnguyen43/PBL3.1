@@ -15,7 +15,6 @@ import java.io.IOException;
 
 @WebServlet(EndPoint.V1 + EndPoint.PRIVATE + EndPoint.ADMIN + "/users")
 @MultipartConfig
-//@WebServlet("/api/v1/admin/users")
 public class AdminUsersController extends HttpServlet {
 
     private static final long serialVersionUID = -3848721747697052811L;
@@ -25,6 +24,10 @@ public class AdminUsersController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ErrorHandler.handle(resp, () -> userService.findAll("ADMIN"));
+    }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPost(req, resp);
     }
 }

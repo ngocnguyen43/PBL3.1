@@ -1,10 +1,15 @@
 package com.PBL3.services.impl;
 
 import com.PBL3.daos.IUserDAO;
+import com.PBL3.dtos.UserDTO;
 import com.PBL3.models.User;
 import com.PBL3.services.IUserService;
+import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
+import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
 import com.PBL3.utils.exceptions.dbExceptions.InvalidPropertiesException;
 import com.PBL3.utils.helpers.HashPassword;
+import com.PBL3.utils.helpers.Helper;
+import com.PBL3.utils.helpers.IDGeneration;
 import com.PBL3.utils.response.Data;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
@@ -54,11 +59,26 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User save(User user) {
+     public Message save(UserDTO dto) throws DuplicateEntryException, CreateFailedException {
         // TODO Auto-generated method stub
-        user.setPassword(HashPassword.HashPW(user.getPassword()));
-        String userId = userDao.save(user);
-        return userDao.findByUserId(userId);
+        boolean isEmailExist = userDao.findByEmail(dto.getEmail()) != null;
+        if (isEmailExist) throw new DuplicateEntryException("Email has Already Registered");
+        boolean isNationalIdExist = userDao.findByNationalId(dto.getNationalId()) != null;
+        if (isNationalIdExist) throw new DuplicateEntryException("National Id has Already Registered");
+        User domain = Helper.objectMapper(dto,User.class);
+        String id = IDGeneration.generate();
+        domain.setId(id);
+        domain.setPassword(HashPassword.HashPW(domain.getPassword()));
+        try {
+            userDao.save(domain);
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("OK").build();
+            return new Message.Builder(meta).build();
+        }catch (Exception e){
+            throw new CreateFailedException("Create New User Failed");
+        }
+//        user.setPassword(HashPassword.HashPW(user.getPassword()));
+//        String userId = userDao.save(user);
+//        return userDao.findByUserId(userId);
     }
 
     @Override

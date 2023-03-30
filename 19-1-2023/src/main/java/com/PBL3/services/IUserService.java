@@ -1,6 +1,9 @@
 package com.PBL3.services;
 
+import com.PBL3.dtos.UserDTO;
 import com.PBL3.models.User;
+import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
+import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
 import com.PBL3.utils.exceptions.dbExceptions.InvalidPropertiesException;
 import com.PBL3.utils.response.Message;
 
@@ -11,7 +14,7 @@ public interface IUserService {
 
     Message findByUserId(String id);
 
-    User save(User user);
+    Message save(UserDTO dto) throws DuplicateEntryException, CreateFailedException;
 
     void delete(String userId);
 }

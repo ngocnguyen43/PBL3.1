@@ -15,8 +15,8 @@ public interface IUserDAO extends GenericDAO<User> {
 
     User findByNationalId(String nationalId);
 
-    String save(User user);
-
+    void save(User user);
+    void update(User user);
     void delete(String USerId);
 
 }

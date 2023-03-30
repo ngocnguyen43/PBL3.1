@@ -26,8 +26,6 @@ public class AdminFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse res = (HttpServletResponse) servletResponse;
         ResponseConfig.ConfigHeader(res);
-        System.out.println(new ObjectMapper().writeValueAsString(req.getParameterMap()));
-
         if (CheckRole.check(req, "ADM")) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
