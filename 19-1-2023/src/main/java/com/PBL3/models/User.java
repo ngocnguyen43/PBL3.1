@@ -1,5 +1,8 @@
 package com.PBL3.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User extends AbstractModel {
     private Integer roleId;
     private String companyId;
