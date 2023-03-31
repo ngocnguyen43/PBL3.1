@@ -16,6 +16,16 @@ public class Data {
     @JsonProperty("REFRESH_TOKEN")
 
     private String refreshToken;
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
     private Object result = null;
 
     private Data() {
@@ -36,6 +46,8 @@ public class Data {
     public static class Builder {
         private String accessToken;
         private String refreshToken;
+
+        private String role;
         private Object result;
 
         public Builder(String token) {
@@ -56,12 +68,16 @@ public class Data {
             this.result = obj;
             return this;
         }
-
+        public Builder withRole(String role){
+            this.role = role;
+            return this;
+        }
         public Data build() {
             Data body = new Data();
             body.accessToken = this.accessToken;
             body.refreshToken = this.refreshToken;
             body.result = this.result;
+            body.role = this.role;
             return body;
         }
     }
