@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductDTO {
     String id;
-    String userId;
+    String companyId;
     String productName;
     String kindof;
     Integer action = 1;
@@ -18,12 +18,12 @@ public class ProductDTO {
         this.id = id;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getCompanyId() {
+        return companyId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
     }
 
     public String getProductName() {

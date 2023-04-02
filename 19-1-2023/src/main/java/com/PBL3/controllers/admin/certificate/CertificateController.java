@@ -5,7 +5,7 @@ import com.PBL3.services.ICertificateService;
 import com.PBL3.utils.Constants.EndPoint;
 import com.PBL3.utils.exceptions.ErrorHandler;
 import com.PBL3.utils.helpers.CheckContainsFile;
-import com.PBL3.utils.helpers.GetQueryParams;
+import com.PBL3.utils.helpers.QueryParams;
 import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.SaveFile;
 
@@ -51,7 +51,7 @@ public class CertificateController extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Map<String, String> queries = GetQueryParams.getQueryParameters(req);
-        ErrorHandler.handle(resp, () -> certificateService.deleteCertificate(GetQueryParams.getQueryParameters(req).get("id")));
+        Map<String, String> queries = QueryParams.get(req);
+        ErrorHandler.handle(resp, () -> certificateService.deleteCertificate(QueryParams.get(req).get("id")));
     }
 }

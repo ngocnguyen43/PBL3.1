@@ -2,6 +2,7 @@ package com.PBL3.services.impl;
 
 import com.PBL3.daos.IUserDAO;
 import com.PBL3.dtos.UserDTO;
+import com.PBL3.dtos.pagination.UserPaginationDTO;
 import com.PBL3.models.User;
 import com.PBL3.services.IUserService;
 import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
@@ -35,6 +36,11 @@ public class UserService implements IUserService {
         Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
         Data data = new Data.Builder(null).withResults(users).build();
         return new Message.Builder(meta).withData(data).build();
+    }
+
+    @Override
+    public Message findAll(UserPaginationDTO dto, String role) {
+        return null;
     }
 
     @Override

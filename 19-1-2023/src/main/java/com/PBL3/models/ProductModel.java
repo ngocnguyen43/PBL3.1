@@ -1,18 +1,18 @@
 package com.PBL3.models;
 
 public class ProductModel extends AbstractModel {
-    String userId;
+    String companyId;
     String productName;
 
     Integer action;
     String kindof;
 
-    public String getUserId() {
-        return userId;
+    public String getCompanyId() {
+        return companyId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
     }
 
     public String getProductName() {

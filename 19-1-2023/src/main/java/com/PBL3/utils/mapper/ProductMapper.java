@@ -11,7 +11,7 @@ public class ProductMapper implements IMapper<ProductModel> {
         ProductModel product = new ProductModel();
         try {
             product.setId(result.getString("product_id"));
-            product.setUserId(result.getString("user_id"));
+            product.setCompanyId(result.getString("company_id"));
             product.setProductName(result.getString("product_name"));
             product.setKindof(result.getString("kindof"));
             product.setAction(result.getInt("action"));

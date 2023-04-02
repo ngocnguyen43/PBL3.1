@@ -16,12 +16,36 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
         String sql = "SELECT * FROM users INNER JOIN roles ON users.roleId = roles.roleId";
         final String sql_admin =
                 "SELECT login.users.*,login.roles.role_code,login.roles.role_name " +
-                "FROM login.users " +
-                "INNER JOIN login.roles ON login.users.role_id = login.roles.role_id " +
-                "WHERE login.roles.role_id NOT LIKE 1 " +
-                "ORDER BY role_id,created_at ASC";
-        final String sql_mod = "SELECT login.users.*,login.roles.role_code,login.roles.role_name FROM login.users INNER JOIN login.roles ON login.users.role_id = login.roles.role_id WHERE login.roles.role_id  LIKE 3 ORDER BY role_id,created_at ASC ";
+                        "FROM login.users " +
+                        "INNER JOIN login.roles ON login.users.role_id = login.roles.role_id " +
+                        "WHERE login.roles.role_id NOT LIKE 1 " +
+                        "ORDER BY role_id,created_at ASC";
+        final String sql_mod =
+                "SELECT login.users.*,login.roles.role_code,login.roles.role_name " +
+                        "FROM login.users " +
+                        "INNER JOIN login.roles ON login.users.role_id = login.roles.role_id " +
+                        "WHERE login.roles.role_id  LIKE 3 ORDER BY role_id,created_at ASC ";
 //		System.out.println(query(sql, new UserMapper()));
+        if (role.equals("ADMIN")) return query(sql_admin, new UserMapper());
+        if (role.equals("MOD")) return query(sql_mod, new UserMapper());
+        return null;
+    }
+
+    @Override
+    public List<User> findAll(String role, String companyname, String productName, String page) {
+        final String sql_admin =
+                "SELECT login.users.*,login.roles.role_code,login.roles.role_name " +
+                        "FROM login.users " +
+                        "INNER JOIN login.roles ON login.users.role_id = login.roles.role_id " +
+                        "WHERE login.roles.role_id NOT LIKE 1 AND " +
+                        (companyname == null ? "" : "login.users.company_name LIKE " + companyname) +
+                        "ORDER BY role_id,created_at ASC";
+        final String sql_mod =
+                "SELECT login.users.*,login.roles.role_code,login.roles.role_name " +
+                        "FROM login.users " +
+                        "INNER JOIN login.roles ON login.users.role_id = login.roles.role_id " +
+                        "WHERE login.roles.role_id  LIKE 3 " +
+                        "ORDER BY role_id,created_at ASC ";
         if (role.equals("ADMIN")) return query(sql_admin, new UserMapper());
         if (role.equals("MOD")) return query(sql_mod, new UserMapper());
         return null;

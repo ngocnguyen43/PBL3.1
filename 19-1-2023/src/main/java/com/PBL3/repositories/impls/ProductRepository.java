@@ -36,7 +36,7 @@ public class ProductRepository implements IProductRepository {
         ProductModel existedProduct = iProductDAO.findOne(domain.getId());
         if (existedProduct == null) throw new NotFoundException("Product Not Found");
         if (domain.getProductName() == null) domain.setProductName(existedProduct.getProductName());
-        if (domain.getUserId() == null) domain.setUserId(existedProduct.getUserId());
+        if (domain.getCompanyId() == null) domain.setCompanyId(existedProduct.getCompanyId());
         if (domain.getKindof() == null) domain.setKindof(existedProduct.getKindof());
         if (domain.getAction() == null) domain.setAction(existedProduct.getAction());
         if (domain.getModifiedBy() == null) domain.setModifiedBy(existedProduct.getModifiedBy());
