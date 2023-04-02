@@ -25,4 +25,10 @@ public class ProductCertificateDAO extends AbstractDAO<ProductCertificatesModel>
         List<ProductCertificatesModel> productCertificatesModels = query(sql, new ProductCertificateMapper(), id);
         return productCertificatesModels.isEmpty() ? null : productCertificatesModels.get(0);
     }
+
+    @Override
+    public List<ProductCertificatesModel> findAllById(String id) {
+        String sql = "SELECT * FROM product_certificates WHERE product_id = ?";
+        return query(sql, new ProductCertificateMapper(), id);
+    }
 }

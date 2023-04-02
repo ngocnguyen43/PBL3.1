@@ -5,6 +5,15 @@ import com.PBL3.models.Certificate;
 import java.sql.ResultSet;
 
 public class CertificateMapper implements IMapper<Certificate> {
+    private boolean withDate;
+
+    public CertificateMapper() {
+    }
+
+    public CertificateMapper(boolean withDate) {
+        this.withDate = withDate;
+    }
+
     @Override
     public Certificate mapRow(ResultSet result) {
         Certificate certificate = new Certificate();
@@ -14,9 +23,11 @@ public class CertificateMapper implements IMapper<Certificate> {
             certificate.setDescription(result.getString("description"));
             certificate.setPath(result.getString("image"));
             certificate.setAction(result.getInt("action") == 1);
-            certificate.setModifiedBy(result.getString("modified_by"));
-            certificate.setCreatedAt(result.getTimestamp("created_at"));
-            certificate.setUpdatedAt(result.getTimestamp("updated_at"));
+            if (this.withDate) {
+                certificate.setModifiedBy(result.getString("modified_by"));
+                certificate.setCreatedAt(result.getTimestamp("created_at"));
+                certificate.setUpdatedAt(result.getTimestamp("updated_at"));
+            }
             return certificate;
         } catch (Exception e) {
             e.printStackTrace();

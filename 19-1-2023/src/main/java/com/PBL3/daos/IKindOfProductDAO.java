@@ -9,4 +9,6 @@ public interface IKindOfProductDAO extends GenericDAO<KindOfProductModel> {
 
     void save(KindOfProductModel domain);
 
+    KindOfProductModel findOne(String id);
+
 }

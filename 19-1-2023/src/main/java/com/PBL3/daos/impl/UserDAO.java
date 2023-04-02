@@ -13,21 +13,36 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
     @Override
     public List<User> findAll(String role) {
         // TODO Auto-generated method stub
-        String sql = "SELECT * FROM users INNER JOIN roles ON users.roleId = roles.roleId";
+//        String sql = "SELECT * FROM users INNER JOIN roles ON users.roleId = roles.roleId";
         final String sql_admin =
-                "SELECT login.users.*,login.roles.role_code,login.roles.role_name " +
-                        "FROM login.users " +
-                        "INNER JOIN login.roles ON login.users.role_id = login.roles.role_id " +
-                        "WHERE login.roles.role_id NOT LIKE 1 " +
-                        "ORDER BY role_id,created_at ASC";
+                " SELECT login.users.*,login.roles.role_code,login.roles.role_name \n" +
+                        " FROM login.users \n" +
+                        " INNER JOIN login.roles ON login.users.role_id = login.roles.role_id \n" +
+                        " WHERE login.roles.role_id  LIKE 3 LIMIT 5 ";
         final String sql_mod =
                 "SELECT login.users.*,login.roles.role_code,login.roles.role_name " +
                         "FROM login.users " +
                         "INNER JOIN login.roles ON login.users.role_id = login.roles.role_id " +
                         "WHERE login.roles.role_id  LIKE 3 ORDER BY role_id,created_at ASC ";
 //		System.out.println(query(sql, new UserMapper()));
-        if (role.equals("ADMIN")) return query(sql_admin, new UserMapper());
-        if (role.equals("MOD")) return query(sql_mod, new UserMapper());
+
+        final String sql = "SELECT login.users.user_id,login.users.role_id,login.users.company_id," +
+                "login.users.company_name,login.users.tax_identification_number,login.users.phone_number,login.users.fax_number,login.users.email,login.users.full_name,login.users.password,login.users.national_id,login.users.user_number,login.users.action,login.users.modified_by,login.users.updated_at,login.users.created_at," +
+                " login.business.business_id,login.business.business_name," +
+                " login.products.product_id,login.products.product_name," +
+                " login.kind_of_product.kindId,login.kind_of_product.name as kind_name," +
+                " login.certificates.certificate_id,login.certificates.name as certificate_name,login.certificates.image" +
+                " FROM login.users" +
+                " LEFT JOIN login.business ON login.users.business_id = login.business.business_id " +
+                " LEFT JOIN login.products ON login.products.user_id = login.users.user_id " +
+                " LEFT JOIN login.kind_of_product ON login.products.kindof = login.kind_of_product.kindId" +
+                " LEFT JOIN login.product_certificates ON login.product_certificates.product_id = login.products.product_id" +
+                " LEFT JOIN login.certificates ON login.certificates.certificate_id = login.product_certificates.certificate_id" +
+                " WHERE login.users.role_id LIKE 3" +
+//                " ORDER BY login.users.role_id ASC " +
+                " LIMIT 5";
+        if (role.equals("ADMIN")) return query(sql_admin  , new UserMapper());
+        if (role.equals("MOD")) return query(sql_admin, new UserMapper());
         return null;
     }
 

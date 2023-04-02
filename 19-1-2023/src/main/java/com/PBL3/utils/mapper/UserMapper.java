@@ -7,6 +7,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserMapper implements IMapper<User> {
+    private boolean withDate = false;
+    private boolean withPassword = false;
+
+    public UserMapper() {
+    }
+
+    public UserMapper(boolean withDate, boolean withPassword) {
+        this.withDate = withDate;
+        this.withPassword = withPassword;
+    }
 
     @Override
     public User mapRow(ResultSet result) {
@@ -24,16 +34,35 @@ public class UserMapper implements IMapper<User> {
             user.setFullName(result.getString("full_name"));
             user.setNationalId(result.getString("national_id"));
             user.setUserNumber(result.getString("user_number"));
-            user.setPassword(result.getString("password"));
+            if (this.withPassword) user.setPassword(result.getString("password"));
             user.setAction(result.getInt("action"));
-            user.setModifiedBy(result.getString("modified_by"));
-            user.setCreatedAt(result.getTimestamp("created_at"));
-            user.setUpdatedAt(result.getTimestamp("updated_at"));
+            if (this.withDate) {
+                user.setModifiedBy(result.getString("modified_by"));
+                user.setCreatedAt(result.getTimestamp("created_at"));
+                user.setUpdatedAt(result.getTimestamp("updated_at"));
+            }
             Role role = new Role();
             role.setRoleId(result.getInt("role_id"));
             role.setRoleCode(result.getString("role_code"));
             role.setRoleName(result.getString("role_name"));
             user.setRole(role);
+
+//
+//            Business business = new Business();
+//
+//            business.setId(result.getString("business_id"));
+//            business.setBusinessName(result.getString("business_name"));
+//            user.setBusiness(business);
+//            ProductModel productModel = new ProductModel();
+//            productModel.setId(result.getString("product_id"));
+//            productModel.setProductName(result.getString("product_name"));
+//            KindOfProductModel kindOfProductModel = new KindOfProductModel();
+//
+//            kindOfProductModel.setId(result.getString("kindId"));
+//            kindOfProductModel.setName(result.getString("kind_name"));
+//            productModel.setKindOfProductModel(kindOfProductModel);
+//
+//            List<Certificate> certificates = new ArrayList<>();
 
 
             return user;

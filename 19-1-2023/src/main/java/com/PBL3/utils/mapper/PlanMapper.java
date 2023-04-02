@@ -23,7 +23,10 @@ public class PlanMapper implements IMapper<PlanModel> {
             plan.setCreatedAt(result.getTimestamp("created_at"));
             plan.setUpdatedAt(result.getTimestamp("updated_at"));
             List<PlanInspectorModel> inspectors = new ArrayList<>();
-            while (!result.isAfterLast() && CheckFieldExist.checkExist(result, "inspector") && result.getString("plan_id").equals(result.getString("plan"))) {
+            while (!result.isAfterLast() &&
+                    CheckFieldExist.checkExist(result, "inspector") &&
+                    result.getString("plan_id").equals(result.getString("plan"))
+            ) {
                 PlanInspectorModel temp = new PlanInspectorModel();
                 temp.setUserId(result.getString("inspector"));
                 temp.setAction(result.getInt("status"));

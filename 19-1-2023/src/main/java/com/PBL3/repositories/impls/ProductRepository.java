@@ -25,7 +25,7 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public List<ProductModel> getAllProduct() throws NotFoundException {
+    public List<ProductModel> getAllProduct() throws com.PBL3.utils.exceptions.dbExceptions.NotFoundException {
         List<ProductModel> productModels = iProductDAO.findAll();
         if (productModels.isEmpty()) throw new NotFoundException("No Products Found");
         return productModels;
@@ -36,7 +36,7 @@ public class ProductRepository implements IProductRepository {
         ProductModel existedProduct = iProductDAO.findOne(domain.getId());
         if (existedProduct == null) throw new NotFoundException("Product Not Found");
         if (domain.getProductName() == null) domain.setProductName(existedProduct.getProductName());
-        if (domain.getCompanyId() == null) domain.setCompanyId(existedProduct.getCompanyId());
+        if (domain.getUserId() == null) domain.setUserId(existedProduct.getUserId());
         if (domain.getKindof() == null) domain.setKindof(existedProduct.getKindof());
         if (domain.getAction() == null) domain.setAction(existedProduct.getAction());
         if (domain.getModifiedBy() == null) domain.setModifiedBy(existedProduct.getModifiedBy());

@@ -1,14 +1,18 @@
 package com.PBL3.services;
 
 import com.PBL3.dtos.ProductDTO;
+import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
+import com.PBL3.utils.exceptions.dbExceptions.NotFoundException;
+import com.PBL3.utils.exceptions.dbExceptions.UnexpectedException;
+import com.PBL3.utils.exceptions.dbExceptions.UpdateFailedException;
 import com.PBL3.utils.response.Message;
 
 public interface IProductService {
-    Message createNewProduct(ProductDTO dto);
+    Message createNewProduct(ProductDTO dto) throws CreateFailedException;
 
-    Message getAllProducts();
+    Message getAllProducts() throws UnexpectedException;
 
-    Message updateProduct(ProductDTO dto);
+    Message updateProduct(ProductDTO dto) throws UpdateFailedException, NotFoundException;
 
-    Message deleteProduct(String id);
+    Message deleteProduct(String id) throws UpdateFailedException;
 }
