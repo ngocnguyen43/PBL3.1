@@ -1,7 +1,7 @@
-package com.PBL3.dtos.pagination;
+package com.PBL3.models.pagination;
 
-public abstract class AbstractPagination {
-    Integer page;
+public abstract class AbstractPaginationModel {
+    Integer page = 1;
 
     public Integer getPage() {
         return page;

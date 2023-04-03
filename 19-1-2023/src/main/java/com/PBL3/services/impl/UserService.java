@@ -4,6 +4,7 @@ import com.PBL3.daos.*;
 import com.PBL3.dtos.UserDTO;
 import com.PBL3.dtos.pagination.UserPaginationDTO;
 import com.PBL3.models.*;
+import com.PBL3.models.pagination.UserPagination;
 import com.PBL3.services.IUserService;
 import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
 import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
@@ -68,7 +69,12 @@ public class UserService implements IUserService {
 
     @Override
     public Message findAll(UserPaginationDTO dto, String role) {
-        return null;
+        UserPagination domain = Helper.objectMapper(dto,UserPagination.class);
+        if (domain.getPage() < 0) domain.setPage(1);
+        List<User> users = userDao.findAll(role,domain);
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
+        Data data = new Data.Builder(null).withResults(users).build();
+        return new Message.Builder(meta).withData(data).build();
     }
 
     @Override

@@ -46,25 +46,6 @@ public class UserMapper implements IMapper<User> {
             role.setRoleCode(result.getString("role_code"));
             role.setRoleName(result.getString("role_name"));
             user.setRole(role);
-
-//
-//            Business business = new Business();
-//
-//            business.setId(result.getString("business_id"));
-//            business.setBusinessName(result.getString("business_name"));
-//            user.setBusiness(business);
-//            ProductModel productModel = new ProductModel();
-//            productModel.setId(result.getString("product_id"));
-//            productModel.setProductName(result.getString("product_name"));
-//            KindOfProductModel kindOfProductModel = new KindOfProductModel();
-//
-//            kindOfProductModel.setId(result.getString("kindId"));
-//            kindOfProductModel.setName(result.getString("kind_name"));
-//            productModel.setKindOfProductModel(kindOfProductModel);
-//
-//            List<Certificate> certificates = new ArrayList<>();
-
-
             return user;
 
         } catch (SQLException e) {

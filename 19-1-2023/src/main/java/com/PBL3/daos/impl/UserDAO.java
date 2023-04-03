@@ -2,11 +2,15 @@ package com.PBL3.daos.impl;
 
 import com.PBL3.daos.IUserDAO;
 import com.PBL3.models.User;
+import com.PBL3.models.pagination.UserPagination;
 import com.PBL3.utils.helpers.HashPassword;
 import com.PBL3.utils.helpers.IDGeneration;
+import com.PBL3.utils.mapper.CountMapper;
 import com.PBL3.utils.mapper.UserMapper;
 
 import java.util.List;
+
+import static com.PBL3.utils.Constants.Pagination.PER_PAGE;
 
 public class UserDAO extends AbstractDAO<User> implements IUserDAO {
 
@@ -41,29 +45,23 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
                 " WHERE login.users.role_id LIKE 3" +
 //                " ORDER BY login.users.role_id ASC " +
                 " LIMIT 5";
-        if (role.equals("ADMIN")) return query(sql_admin  , new UserMapper());
+        if (role.equals("ADMIN")) return query(sql_admin, new UserMapper());
         if (role.equals("MOD")) return query(sql_admin, new UserMapper());
         return null;
     }
 
     @Override
-    public List<User> findAll(String role, String companyname, String productName, String page) {
-        final String sql_admin =
-                "SELECT login.users.*,login.roles.role_code,login.roles.role_name " +
-                        "FROM login.users " +
-                        "INNER JOIN login.roles ON login.users.role_id = login.roles.role_id " +
-                        "WHERE login.roles.role_id NOT LIKE 1 AND " +
-                        (companyname == null ? "" : "login.users.company_name LIKE " + companyname) +
-                        "ORDER BY role_id,created_at ASC";
-        final String sql_mod =
-                "SELECT login.users.*,login.roles.role_code,login.roles.role_name " +
-                        "FROM login.users " +
-                        "INNER JOIN login.roles ON login.users.role_id = login.roles.role_id " +
-                        "WHERE login.roles.role_id  LIKE 3 " +
-                        "ORDER BY role_id,created_at ASC ";
-        if (role.equals("ADMIN")) return query(sql_admin, new UserMapper());
-        if (role.equals("MOD")) return query(sql_mod, new UserMapper());
-        return null;
+    public List<User> findAll(String role, UserPagination pagination) {
+        String sql = "SELECT * FROM login.users  INNER JOIN login.roles ON login.users.role_id = login.roles.role_id  WHERE ";
+        if (pagination.getFullname() != null) sql += " login.users.full_name LIKE '%" + pagination.getFullname() +"%' ";
+        else sql += " true ";
+        if (pagination.getEmail() != null) sql += " AND login.users.email LIKE '%" + pagination.getEmail() +"%'";
+        else sql += "AND true ";
+        if (role.equals("ADMIN")) sql += "AND login.users.role_id != 1";
+        if (role.equals("MOD")) sql += "AND login.users.role_id = 3";
+        sql += " LIMIT " + PER_PAGE + " OFFSET " + (pagination.getPage() - 1) * PER_PAGE;
+        System.out.println(sql);
+        return query(sql, new UserMapper());
     }
 
     @Override
@@ -147,6 +145,18 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
         // TODO Auto-generated method stub
         List<User> users = query(sql, new UserMapper(), nationalId);
         return users.isEmpty() ? null : users.get(0);
+    }
+
+    @Override
+    public Integer countAllRecord(UserPagination pagination) {
+        String sql = "SELECT count(*) as total FROM login.users WHERE ";
+        if (pagination.getFullname() != null) sql += " login.users.full_name = " + pagination.getFullname();
+        else sql += " true";
+        if (pagination.getEmail() != null) sql += " AND login.users.email = " + pagination.getEmail();
+        else sql += "AND true";
+        sql += " LIMIT " + "" + "OFFSET " + (pagination.getPage() - 1) * PER_PAGE;
+        List<Integer> pages = query(sql, new CountMapper());
+        return pages.isEmpty() ? null : pages.get(0);
     }
 
 }
