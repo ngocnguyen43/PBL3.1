@@ -12,7 +12,7 @@ public class BusinessTypesDAO extends AbstractDAO<BusinessTypes> implements IBus
     public String save(BusinessTypes businessTypes) {
         String sql = "INSERT INTO business_types (type_id,business_id,"
                 + "type_name,"
-                + "modified_by,) VALUES (?,?,?,?)";
+                + "modified_by) VALUES (?,?,?,?)";
         insert(sql, businessTypes.getId(), businessTypes.getBusinessId(), businessTypes.getTypeName(), businessTypes.getModifiedBy());
         return businessTypes.getId();
     }
@@ -20,7 +20,7 @@ public class BusinessTypesDAO extends AbstractDAO<BusinessTypes> implements IBus
     @Override
     public BusinessTypes findOne(String name) {
         // TODO Auto-generated method stub
-        String sql = "SELECT * FROM business_types WHERE type_name = ?";
+        String sql = "SELECT * FROM login.business_types WHERE login.business_types.type_name = ?";
         List<BusinessTypes> businessTypes = query(sql, new BusinessTypesMapper(), name);
         return businessTypes.isEmpty() ? null : businessTypes.get(0);
     }

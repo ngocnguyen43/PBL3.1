@@ -13,27 +13,31 @@ import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.IDGeneration;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 public class BusinessTypesService implements IBusinessTypesService {
 
-
+    @Inject
     private IBusinessTypesDAO iBusinessTypesDAO;
     @Inject
     private IBusinessDAO businessDAO;
 
     @Override
-    public Message createBusinessType(BusinessTypesDTO businessTypesDTO) throws DuplicateEntryException, NotFoundException, CreateFailedException {
+    public Message createBusinessType(BusinessTypesDTO businessTypesDTO) throws DuplicateEntryException, NotFoundException, CreateFailedException, JsonProcessingException {
         // TODO Auto-generated method stub
 
         BusinessTypes businessTypes = Helper.objectMapper(businessTypesDTO, BusinessTypes.class);
+
         Business business = businessDAO.findOneById(businessTypes.getBusinessId());
         if (business == null)
             throw new NotFoundException("Not Found Business to Create Type");
-        BusinessTypes isExisted = iBusinessTypesDAO.findOne(businessTypes.getTypeName());
-        if (isExisted != null)
+        boolean isExisted = iBusinessTypesDAO.findOne(businessTypes.getTypeName()) != null;
+
+        if (isExisted)
             throw new DuplicateEntryException("Business Type has already existed");
         String id = IDGeneration.generate();
         businessTypes.setId(id);

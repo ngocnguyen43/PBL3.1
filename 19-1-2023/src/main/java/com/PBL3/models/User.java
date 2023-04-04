@@ -1,5 +1,13 @@
 package com.PBL3.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User extends AbstractModel {
     private Integer roleId;
     private String companyId;
@@ -15,6 +23,27 @@ public class User extends AbstractModel {
     private Integer action = 1;
     private String password;
     private Role role;
+    @JsonProperty("business_type")
+    private Business business;
+    @JsonProperty("products")
+    private List< ProductModel> productModel;
+
+
+    public Business getBusiness() {
+        return business;
+    }
+
+    public void setBusiness(Business business) {
+        this.business = business;
+    }
+
+    public List<ProductModel> getProductModel() {
+        return productModel;
+    }
+
+    public void setProductModel(List<ProductModel> productModel) {
+        this.productModel = productModel;
+    }
 
     public String getCompanyId() {
         return companyId;

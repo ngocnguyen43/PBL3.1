@@ -25,7 +25,7 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public List<ProductModel> getAllProduct() throws NotFoundException {
+    public List<ProductModel> getAllProduct() throws com.PBL3.utils.exceptions.dbExceptions.NotFoundException {
         List<ProductModel> productModels = iProductDAO.findAll();
         if (productModels.isEmpty()) throw new NotFoundException("No Products Found");
         return productModels;

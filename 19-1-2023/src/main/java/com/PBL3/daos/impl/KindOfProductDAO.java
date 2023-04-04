@@ -18,4 +18,11 @@ public class KindOfProductDAO extends AbstractDAO<KindOfProductModel> implements
         String sql = "INSERT INTO kind_of_product (kindId,name,modified_by) value(?,?,?)";
         insert(sql, domain.getId(), domain.getName(), domain.getModifiedBy());
     }
+
+    @Override
+    public KindOfProductModel findOne(String id) {
+        String sql = "SELECT * FROM kind_of_product WHERE kindId = ?";
+        List<KindOfProductModel> kindOfProductModels = query(sql, new KindOfProductMapper(), id);
+        return kindOfProductModels.isEmpty() ? null : kindOfProductModels.get(0);
+    }
 }

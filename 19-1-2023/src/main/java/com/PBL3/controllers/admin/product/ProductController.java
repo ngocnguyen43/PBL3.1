@@ -36,7 +36,6 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Message message = iProductService.deleteProduct(req.getParameter("id"));
         ErrorHandler.handle(resp, () -> iProductService.deleteProduct(req.getParameter("id")));
 
     }

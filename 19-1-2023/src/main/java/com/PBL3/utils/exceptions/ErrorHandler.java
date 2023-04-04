@@ -1,5 +1,6 @@
 package com.PBL3.utils.exceptions;
 
+import com.PBL3.utils.enums.ErrorCodes;
 import com.PBL3.utils.exceptions.apiExcpetions.InvalidEndpointException;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
@@ -32,6 +33,9 @@ public class ErrorHandler {
                 res.getWriter().print(new ObjectMapper().writeValueAsString(new Message.Builder(meta).build()));
                 res.getWriter().flush();
             } else {
+//                Meta meta = new Meta.Builder(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).withErrCode(ErrorCodes.InternalServerException.getValue()).withError("Something ").build();
+//                res.getWriter().print(new ObjectMapper().writeValueAsString(new Message.Builder(meta).build()));
+//                res.getWriter().flush();
                 throw new RuntimeException(e);
             }
         }

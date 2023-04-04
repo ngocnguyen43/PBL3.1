@@ -1,11 +1,48 @@
 package com.PBL3.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductModel extends AbstractModel {
     String userId;
     String productName;
 
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    String companyName;
     Integer action;
     String kindof;
+
+    @JsonProperty("product_type")
+    private KindOfProductModel kindOfProductModel;
+
+    public List<Certificate> getCertificate() {
+        return certificate;
+    }
+
+    public void setCertificate(List<Certificate> certificate) {
+        this.certificate = certificate;
+    }
+    @JsonProperty("certificates")
+    private List<Certificate> certificate;
+
+    public KindOfProductModel getKindOfProductModel() {
+        return kindOfProductModel;
+    }
+
+    public void setKindOfProductModel(KindOfProductModel kindOfProductModel) {
+        this.kindOfProductModel = kindOfProductModel;
+    }
+
+
 
     public String getUserId() {
         return userId;
