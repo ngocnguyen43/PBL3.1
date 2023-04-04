@@ -18,7 +18,7 @@ public interface IUserDAO extends GenericDAO<User> {
 
     User findByNationalId(String nationalId);
 
-    Integer countAllRecord(UserPagination pagination,String role);
+    Integer countAllRecord(UserPagination pagination, String role);
 
     void save(User user);
 

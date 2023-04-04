@@ -78,10 +78,10 @@ public class UserService implements IUserService {
         Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
         Data data = new Data.Builder(null).withResults(users).build();
 
-        Integer pages = userDao.countAllRecord(domain,role);
+        Integer pages = userDao.countAllRecord(domain, role);
         Pagination pagination = new Pagination.Builder().
                 withCurrentPage(domain.getPage()).
-                withTotalPages((int) Math.ceil ((double) pages / PER_PAGE)).
+                withTotalPages((int) Math.ceil((double) pages / PER_PAGE)).
                 withTotalResults(pages).build();
         return new Message.Builder(meta).withData(data).withPagination(pagination).build();
     }
@@ -125,9 +125,6 @@ public class UserService implements IUserService {
         } catch (Exception e) {
             throw new CreateFailedException("Create New User Failed");
         }
-//        user.setPassword(HashPassword.HashPW(user.getPassword()));
-//        String userId = userDao.save(user);
-//        return userDao.findByUserId(userId);
     }
 
     @Override

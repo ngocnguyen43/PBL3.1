@@ -53,9 +53,10 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
     @Override
     public List<User> findAll(String role, UserPagination pagination) {
         String sql = "SELECT * FROM login.users  INNER JOIN login.roles ON login.users.role_id = login.roles.role_id  WHERE ";
-        if (pagination.getFullname() != null) sql += " login.users.full_name LIKE '%" + pagination.getFullname() +"%' ";
+        if (pagination.getFullname() != null)
+            sql += " login.users.full_name LIKE '%" + pagination.getFullname() + "%' ";
         else sql += " true ";
-        if (pagination.getEmail() != null) sql += " AND login.users.email LIKE '%" + pagination.getEmail() +"%'";
+        if (pagination.getEmail() != null) sql += " AND login.users.email LIKE '%" + pagination.getEmail() + "%'";
         else sql += "AND true ";
         if (role.equals("ADMIN")) sql += "AND login.users.role_id != 1";
         if (role.equals("MOD")) sql += "AND login.users.role_id = 3";
@@ -124,7 +125,7 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
         String sql = "SELECT * FROM users INNER JOIN roles ON users.role_id = roles.role_id WHERE email = ? ";
 //		String sql = "SELECT * FROM users INNER JOIN roles ON users.roleId = roles.roleId WHERE email = ? ";
 
-        List<User> users = query(sql, new UserMapper(), email);
+        List<User> users = query(sql, new UserMapper(false, true), email);
 
         return users.isEmpty() ? null : users.get(0);
     }
@@ -143,20 +144,21 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
     public User findByNationalId(String nationalId) {
         String sql = "SELECT * FROM users INNER JOIN roles ON users.role_id = roles.role_Id WHERE national_id = ?";
         // TODO Auto-generated method stub
-        List<User> users = query(sql, new UserMapper(), nationalId);
+        List<User> users = query(sql, new UserMapper(false, true), nationalId);
         return users.isEmpty() ? null : users.get(0);
     }
 
     @Override
-    public Integer countAllRecord(UserPagination pagination,String role) {
+    public Integer countAllRecord(UserPagination pagination, String role) {
         String sql = "SELECT COUNT(*) as total FROM login.users  INNER JOIN login.roles ON login.users.role_id = login.roles.role_id  WHERE ";
-        if (pagination.getFullname() != null) sql += " login.users.full_name LIKE '%" + pagination.getFullname() +"%' ";
+        if (pagination.getFullname() != null)
+            sql += " login.users.full_name LIKE '%" + pagination.getFullname() + "%' ";
         else sql += " true ";
-        if (pagination.getEmail() != null) sql += " AND login.users.email LIKE '%" + pagination.getEmail() +"%'";
+        if (pagination.getEmail() != null) sql += " AND login.users.email LIKE '%" + pagination.getEmail() + "%'";
         else sql += "AND true ";
         if (role.equals("ADMIN")) sql += "AND login.users.role_id != 1";
         if (role.equals("MOD")) sql += "AND login.users.role_id = 3";
-        List<Integer> pages = query(sql,new CountMapper());
+        List<Integer> pages = query(sql, new CountMapper());
         return pages.isEmpty() ? null : pages.get(0);
     }
 

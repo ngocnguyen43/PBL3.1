@@ -1,15 +1,19 @@
 package com.PBL3.services;
 
 import com.PBL3.dtos.CertificateDTO;
+import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
+import com.PBL3.utils.exceptions.dbExceptions.InvalidPropertiesException;
+import com.PBL3.utils.exceptions.dbExceptions.NotFoundException;
+import com.PBL3.utils.exceptions.dbExceptions.UpdateFailedException;
 import com.PBL3.utils.response.Message;
 
 public interface ICertificateService {
-    Message createCertificate(CertificateDTO dto);
+    Message createCertificate(CertificateDTO dto) throws CreateFailedException;
 
     Message getAllCertificate();
 
-    Message deleteCertificate(String id);
+    Message deleteCertificate(String id) throws InvalidPropertiesException, UpdateFailedException;
 
-    Message updateCertificate(CertificateDTO dto);
+    Message updateCertificate(CertificateDTO dto) throws NotFoundException, UpdateFailedException;
 
 }

@@ -1,10 +1,13 @@
 package com.PBL3.services;
 
 import com.PBL3.dtos.PlanInspectorDTO;
+import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
+import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
+import com.PBL3.utils.exceptions.dbExceptions.UpdateFailedException;
 import com.PBL3.utils.response.Message;
 
 public interface IPlanInspectorService {
-    Message createOne(PlanInspectorDTO dto);
+    Message createOne(PlanInspectorDTO dto) throws DuplicateEntryException, CreateFailedException;
 
-    Message deactive(PlanInspectorDTO dto);
+    Message deactive(PlanInspectorDTO dto) throws UpdateFailedException;
 }

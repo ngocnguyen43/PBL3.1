@@ -1,4 +1,4 @@
-package com.PBL3.filter.checkRole;
+package com.PBL3.filters.checkRole;
 
 import com.PBL3.utils.helpers.JWTVerify;
 

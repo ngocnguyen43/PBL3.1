@@ -40,17 +40,23 @@ public class AuthService implements IAuthService {
         User user = iUserDAO.findByEmail(email);
         if (user == null) throw new NotFoundException("User Not Found!");
         String hashedPassword = user.getPassword();
-        if (!DecryptPassword.Decrypt(password, hashedPassword))
-            throw new InvalidCredentialsException("Wrong password");
-        String userId = user.getId();
-        claims.put("userId", userId);
-        claims.put("role", user.getRole().getRoleCode());
-        String role = user.getRole().getRoleName();
-        String accessToken = JWT.generate(claims);
+        try {
 
-        Data data = new Data.Builder(accessToken).withRole(role).build();
-        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("Login Success!").build();
-        return new Message.Builder(meta).withData(data).build();
+            if (!DecryptPassword.Decrypt(password, hashedPassword))
+                throw new InvalidCredentialsException("Wrong password");
+            String userId = user.getId();
+            claims.put("userId", userId);
+            claims.put("role", user.getRole().getRoleCode());
+            String role = user.getRole().getRoleName();
+            String accessToken = JWT.generate(claims);
+
+            Data data = new Data.Builder(accessToken).withRole(role).build();
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("Login Success!").build();
+            return new Message.Builder(meta).withData(data).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new UnexpectedException();
+        }
 //        try {
 //            User user = Helper.objectMapper(tempUser, User.class);
 //            return authRepository.loginUser(user);

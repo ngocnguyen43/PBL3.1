@@ -17,22 +17,21 @@ public class Data {
 
     private String refreshToken;
     private String role;
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
-
     private Object result = null;
 
     private Data() {
     }
 
+    public String getRole() {
+        return role;
+    }
+
     public String getAccessToken() {
         return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
     public String getRefreshToken() {
@@ -68,10 +67,12 @@ public class Data {
             this.result = obj;
             return this;
         }
-        public Builder withRole(String role){
+
+        public Builder withRole(String role) {
             this.role = role;
             return this;
         }
+
         public Data build() {
             Data body = new Data();
             body.accessToken = this.accessToken;

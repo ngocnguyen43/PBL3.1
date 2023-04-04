@@ -1,4 +1,4 @@
-package com.PBL3.filter;
+package com.PBL3.filters;
 
 import com.PBL3.config.ResponseConfig;
 

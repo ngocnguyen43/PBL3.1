@@ -3,7 +3,6 @@ package com.PBL3.services.impl;
 import com.PBL3.daos.IKindOfProductDAO;
 import com.PBL3.dtos.KindOfProductDTO;
 import com.PBL3.models.KindOfProductModel;
-import com.PBL3.repositories.IKindOfProductRepository;
 import com.PBL3.services.IKindOfProductService;
 import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
 import com.PBL3.utils.exceptions.dbExceptions.NotFoundException;
