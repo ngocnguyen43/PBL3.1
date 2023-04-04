@@ -9,6 +9,15 @@ public class ProductModel extends AbstractModel {
     String userId;
     String productName;
 
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    String companyName;
     Integer action;
     String kindof;
 

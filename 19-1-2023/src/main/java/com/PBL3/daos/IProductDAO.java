@@ -1,6 +1,7 @@
 package com.PBL3.daos;
 
 import com.PBL3.models.ProductModel;
+import com.PBL3.models.pagination.ProductPagination;
 
 import java.util.List;
 
@@ -10,6 +11,8 @@ public interface IProductDAO extends GenericDAO<ProductModel> {
 
     List<ProductModel> findAll();
 
+    List<ProductModel> findAll(ProductPagination domain);
+
     List<ProductModel> findAllByUserId(String id);
 
     void updateProduct(ProductModel domain);
@@ -17,4 +20,6 @@ public interface IProductDAO extends GenericDAO<ProductModel> {
     ProductModel findOne(String id);
 
     void deleteOne(String id);
+
+    Integer countToTalProducts(ProductPagination domain);
 }

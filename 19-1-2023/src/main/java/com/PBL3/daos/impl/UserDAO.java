@@ -148,14 +148,15 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
     }
 
     @Override
-    public Integer countAllRecord(UserPagination pagination) {
-        String sql = "SELECT count(*) as total FROM login.users WHERE ";
-        if (pagination.getFullname() != null) sql += " login.users.full_name = " + pagination.getFullname();
-        else sql += " true";
-        if (pagination.getEmail() != null) sql += " AND login.users.email = " + pagination.getEmail();
-        else sql += "AND true";
-        sql += " LIMIT " + "" + "OFFSET " + (pagination.getPage() - 1) * PER_PAGE;
-        List<Integer> pages = query(sql, new CountMapper());
+    public Integer countAllRecord(UserPagination pagination,String role) {
+        String sql = "SELECT COUNT(*) as total FROM login.users  INNER JOIN login.roles ON login.users.role_id = login.roles.role_id  WHERE ";
+        if (pagination.getFullname() != null) sql += " login.users.full_name LIKE '%" + pagination.getFullname() +"%' ";
+        else sql += " true ";
+        if (pagination.getEmail() != null) sql += " AND login.users.email LIKE '%" + pagination.getEmail() +"%'";
+        else sql += "AND true ";
+        if (role.equals("ADMIN")) sql += "AND login.users.role_id != 1";
+        if (role.equals("MOD")) sql += "AND login.users.role_id = 3";
+        List<Integer> pages = query(sql,new CountMapper());
         return pages.isEmpty() ? null : pages.get(0);
     }
 
