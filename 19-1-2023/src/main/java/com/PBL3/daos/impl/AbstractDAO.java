@@ -2,6 +2,7 @@ package com.PBL3.daos.impl;
 
 import com.PBL3.daos.GenericDAO;
 import com.PBL3.utils.mapper.IMapper;
+import io.github.cdimascio.dotenv.Dotenv;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,10 +11,10 @@ import java.util.List;
 public abstract class AbstractDAO<T> implements GenericDAO<T> {
     public Connection getConnection() {
         try {
+            Dotenv dotenv = Dotenv.configure().directory("D:\\PBL3.1\\19-1-2023\\assets").filename("env").load();
             Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/login";
-
-            return DriverManager.getConnection(url, "root", "040303");
+            String url = "jdbc:mysql://" + dotenv.get("DB_URL") + "/" + dotenv.get("DB_NAME");
+            return DriverManager.getConnection(url, dotenv.get("USER_NAME"), dotenv.get("PASSWORD"));
         } catch (ClassNotFoundException | SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

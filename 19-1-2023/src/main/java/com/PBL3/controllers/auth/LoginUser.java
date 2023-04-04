@@ -2,9 +2,9 @@ package com.PBL3.controllers.auth;
 
 import com.PBL3.dtos.UserSigninDTO;
 import com.PBL3.services.IAuthService;
-import com.PBL3.utils.Constants.EndPoint;
 import com.PBL3.utils.exceptions.ErrorHandler;
 import com.PBL3.utils.helpers.Helper;
+import io.github.cdimascio.dotenv.Dotenv;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -15,19 +15,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {EndPoint.V1 + EndPoint.AUTH + "/login"})
+import static com.PBL3.utils.Constants.EndPoint.AUTH;
+import static com.PBL3.utils.Constants.EndPoint.V1;
+
+@WebServlet(urlPatterns = {V1 + AUTH + "/login"})
 @MultipartConfig
 public class LoginUser extends HttpServlet {
     private static final long serialVersionUID = -975955435760814368L;
     @Inject
-    private IAuthService signinService;
+    private IAuthService authService;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserSigninDTO user = Helper.paramsToString(req.getParameterMap()).toModel(UserSigninDTO.class);
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
-        System.out.println(email + password);
-        ErrorHandler.handle(resp, () -> signinService.Login(email, password));
+        UserSigninDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(UserSigninDTO.class);
+        ErrorHandler.handle(resp, () -> authService.Login(dto));
     }
 }

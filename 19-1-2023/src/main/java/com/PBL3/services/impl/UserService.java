@@ -9,14 +9,10 @@ import com.PBL3.services.IUserService;
 import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
 import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
 import com.PBL3.utils.exceptions.dbExceptions.InvalidPropertiesException;
-import com.PBL3.utils.exceptions.dbExceptions.NotFoundException;
 import com.PBL3.utils.helpers.HashPassword;
 import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.IDGeneration;
-import com.PBL3.utils.response.Data;
-import com.PBL3.utils.response.Message;
-import com.PBL3.utils.response.Meta;
-import com.PBL3.utils.response.Pagination;
+import com.PBL3.utils.response.*;
 import org.apache.commons.lang3.ArrayUtils;
 
 import javax.inject.Inject;
@@ -42,7 +38,7 @@ public class UserService implements IUserService {
     private IKindOfProductDAO kindOfProductDAO;
 
     @Override
-    public Message findAll(String role) throws NotFoundException, InvalidPropertiesException {
+    public Message findAll(String role) throws InvalidPropertiesException {
         // TODO Auto-generated method stub
         String[] roles = {"ADMIN", "MOD"};
         if (!ArrayUtils.contains(roles, role)) throw new InvalidPropertiesException("Invalid Role");
@@ -64,8 +60,8 @@ public class UserService implements IUserService {
             }
             user.setProductModel(products);
         }
-        if (users == null) throw new NotFoundException("Not Found Users");
-        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
+//        if (users == null) throw new NotFoundException("Not Found Users");
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
         Data data = new Data.Builder(null).withResults(users).build();
         return new Message.Builder(meta).withData(data).build();
     }
@@ -120,10 +116,10 @@ public class UserService implements IUserService {
         domain.setPassword(HashPassword.HashPW(domain.getPassword()));
         try {
             userDao.save(domain);
-            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("OK").build();
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage(Response.CREATED).build();
             return new Message.Builder(meta).build();
         } catch (Exception e) {
-            throw new CreateFailedException("Create New User Failed");
+            throw new CreateFailedException(Response.CREATE_FAILED);
         }
     }
 

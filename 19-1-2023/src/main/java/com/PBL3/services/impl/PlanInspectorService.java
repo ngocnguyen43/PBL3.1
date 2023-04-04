@@ -11,6 +11,7 @@ import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.IDGeneration;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
+import com.PBL3.utils.response.Response;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -23,28 +24,28 @@ public class PlanInspectorService implements IPlanInspectorService {
     @Override
     public Message createOne(PlanInspectorDTO dto) throws DuplicateEntryException, CreateFailedException {
         boolean isExisted = planInspectorDAO.findOne(dto.getUserId(), dto.getPlanId()) != null;
-        if (isExisted) throw new DuplicateEntryException("Inspector already in Plan");
+        if (isExisted) throw new DuplicateEntryException(Response.DUPLICATED);
         PlanInspectorModel domain = Helper.objectMapper(dto, PlanInspectorModel.class);
         String id = IDGeneration.generate();
         domain.setId(id);
         try {
             planInspectorDAO.createOne(domain);
-            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Add Inspector Into Plan Successfully!").build();
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage(Response.CREATED).build();
             return new Message.Builder(meta).build();
         } catch (Exception e) {
-            throw new CreateFailedException("Add Inspector Into Plan Failed");
+            throw new CreateFailedException(Response.CREATE_FAILED);
         }
     }
 
     @Override
-    public Message deactive(PlanInspectorDTO dto) throws UpdateFailedException {
+    public Message inactive(PlanInspectorDTO dto) throws UpdateFailedException {
         try {
             PlanInspectorModel domain = Helper.objectMapper(dto, PlanInspectorModel.class);
             planInspectorDAO.inactiveInspector(domain.getUserId(), domain.getPlanId());
-            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Inactive Inspector in Plan Successfully!").build();
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage(Response.SUCCESS).build();
             return new Message.Builder(meta).build();
         } catch (Exception e) {
-            throw new UpdateFailedException("Inactive Inspector Failed");
+            throw new UpdateFailedException(Response.FAILED);
         }
     }
 }

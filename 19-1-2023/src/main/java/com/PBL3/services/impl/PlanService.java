@@ -16,6 +16,7 @@ import com.PBL3.utils.helpers.TimestampConvert;
 import com.PBL3.utils.response.Data;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
+import com.PBL3.utils.response.Response;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -30,18 +31,18 @@ public class PlanService implements IPlanService {
     @Override
     public Message createOne(PlanDTO dto) throws NotFoundException, InvalidPropertiesException, CreateFailedException {
         User user = iUserDAO.findByCompanyId(dto.getCompanyId());
-        if (user == null) throw new NotFoundException("Company not found");
-        if (dto.getCompanyId() == null) throw new InvalidPropertiesException("Invalid company Id");
+        if (user == null) throw new NotFoundException(Response.NOT_FOUND);
+        if (dto.getCompanyId() == null) throw new InvalidPropertiesException(Response.INVALID_ID);
         PlanModel domain = Helper.objectMapper(dto, PlanModel.class);
         String id = IDGeneration.generate();
         domain.setId(id);
         domain.setTime(TimestampConvert.convert(domain.getTime().getTime()));
         try {
             iPlanDAO.createPlan(domain);
-            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Create Plan Successfully!").build();
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage(Response.CREATED).build();
             return new Message.Builder(meta).build();
         } catch (Exception e) {
-            throw new CreateFailedException("Create Plan Failed!");
+            throw new CreateFailedException(Response.CREATE_FAILED);
         }
 
     }
@@ -49,15 +50,10 @@ public class PlanService implements IPlanService {
     @Override
     public Message getOneById(String id) throws NotFoundException {
         PlanModel plan = iPlanDAO.findOneByPlanId(id);
-        if (plan == null) throw new NotFoundException("Plan Not Found");
+        if (plan == null) throw new NotFoundException(Response.NOT_FOUND);
         Data data = new Data.Builder(null).withResults(plan).build();
-        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
         return new Message.Builder(meta).withData(data).build();
-//        try {
-//        } catch (NotFoundException e) {
-//            Meta meta = new Meta.Builder(e.getStatusCode()).withError(e.getMessage()).build();
-//            return new Message.Builder(meta).build();
-//        }
     }
 
     @Override
@@ -70,38 +66,31 @@ public class PlanService implements IPlanService {
         domain.setTime(TimestampConvert.convert(domain.getTime().getTime()));
         try {
             iPlanDAO.updateTime(domain);
-            Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
             return new Message.Builder(meta).build();
         } catch (Exception e) {
-            throw new UpdateFailedException("Update Plan Failed!");
+            throw new UpdateFailedException(Response.FAILED);
         }
     }
 
     @Override
     public Message inactivePlan(String id) throws InvalidPropertiesException, UpdateFailedException {
-        if (id == null) throw new InvalidPropertiesException("Plan Id is Invalid");
+        if (id == null) throw new InvalidPropertiesException(Response.INVALID_ID);
         try {
             iPlanDAO.inactivePlan(id);
-            Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
             return new Message.Builder(meta).build();
         } catch (Exception e) {
-            throw new UpdateFailedException("Inactive Plan Failed");
+            throw new UpdateFailedException(Response.FAILED);
         }
     }
 
     @Override
     public Message getAll() throws NotFoundException {
         List<PlanModel> plans = iPlanDAO.findAll();
-        if (plans == null) throw new NotFoundException("Plans Not Found");
-//            List<PlanModel> plans = iPlanRepository.findAll();
-        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
+        if (plans == null) throw new NotFoundException(Response.NOT_FOUND);
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
         Data data = new Data.Builder(null).withResults(plans).build();
         return new Message.Builder(meta).withData(data).build();
-//        try {
-//        } catch (NotFoundException e) {
-//            Meta meta = new Meta.Builder(e.getStatusCode()).withError(e.getMessage()).build();
-//            return new Message.Builder(meta).build();
-//        }
-
     }
 }

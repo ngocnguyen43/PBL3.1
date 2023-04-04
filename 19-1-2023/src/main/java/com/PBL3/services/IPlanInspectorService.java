@@ -9,5 +9,5 @@ import com.PBL3.utils.response.Message;
 public interface IPlanInspectorService {
     Message createOne(PlanInspectorDTO dto) throws DuplicateEntryException, CreateFailedException;
 
-    Message deactive(PlanInspectorDTO dto) throws UpdateFailedException;
+    Message inactive(PlanInspectorDTO dto) throws UpdateFailedException;
 }

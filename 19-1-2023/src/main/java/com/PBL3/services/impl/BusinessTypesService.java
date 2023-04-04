@@ -13,6 +13,7 @@ import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.IDGeneration;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
+import com.PBL3.utils.response.Response;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import javax.inject.Inject;
@@ -33,19 +34,19 @@ public class BusinessTypesService implements IBusinessTypesService {
 
         Business business = businessDAO.findOneById(businessTypes.getBusinessId());
         if (business == null)
-            throw new NotFoundException("Not Found Business to Create Type");
+            throw new NotFoundException(Response.BUSINESS_NOT_FOUND);
         boolean isExisted = iBusinessTypesDAO.findOne(businessTypes.getTypeName()) != null;
 
         if (isExisted)
-            throw new DuplicateEntryException("Business Type has already existed");
+            throw new DuplicateEntryException(Response.BUSINESS_TYPE_EXISTED);
         String id = IDGeneration.generate();
         businessTypes.setId(id);
         try {
             iBusinessTypesDAO.save(businessTypes);
-            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Created Successfully!").build();
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage(Response.CREATED).build();
             return new Message.Builder(meta).build();
         } catch (Exception e) {
-            throw new CreateFailedException("Create new Business Type Failed!");
+            throw new CreateFailedException(Response.CREATE_FAILED);
         }
 
 

@@ -8,7 +8,7 @@ import com.PBL3.utils.exceptions.dbExceptions.InvalidPropertiesException;
 import com.PBL3.utils.response.Message;
 
 public interface IUserService {
-    Message findAll(String role) throws InvalidPropertiesException, com.PBL3.utils.exceptions.dbExceptions.NotFoundException;
+    Message findAll(String role) throws InvalidPropertiesException;
 
     Message findAll(UserPaginationDTO dto, String role);
 

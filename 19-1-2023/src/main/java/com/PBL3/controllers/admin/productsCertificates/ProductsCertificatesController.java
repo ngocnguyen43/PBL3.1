@@ -1,7 +1,7 @@
 package com.PBL3.controllers.admin.productsCertificates;
 
 import com.PBL3.dtos.ProductCertificateDTO;
-import com.PBL3.services.IProductCertificateServie;
+import com.PBL3.services.IProductCertificateService;
 import com.PBL3.utils.Constants.EndPoint;
 import com.PBL3.utils.exceptions.ErrorHandler;
 import com.PBL3.utils.helpers.Helper;
@@ -19,16 +19,16 @@ import java.io.IOException;
 @MultipartConfig
 public class ProductsCertificatesController extends HttpServlet {
     @Inject
-    private IProductCertificateServie iProductCertificateServie;
+    private IProductCertificateService iProductCertificateService;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductCertificateDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(ProductCertificateDTO.class);
-        ErrorHandler.handle(resp, () -> iProductCertificateServie.createOne(dto));
+        ErrorHandler.handle(resp, () -> iProductCertificateService.createOne(dto));
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ErrorHandler.handle(resp, () -> iProductCertificateServie.deleteOne(req.getParameter("id")));
+        ErrorHandler.handle(resp, () -> iProductCertificateService.deleteOne(req.getParameter("id")));
     }
 }

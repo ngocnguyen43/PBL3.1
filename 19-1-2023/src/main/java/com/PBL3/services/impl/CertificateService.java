@@ -13,6 +13,7 @@ import com.PBL3.utils.helpers.IDGeneration;
 import com.PBL3.utils.response.Data;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
+import com.PBL3.utils.response.Response;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -28,30 +29,30 @@ public class CertificateService implements ICertificateService {
             String id = IDGeneration.generate();
             domain.setId(id);
             certificateDAO.save(domain);
-            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Created Certificate Successfully").build();
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage(Response.CREATED).build();
             return new Message.Builder(meta).build();
         } catch (Exception e) {
-            throw new CreateFailedException("Create New Certificate Failed");
+            throw new CreateFailedException(Response.CREATE_FAILED);
         }
     }
 
     @Override
     public Message getAllCertificate() {
         List<Certificate> certificateList = certificateDAO.findAll();
-        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
         Data data = new Data.Builder(null).withResults(certificateList).build();
         return new Message.Builder(meta).withData(data).build();
     }
 
     @Override
     public Message deleteCertificate(String id) throws InvalidPropertiesException, UpdateFailedException {
-        if (id == null) throw new InvalidPropertiesException("Id Certificate is Invalid");
+        if (id == null) throw new InvalidPropertiesException(Response.CERTIFICATE_ID_INVALID);
         try {
             certificateDAO.delete(id);
-            Meta meta = new Meta.Builder(HttpServletResponse.SC_NO_CONTENT).withMessage("Deleted!").build();
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_NO_CONTENT).withMessage(Response.SUCCESS).build();
             return new Message.Builder(meta).build();
         } catch (Exception e) {
-            throw new UpdateFailedException("Delete Certificate Failed");
+            throw new UpdateFailedException(Response.FAILED);
         }
     }
 
@@ -60,13 +61,13 @@ public class CertificateService implements ICertificateService {
         Certificate domain = Helper.objectMapper(dto, Certificate.class);
         System.out.print(domain.getId());
         boolean isExist = certificateDAO.findOne(domain.getId()) == null;
-        if (isExist) throw new NotFoundException("Not Found Certificate");
+        if (isExist) throw new NotFoundException(Response.NOT_FOUND);
         try {
             certificateDAO.updateCertificateDao(domain);
-            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Update Success!").build();
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_NO_CONTENT).withMessage(Response.SUCCESS).build();
             return new Message.Builder(meta).build();
         } catch (Exception e) {
-            throw new UpdateFailedException("Update Certificate Failed!");
+            throw new UpdateFailedException(Response.FAILED);
         }
     }
 

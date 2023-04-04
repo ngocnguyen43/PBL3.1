@@ -12,6 +12,7 @@ import com.PBL3.utils.helpers.IDGeneration;
 import com.PBL3.utils.response.Data;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
+import com.PBL3.utils.response.Response;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -31,30 +32,29 @@ public class ReportService implements IReportService {
         PlanModel plan = iPlanDAO.findOneWithoutJoin(domain.getPlanId());
         if (plan == null) throw new ForeignKeyViolationException("Foreign Key Violation");
         ReportModel report = iReportDAO.findOneByPlanId(domain.getPlanId());
-        if (report != null) throw new DuplicateEntryException("Duplicate Report");
+        if (report != null) throw new DuplicateEntryException(Response.DUPLICATED);
         try {
             iReportDAO.createOne(domain);
         } catch (Exception e) {
-            throw new CreateFailedException("Create New Report Failed");
+            throw new CreateFailedException(Response.CREATED);
         }
-        Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Create Report Successfully").build();
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage(Response.CREATED).build();
         return new Message.Builder(meta).build();
     }
 
     @Override
     public Message findOneById(String id) throws NotFoundException {
         ReportModel report = iReportDAO.findOneByPlanId(id);
-        if (report == null) throw new NotFoundException("Report Not Found");
-        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
+        if (report == null) throw new NotFoundException(Response.NOT_FOUND);
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
         Data data = new Data.Builder(null).withResults(report).build();
         return new Message.Builder(meta).withData(data).build();
     }
 
     @Override
-    public Message findAll() throws NotFoundException {
+    public Message findAll() {
         List<ReportModel> reports = iReportDAO.findAll();
-        if (reports == null) throw new NotFoundException("No Reports Found");
-        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK").build();
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
         Data data = new Data.Builder(null).withResults(reports).build();
         return new Message.Builder(meta).withData(data).build();
     }
@@ -62,13 +62,13 @@ public class ReportService implements IReportService {
     @Override
     public Message updateStatus(String id) throws NotFoundException, UpdateFailedException {
         ReportModel report = iReportDAO.findOneByReportId(id);
-        if (report == null) throw new NotFoundException("Report Not Found");
+        if (report == null) throw new NotFoundException(Response.NOT_FOUND);
         try {
             iReportDAO.updateReportStatus(id);
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_NO_CONTENT).withMessage(Response.SUCCESS).build();
+            return new Message.Builder(meta).build();
         } catch (Exception e) {
-            throw new UpdateFailedException("Update Report Failed");
+            throw new UpdateFailedException(Response.FAILED);
         }
-        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("Update Successfully").build();
-        return new Message.Builder(meta).build();
     }
 }
