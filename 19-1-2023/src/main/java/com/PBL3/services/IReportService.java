@@ -9,7 +9,7 @@ public interface IReportService {
 
     Message findOneById(String id) throws NotFoundException;
 
-    Message findAll() throws NotFoundException;
+    Message findAll();
 
     Message updateStatus(String id) throws NotFoundException, UpdateFailedException;
 }

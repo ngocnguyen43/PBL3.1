@@ -1,50 +1,51 @@
 package com.PBL3.services.impl;
 
+import com.PBL3.daos.IPlanInspectorDAO;
 import com.PBL3.dtos.PlanInspectorDTO;
 import com.PBL3.models.PlanInspectorModel;
-import com.PBL3.repositories.IPlanInspectorRepository;
 import com.PBL3.services.IPlanInspectorService;
 import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
 import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
-import com.PBL3.utils.exceptions.dbExceptions.NotFoundException;
+import com.PBL3.utils.exceptions.dbExceptions.UpdateFailedException;
 import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.IDGeneration;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
+import com.PBL3.utils.response.Response;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 public class PlanInspectorService implements IPlanInspectorService {
     @Inject
-    private IPlanInspectorRepository iPlanInspectorRepository;
+    private IPlanInspectorDAO planInspectorDAO;
 
 
     @Override
-    public Message createOne(PlanInspectorDTO dto) {
+    public Message createOne(PlanInspectorDTO dto) throws DuplicateEntryException, CreateFailedException {
+        boolean isExisted = planInspectorDAO.findOne(dto.getUserId(), dto.getPlanId()) != null;
+        if (isExisted) throw new DuplicateEntryException(Response.DUPLICATED);
+        PlanInspectorModel domain = Helper.objectMapper(dto, PlanInspectorModel.class);
+        String id = IDGeneration.generate();
+        domain.setId(id);
         try {
-            PlanInspectorModel domain = Helper.objectMapper(dto, PlanInspectorModel.class);
-            String id = IDGeneration.generate();
-            domain.setId(id);
-            iPlanInspectorRepository.createOne(domain);
-            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Add Inspector Into Plan Successfully!").build();
+            planInspectorDAO.createOne(domain);
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage(Response.CREATED).build();
             return new Message.Builder(meta).build();
-        } catch (CreateFailedException | DuplicateEntryException e) {
-            Meta meta = new Meta.Builder(e.getStatusCode()).withError(e.getMessage()).build();
-            return new Message.Builder(meta).build();
+        } catch (Exception e) {
+            throw new CreateFailedException(Response.CREATE_FAILED);
         }
     }
 
     @Override
-    public Message deactive(PlanInspectorDTO dto) {
+    public Message inactive(PlanInspectorDTO dto) throws UpdateFailedException {
         try {
             PlanInspectorModel domain = Helper.objectMapper(dto, PlanInspectorModel.class);
-            iPlanInspectorRepository.deactiveInspector(domain);
-            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Inactive Inspector in Plan Successfully!").build();
+            planInspectorDAO.inactiveInspector(domain.getUserId(), domain.getPlanId());
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage(Response.SUCCESS).build();
             return new Message.Builder(meta).build();
-        } catch (CreateFailedException | NotFoundException e) {
-            Meta meta = new Meta.Builder(e.getStatusCode()).withError(e.getMessage()).build();
-            return new Message.Builder(meta).build();
+        } catch (Exception e) {
+            throw new UpdateFailedException(Response.FAILED);
         }
     }
 }

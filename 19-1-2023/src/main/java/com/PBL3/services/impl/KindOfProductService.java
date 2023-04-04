@@ -3,15 +3,14 @@ package com.PBL3.services.impl;
 import com.PBL3.daos.IKindOfProductDAO;
 import com.PBL3.dtos.KindOfProductDTO;
 import com.PBL3.models.KindOfProductModel;
-import com.PBL3.repositories.IKindOfProductRepository;
 import com.PBL3.services.IKindOfProductService;
 import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
-import com.PBL3.utils.exceptions.dbExceptions.NotFoundException;
 import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.IDGeneration;
 import com.PBL3.utils.response.Data;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
+import com.PBL3.utils.response.Response;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -28,25 +27,19 @@ public class KindOfProductService implements IKindOfProductService {
             String id = IDGeneration.generate();
             domain.setId(id);
             kindOfProductDAO.save(domain);
-            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Created New Kind Successfully").build();
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage(Response.CREATED).build();
             return new Message.Builder(meta).build();
         } catch (Exception e) {
-            throw new CreateFailedException("Create New Product Kind Failed");
+            throw new CreateFailedException(Response.FAILED);
         }
     }
 
     @Override
-    public Message getAllKinds() throws NotFoundException {
+    public Message getAllKinds() {
         List<KindOfProductModel> kindOfProducts = kindOfProductDAO.findAll();
-        if (kindOfProducts.isEmpty()) throw new NotFoundException("Not Found Any Kind Of Product");
-        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("Ok").build();
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
         Data data = new Data.Builder(null).withResults(kindOfProducts).build();
         return new Message.Builder(meta).withData(data).build();
-//        try {
-//            List<KindOfProductModel> kindOfProducts = iKindOfProductRepository.getAllKinds();
-//        } catch (NotFoundException e) {
-//            Meta meta = new Meta.Builder(500).withError(e.getMessage()).build();
-//            return new Message.Builder(meta).build();
-//        }
+
     }
 }

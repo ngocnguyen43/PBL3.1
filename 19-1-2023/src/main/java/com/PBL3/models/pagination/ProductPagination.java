@@ -1,6 +1,6 @@
 package com.PBL3.models.pagination;
 
-public class ProductPagination extends AbstractPaginationModel{
+public class ProductPagination extends AbstractPaginationModel {
     String company;
     String product;
 

@@ -1,15 +1,12 @@
 package com.PBL3.utils.helpers;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class QueryParams {
@@ -27,6 +24,7 @@ public class QueryParams {
         }
         return queryParameters;
     }
+
     public static Map<String, String[]> getQuery(HttpServletRequest request) throws UnsupportedEncodingException {
         Map<String, String[]> queryParameters = new HashMap<>();
         String queryString = request.getQueryString();
@@ -35,7 +33,7 @@ public class QueryParams {
             String[] parameters = queryString.split("&");
             for (String parameter : parameters) {
                 String[] keyValuePair = parameter.split("=");
-                String[] temp =  {keyValuePair[1]};
+                String[] temp = {keyValuePair[1]};
                 queryParameters.put(keyValuePair[0], temp);
             }
         }

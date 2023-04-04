@@ -26,7 +26,7 @@ public class User extends AbstractModel {
     @JsonProperty("business_type")
     private Business business;
     @JsonProperty("products")
-    private List< ProductModel> productModel;
+    private List<ProductModel> productModel;
 
 
     public Business getBusiness() {

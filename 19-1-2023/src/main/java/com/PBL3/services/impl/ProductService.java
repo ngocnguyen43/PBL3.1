@@ -18,10 +18,7 @@ import com.PBL3.utils.exceptions.dbExceptions.UnexpectedException;
 import com.PBL3.utils.exceptions.dbExceptions.UpdateFailedException;
 import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.IDGeneration;
-import com.PBL3.utils.response.Data;
-import com.PBL3.utils.response.Message;
-import com.PBL3.utils.response.Meta;
-import com.PBL3.utils.response.Pagination;
+import com.PBL3.utils.response.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -48,10 +45,10 @@ public class ProductService implements IProductService {
             String id = IDGeneration.generate();
             domain.setId(id);
             iProductDAO.save(domain);
-            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Create Product Success!").build();
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage(Response.CREATED).build();
             return new Message.Builder(meta).build();
         } catch (Exception e) {
-            throw new CreateFailedException("Create New Product Failed");
+            throw new CreateFailedException(Response.CREATE_FAILED);
         }
     }
 
@@ -70,7 +67,7 @@ public class ProductService implements IProductService {
                 }
                 product.setCertificate(certificates);
             }
-            Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
             Data data = new Data.Builder(null).withResults(products).build();
             return new Message.Builder(meta).withData(data).build();
         } catch (Exception e) {
@@ -98,7 +95,7 @@ public class ProductService implements IProductService {
                 product.setCertificate(certificates);
             }
             Integer records = iProductDAO.countToTalProducts(domain);
-            Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
             Data data = new Data.Builder(null).withResults(products).build();
             Pagination pagination = new Pagination.Builder().withCurrentPage(domain.getPage())
                     .withTotalPages((int) Math.ceil((double) records / PER_PAGE))
@@ -114,7 +111,7 @@ public class ProductService implements IProductService {
     public Message updateProduct(ProductDTO dto) throws UpdateFailedException, NotFoundException {
         ProductModel domain = Helper.objectMapper(dto, ProductModel.class);
         ProductModel existedProduct = iProductDAO.findOne(domain.getId());
-        if (existedProduct == null) throw new NotFoundException("Product Not Found");
+        if (existedProduct == null) throw new NotFoundException(Response.NOT_FOUND);
         if (domain.getProductName() == null) domain.setProductName(existedProduct.getProductName());
         if (domain.getUserId() == null) domain.setUserId(existedProduct.getUserId());
         if (domain.getKindof() == null) domain.setKindof(existedProduct.getKindof());
@@ -122,10 +119,10 @@ public class ProductService implements IProductService {
         if (domain.getModifiedBy() == null) domain.setModifiedBy(existedProduct.getModifiedBy());
         try {
             iProductDAO.updateProduct(domain);
-            Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_NO_CONTENT).withMessage(Response.SUCCESS).build();
             return new Message.Builder(meta).build();
         } catch (Exception e) {
-            throw new UpdateFailedException("Update Product Failed");
+            throw new UpdateFailedException(Response.FAILED);
         }
     }
 
@@ -133,10 +130,10 @@ public class ProductService implements IProductService {
     public Message deleteProduct(String id) throws UpdateFailedException {
         try {
             iProductDAO.deleteOne(id);
-            Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
             return new Message.Builder(meta).build();
         } catch (Exception e) {
-            throw new UpdateFailedException("Updated Product Failed");
+            throw new UpdateFailedException(Response.FAILED);
         }
     }
 }

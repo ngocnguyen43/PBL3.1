@@ -1,7 +1,6 @@
 package com.PBL3.controllers.admin.product;
 
 import com.PBL3.dtos.pagination.ProductPaginationDTO;
-import com.PBL3.models.pagination.ProductPagination;
 import com.PBL3.services.IProductService;
 import com.PBL3.utils.Constants.EndPoint;
 import com.PBL3.utils.exceptions.ErrorHandler;

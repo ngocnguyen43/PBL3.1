@@ -1,6 +1,6 @@
-package com.PBL3.filter;
+package com.PBL3.filters;
 
-import com.PBL3.filter.checkRole.CheckRole;
+import com.PBL3.filters.checkRole.CheckRole;
 import com.PBL3.utils.Constants.EndPoint;
 import com.PBL3.utils.exceptions.ErrorHandler;
 import com.PBL3.utils.response.Message;
@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {EndPoint.V1 + EndPoint.PRIVATE + "/*"})
-public class PrivateFilter implements Filter {
+@WebFilter(urlPatterns = {EndPoint.V1 + EndPoint.PRIVATE + EndPoint.SUPERVISOR + "/*"})
+public class ModeratorFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -23,7 +23,8 @@ public class PrivateFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse res = (HttpServletResponse) servletResponse;
-        if (CheckRole.check(req, "MOD", "ADM")) {
+//        ResponseConfig.ConfigHeader((HttpServletResponse) servletResponse);
+        if (CheckRole.check(req, "MOD")) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
             Meta meta = new Meta.Builder(HttpServletResponse.SC_FORBIDDEN).withMessage("Forbidden!").build();

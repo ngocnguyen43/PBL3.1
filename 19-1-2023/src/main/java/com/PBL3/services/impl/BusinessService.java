@@ -10,6 +10,7 @@ import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.IDGeneration;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
+import com.PBL3.utils.response.Response;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -24,15 +25,15 @@ public class BusinessService implements IBusinessService {
 
         Business business = Helper.objectMapper(businessDTO, Business.class);
         Business isExisted = iBusinessDAO.findOne(business.getBusinessName());
-        if (isExisted != null) throw new DuplicateEntryException("Business Name has already existed");
+        if (isExisted != null) throw new DuplicateEntryException(Response.BUSINESS_EXISTED);
         String id = IDGeneration.generate();
         business.setId(id);
         try {
             iBusinessDAO.save(business);
-            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("Created Successfully").build();
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage(Response.CREATED).build();
             return new Message.Builder(meta).build();
         } catch (Exception e) {
-            throw new CreateFailedException("Create New Business Failed");
+            throw new CreateFailedException(Response.CREATE_FAILED);
         }
 
     }

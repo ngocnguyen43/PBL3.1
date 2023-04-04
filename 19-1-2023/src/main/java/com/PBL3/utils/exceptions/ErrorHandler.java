@@ -1,6 +1,5 @@
 package com.PBL3.utils.exceptions;
 
-import com.PBL3.utils.enums.ErrorCodes;
 import com.PBL3.utils.exceptions.apiExcpetions.InvalidEndpointException;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;

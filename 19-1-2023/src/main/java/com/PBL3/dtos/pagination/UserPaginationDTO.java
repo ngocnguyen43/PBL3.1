@@ -3,7 +3,7 @@ package com.PBL3.dtos.pagination;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserPaginationDTO  extends AbstractPagination{
+public class UserPaginationDTO extends AbstractPagination {
     private String fullname;
     private String email;
 
