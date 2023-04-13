@@ -4,7 +4,6 @@ import com.PBL3.dtos.UserSigninDTO;
 import com.PBL3.services.IAuthService;
 import com.PBL3.utils.exceptions.ErrorHandler;
 import com.PBL3.utils.helpers.Helper;
-import io.github.cdimascio.dotenv.Dotenv;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;

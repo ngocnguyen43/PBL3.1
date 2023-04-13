@@ -19,6 +19,7 @@ public class PlanModel extends AbstractModel {
 
     @JsonProperty("company")
     User user;
+    private List<PlanInspectorModel> inspectors;
 
     public User getUser() {
         return user;
@@ -27,8 +28,6 @@ public class PlanModel extends AbstractModel {
     public void setUser(User user) {
         this.user = user;
     }
-
-    private List<PlanInspectorModel> inspectors;
 
     public String getCompanyId() {
         return companyId;
@@ -65,6 +64,7 @@ public class PlanModel extends AbstractModel {
     public List<PlanInspectorModel> getInspectors() {
         return inspectors;
     }
+
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public void setInspectors(List<PlanInspectorModel> inspectors) {
         this.inspectors = inspectors;
