@@ -24,10 +24,15 @@ public class AdminFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse res = (HttpServletResponse) servletResponse;
-        ResponseConfig.ConfigHeader(res);
+        if ("OPTIONS".equals(req.getMethod())) {
+            ResponseConfig.ConfigHeader((HttpServletResponse) servletResponse);
+            res.setStatus(HttpServletResponse.SC_OK);
+            return;
+        }
         if (CheckRole.check(req, "ADM")) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
+            ResponseConfig.ConfigHeader(res);
             Meta meta = new Meta.Builder(HttpServletResponse.SC_FORBIDDEN).withMessage("Forbidden!").build();
             ErrorHandler.handle(res, new Message.Builder(meta).build());
         }

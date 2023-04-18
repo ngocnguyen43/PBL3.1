@@ -23,7 +23,7 @@ public class UserMapper implements IMapper<User> {
         User user = new User();
         try {
             user.setId(result.getString("user_id"));
-            user.setRoleId(result.getInt("role_id"));
+//            user.setRoleId(result.getInt("role_id"));
             user.setCompanyId(result.getString("company_id"));
             user.setCompanyName(result.getString("company_name"));
             user.setTaxIndentity(result.getString("tax_identification_number"));

@@ -43,7 +43,11 @@ public class PlanDAO extends AbstractDAO<PlanModel> implements IPlanDAO {
 
     @Override
     public List<PlanModel> findAll() {
-        String sql = "select login.plans.*,login.plans_inspectors.plan_id as plan,login.plans_inspectors.user_id as inspector,login.plans_inspectors.action as status from login.plans left join plans_inspectors on login.plans.plan_id = login.plans_inspectors.plan_id";
+        String sql = "SELECT login.plans.* ,login.users.company_name FROM login.plans INNER JOIN login.users ON login.plans.company_id = login.users.company_id\n";
+//        String sql = "select login.plans.*,login.plans_inspectors.plan_id as plan,login.plans_inspectors.user_id as inspector,login.plans_inspectors.action as status " +
+//                "from login.plans " +
+//                "left join plans_inspectors " +
+//                "on login.plans.plan_id = login.plans_inspectors.plan_id";
         return query(sql, new PlanMapper());
     }
 

@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Map;
 
 import static com.PBL3.utils.Constants.EndPoint.PRIVATE;
 import static com.PBL3.utils.Constants.EndPoint.V1;
