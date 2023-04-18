@@ -1,5 +1,6 @@
 package com.PBL3.filters;
 
+import com.PBL3.config.ResponseConfig;
 import com.PBL3.filters.checkRole.CheckRole;
 import com.PBL3.utils.Constants.EndPoint;
 import com.PBL3.utils.exceptions.ErrorHandler;
@@ -27,6 +28,7 @@ public class ModeratorFilter implements Filter {
         if (CheckRole.check(req, "MOD")) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
+            ResponseConfig.ConfigHeader(res);
             Meta meta = new Meta.Builder(HttpServletResponse.SC_FORBIDDEN).withMessage("Forbidden!").build();
             ErrorHandler.handle(res, new Message.Builder(meta).build());
         }

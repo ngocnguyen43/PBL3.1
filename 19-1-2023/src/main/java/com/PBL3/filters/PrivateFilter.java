@@ -32,6 +32,7 @@ public class PrivateFilter implements Filter {
         if (CheckRole.check(req, "MOD", "ADM")) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
+            ResponseConfig.ConfigHeader(res);
             Meta meta = new Meta.Builder(HttpServletResponse.SC_FORBIDDEN).withMessage("Forbidden!").build();
             ErrorHandler.handle(res, new Message.Builder(meta).build());
         }
