@@ -7,4 +7,6 @@ import com.PBL3.utils.response.Message;
 
 public interface IPostTypeService {
     Message Create(PostTypeDTO postTypeDTO) throws DuplicateEntryException, UnexpectedException;
+
+    Message GetAll() throws UnexpectedException;
 }

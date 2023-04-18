@@ -10,7 +10,7 @@ public class RandomTokenGenearation {
             sb.append(Integer.toHexString(r.nextInt()));
         }
 
-        return sb.toString().substring(0, numchars);
+        return sb.substring(0, numchars);
     }
 
 }

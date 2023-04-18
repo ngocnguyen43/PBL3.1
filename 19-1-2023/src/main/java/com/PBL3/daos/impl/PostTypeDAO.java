@@ -15,7 +15,8 @@ public class PostTypeDAO extends AbstractDAO<PostTypeModel> implements IPostType
 
     @Override
     public List<PostTypeModel> GetALl() {
-        return null;
+        String sql = "SELECT post_types.type_id,post_types.type_name FROM login.post_types";
+        return query(sql, new PostTypeMapper());
     }
 
     @Override

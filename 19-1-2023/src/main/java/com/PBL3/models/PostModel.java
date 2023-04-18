@@ -7,10 +7,20 @@ public class PostModel extends AbstractModel {
     private String title;
     private String content;
     private String userId;
-    private Integer isIncognito;
+    private Integer isIncognito = 1;
     private String typeId;
     private PostTypeModel postTypeModel;
-    private  String phoneNUmber;
+    private String phoneNUmber;
+
+    private Integer action = 1;
+
+    public Integer getAction() {
+        return action;
+    }
+
+    public void setAction(Integer action) {
+        this.action = action;
+    }
 
     public PostTypeModel getPostTypeModel() {
         return postTypeModel;

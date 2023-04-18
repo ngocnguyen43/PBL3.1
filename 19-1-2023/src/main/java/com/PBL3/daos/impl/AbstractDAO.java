@@ -3,7 +3,6 @@ package com.PBL3.daos.impl;
 import com.PBL3.config.EnvConfig;
 import com.PBL3.daos.GenericDAO;
 import com.PBL3.utils.mapper.IMapper;
-import io.github.cdimascio.dotenv.Dotenv;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
     public Connection getConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://" + EnvConfig.load().get("DB_URL") + "/" + EnvConfig.load().get("DB_NAME");;
+            String url = "jdbc:mysql://" + EnvConfig.load().get("DB_URL") + "/" + EnvConfig.load().get("DB_NAME");
             return DriverManager.getConnection(url, EnvConfig.load().get("USER_NAME"), EnvConfig.load().get("PASSWORD"));
         } catch (ClassNotFoundException | SQLException e) {
             // TODO Auto-generated catch block

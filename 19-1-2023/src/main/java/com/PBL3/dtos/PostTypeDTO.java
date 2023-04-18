@@ -1,7 +1,7 @@
 package com.PBL3.dtos;
 
 public class PostTypeDTO {
-    private  String TypeName;
+    private String TypeName;
 
     public String getTypeName() {
         return TypeName;

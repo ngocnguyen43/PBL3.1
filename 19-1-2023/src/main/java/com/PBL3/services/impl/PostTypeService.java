@@ -8,11 +8,13 @@ import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
 import com.PBL3.utils.exceptions.dbExceptions.UnexpectedException;
 import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.IDGeneration;
+import com.PBL3.utils.response.Data;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 public class PostTypeService implements IPostTypeService {
     @Inject
@@ -34,5 +36,19 @@ public class PostTypeService implements IPostTypeService {
         }
         Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage("OK").build();
         return new Message.Builder(meta).build();
+    }
+
+    @Override
+    public Message GetAll() throws UnexpectedException {
+        List<PostTypeModel> postTypeModels;
+        try {
+            postTypeModels = iPostTypeDAO.GetALl();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new UnexpectedException();
+        }
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK").build();
+        Data data = new Data.Builder(null).withResults(postTypeModels).build();
+        return new Message.Builder(meta).withData(data).build();
     }
 }
