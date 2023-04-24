@@ -30,8 +30,6 @@ public class AdminUsersController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserPaginationDTO dto = Helper.paramsToString(QueryParams.getQuery(req)).toModel(UserPaginationDTO.class);
-        UserPagination domain = Helper.objectMapper(dto, UserPagination.class);
-        System.out.println(new ObjectMapper().writeValueAsString(domain));
         ErrorHandler.handle(resp, () -> userService.findAll(dto, "ADMIN"));
     }
 

@@ -1,5 +1,6 @@
 package com.PBL3.controllers;
 
+import com.PBL3.config.EnvConfig;
 import org.apache.commons.io.IOUtils;
 
 import javax.servlet.ServletException;
@@ -33,7 +34,8 @@ public class ImageResource extends HttpServlet {
         String pathInfo = req.getPathInfo();
         String[] parts = pathInfo.substring(1).split("/");
 
-        String uploadPath = "D:\\PBL3.1" + File.separator + UPLOAD_DIRECTORY + File.separator + parts[0];
+//        String uploadPath = "D:\\PBL3.1" + File.separator + UPLOAD_DIRECTORY + File.separator + parts[0];
+        String uploadPath = EnvConfig.load().get("IMAGE_FOLDER") + File.separator + parts[0];
         Path path = Paths.get(uploadPath);
         String filetype = Files.probeContentType(path);
         if (filetype == null) {

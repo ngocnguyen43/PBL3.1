@@ -32,9 +32,6 @@ public class ErrorHandler {
                 res.getWriter().print(new ObjectMapper().writeValueAsString(new Message.Builder(meta).build()));
                 res.getWriter().flush();
             } else {
-//                Meta meta = new Meta.Builder(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).withErrCode(ErrorCodes.InternalServerException.getValue()).withError("Something ").build();
-//                res.getWriter().print(new ObjectMapper().writeValueAsString(new Message.Builder(meta).build()));
-//                res.getWriter().flush();
                 throw new RuntimeException(e);
             }
         }
