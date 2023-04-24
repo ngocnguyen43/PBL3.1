@@ -11,6 +11,7 @@ import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
 import com.PBL3.utils.exceptions.dbExceptions.NotFoundException;
 import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.IDGeneration;
+import com.PBL3.utils.response.Data;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
 import com.PBL3.utils.response.Response;
@@ -18,6 +19,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 public class BusinessTypesService implements IBusinessTypesService {
 
@@ -48,8 +50,14 @@ public class BusinessTypesService implements IBusinessTypesService {
         } catch (Exception e) {
             throw new CreateFailedException(Response.CREATE_FAILED);
         }
+    }
 
-
+    @Override
+    public Message GetAllBusinessTypes() {
+        List<BusinessTypes> businessTypes = iBusinessTypesDAO.FindAll();
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
+        Data data = new Data.Builder(null).withResults(businessTypes).build();
+        return  new Message.Builder(meta).withData(data).build();
     }
 
 }

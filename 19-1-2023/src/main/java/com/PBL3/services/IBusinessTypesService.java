@@ -9,4 +9,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface IBusinessTypesService {
     Message createBusinessType(BusinessTypesDTO businessTypesDTO) throws DuplicateEntryException, NotFoundException, CreateFailedException, JsonProcessingException;
+
+    Message GetAllBusinessTypes();
 }

@@ -25,4 +25,10 @@ public class BusinessTypesDAO extends AbstractDAO<BusinessTypes> implements IBus
         return businessTypes.isEmpty() ? null : businessTypes.get(0);
     }
 
+
+    @Override
+    public List<BusinessTypes> FindAll() {
+        String sql = "SELECT * FROM login.business_types";
+        return query(sql,new BusinessTypesMapper());
+    }
 }

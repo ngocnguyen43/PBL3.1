@@ -31,4 +31,8 @@ public class BusinessTypesController extends HttpServlet {
         ErrorHandler.handle(resp, () -> businessTypesService.createBusinessType(businessTypeDto));
     }
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ErrorHandler.handle(resp,()-> businessTypesService.GetAllBusinessTypes());
+    }
 }
