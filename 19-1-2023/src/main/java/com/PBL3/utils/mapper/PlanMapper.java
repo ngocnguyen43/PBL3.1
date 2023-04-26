@@ -24,6 +24,10 @@ public class PlanMapper implements IMapper<PlanModel> {
             plan.setCreatedAt(result.getTimestamp("created_at"));
             plan.setUpdatedAt(result.getTimestamp("updated_at"));
             List<PlanInspectorModel> inspectors = new ArrayList<>();
+            User user = new User();
+            user.setCompanyId(result.getString("company_id"));
+            user.setCompanyName(result.getString("company_name"));
+            plan.setUser(user);
             while (!result.isAfterLast() &&
                     CheckFieldExist.checkExist(result, "inspector") &&
                     result.getString("plan_id").equals(result.getString("plan"))
@@ -35,10 +39,6 @@ public class PlanMapper implements IMapper<PlanModel> {
                 result.next();
             }
             plan.setInspectors(inspectors);
-            User user = new User();
-            user.setCompanyId(result.getString("company_id"));
-            user.setCompanyName(result.getString("company_name"));
-            plan.setUser(user);
             return plan;
         } catch (SQLException e) {
             e.printStackTrace();
