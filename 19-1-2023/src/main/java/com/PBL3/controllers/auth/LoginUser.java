@@ -27,6 +27,6 @@ public class LoginUser extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserSigninDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(UserSigninDTO.class);
-        ErrorHandler.handle(resp, () -> authService.Login(dto));
+        ErrorHandler.handle(resp, () -> this.authService.Login(dto));
     }
 }

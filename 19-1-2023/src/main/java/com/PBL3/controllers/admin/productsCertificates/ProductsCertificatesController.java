@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {EndPoint.V1 + EndPoint.PRIVATE + "/product/certificate"})
 @MultipartConfig
+@WebServlet(urlPatterns = {EndPoint.V1 + EndPoint.PRIVATE + "/product/certificate"})
 public class ProductsCertificatesController extends HttpServlet {
     @Inject
     private IProductCertificateService iProductCertificateService;

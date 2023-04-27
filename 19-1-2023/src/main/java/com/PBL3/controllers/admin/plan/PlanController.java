@@ -26,22 +26,22 @@ public class PlanController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PlanDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(PlanDTO.class);
-        ErrorHandler.handle(resp, () -> iPlanService.createOne(dto));
+        ErrorHandler.handle(resp, () -> this.iPlanService.createOne(dto));
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PlanDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(PlanDTO.class);
-        ErrorHandler.handle(resp, () -> iPlanService.updateTime(dto));
+        ErrorHandler.handle(resp, () -> this.iPlanService.updateTime(dto));
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ErrorHandler.handle(resp, () -> iPlanService.inactivePlan(req.getParameter("id")));
+        ErrorHandler.handle(resp, () -> this.iPlanService.inactivePlan(req.getParameter("id")));
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ErrorHandler.handle(resp, () -> iPlanService.getOneById(req.getParameter("id")));
+        ErrorHandler.handle(resp, () -> this.iPlanService.getOneById(req.getParameter("id")));
     }
 }

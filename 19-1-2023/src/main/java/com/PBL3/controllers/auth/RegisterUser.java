@@ -27,7 +27,7 @@ public class RegisterUser extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserDTO userDTO = Helper.paramsToString(req.getParameterMap()).toModel(UserDTO.class);
-        ErrorHandler.handle(resp, () -> authService.Register(userDTO, "company"));
+        ErrorHandler.handle(resp, () -> this.authService.Register(userDTO, "company"));
     }
 
 }
