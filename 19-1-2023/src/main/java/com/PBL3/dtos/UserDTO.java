@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(Include.NON_NULL)
 public class UserDTO {
-    private Integer roleId;
+    private Integer roleId = 3;
     private String companyId;
     private String companyName;
     private String taxIndentity;
