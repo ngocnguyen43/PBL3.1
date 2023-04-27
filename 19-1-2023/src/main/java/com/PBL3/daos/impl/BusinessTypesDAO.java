@@ -29,6 +29,6 @@ public class BusinessTypesDAO extends AbstractDAO<BusinessTypes> implements IBus
     @Override
     public List<BusinessTypes> FindAll() {
         String sql = "SELECT * FROM login.business_types";
-        return query(sql,new BusinessTypesMapper());
+        return query(sql, new BusinessTypesMapper());
     }
 }

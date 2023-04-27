@@ -1,13 +1,11 @@
 package com.PBL3.controllers.admin.user;
 
 import com.PBL3.dtos.pagination.UserPaginationDTO;
-import com.PBL3.models.pagination.UserPagination;
 import com.PBL3.services.IUserService;
 import com.PBL3.utils.Constants.EndPoint;
 import com.PBL3.utils.exceptions.ErrorHandler;
 import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.QueryParams;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;

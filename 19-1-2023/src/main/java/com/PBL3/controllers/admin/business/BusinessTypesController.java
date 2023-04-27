@@ -33,6 +33,6 @@ public class BusinessTypesController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ErrorHandler.handle(resp,()-> businessTypesService.GetAllBusinessTypes());
+        ErrorHandler.handle(resp, () -> businessTypesService.GetAllBusinessTypes());
     }
 }

@@ -57,7 +57,7 @@ public class BusinessTypesService implements IBusinessTypesService {
         List<BusinessTypes> businessTypes = iBusinessTypesDAO.FindAll();
         Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
         Data data = new Data.Builder(null).withResults(businessTypes).build();
-        return  new Message.Builder(meta).withData(data).build();
+        return new Message.Builder(meta).withData(data).build();
     }
 
 }
