@@ -77,9 +77,9 @@ public class AuthService implements IAuthService {
         domain.setId(id);
         if (type != null && type.equals("company")) {
             String companyId = IDGeneration.generate();
-            String taxtId = IDGeneration.generate(10);
+//            String taxtId = IDGeneration.generate(10);
             domain.setCompanyId(companyId);
-            domain.setTaxIndentity(taxtId);
+//            domain.setTaxIndentity(taxtId);
         }
         try {
             iUserDAO.save(domain);

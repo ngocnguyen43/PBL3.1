@@ -113,6 +113,10 @@ public class UserService implements IUserService {
         User domain = Helper.objectMapper(dto, User.class);
         String id = IDGeneration.generate();
         domain.setId(id);
+        if (dto.getBusinessId()!= null) {
+            String companyId = IDGeneration.generate();
+            domain.setCompanyId(companyId);
+        }
         domain.setPassword(HashPassword.HashPW(domain.getPassword()));
         try {
             userDao.save(domain);
