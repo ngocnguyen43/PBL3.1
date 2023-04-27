@@ -6,9 +6,7 @@ import com.PBL3.dtos.pagination.UserPaginationDTO;
 import com.PBL3.models.*;
 import com.PBL3.models.pagination.UserPagination;
 import com.PBL3.services.IUserService;
-import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
-import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
-import com.PBL3.utils.exceptions.dbExceptions.InvalidPropertiesException;
+import com.PBL3.utils.exceptions.dbExceptions.*;
 import com.PBL3.utils.helpers.HashPassword;
 import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.IDGeneration;
@@ -128,11 +126,81 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void delete(String userId) {
+    public Message delete(String userId) {
         userDao.delete(userId);
-        // TODO Auto-generated method stub
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
+        return new Message.Builder(meta).build();
+    }
 
+    @Override
+    public Message findOne(String id) {
+        User user = userDao.findByUserId(id);
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
+        Data data = new Data.Builder(null).withResults(user).build();
+        return new Message.Builder(meta).withData(data).build();
+    }
 
+    @Override
+    public Message update(UserDTO dto, String id) throws DuplicateEntryException, UpdateFailedException {
+        boolean isEmailExist = userDao.findByEmail(dto.getEmail()) != null;
+        if (isEmailExist) throw new DuplicateEntryException("Email is Already in use");
+        boolean isNationalIdExist = userDao.findByNationalId(dto.getNationalId()) != null;
+        if (isNationalIdExist) throw new DuplicateEntryException("National Id is already Exist");
+        User oldUser = userDao.findByUserId(id);
+        User user = new User();
+        if (dto.getCompanyName() != null) {
+            user.setCompanyName(dto.getCompanyName());
+        } else {
+            user.setCompanyName(oldUser.getCompanyName());
+        }
+        if (dto.getTaxIndentity() != null) {
+            user.setTaxIndentity(dto.getTaxIndentity());
+        } else {
+            user.setTaxIndentity(oldUser.getTaxIndentity());
+        }
+        if (dto.getPhoneNumber() != null) {
+            user.setPhoneNumber(dto.getPhoneNumber());
+        } else {
+            user.setPhoneNumber(oldUser.getPhoneNumber());
+        }
+        if (dto.getFaxNumber() != null) {
+            user.setFaxNumber(dto.getFaxNumber());
+        } else {
+            user.setFaxNumber(oldUser.getFaxNumber());
+        }
+        if (dto.getEmail() != null) {
+            user.setEmail(dto.getEmail());
+        } else {
+            user.setEmail(oldUser.getEmail());
+        }
+        if (dto.getFullName() != null) {
+            user.setFullName(dto.getFullName());
+        } else {
+            user.setFullName(oldUser.getFullName());
+        }
+        if (dto.getNationalId() != null) {
+            user.setNationalId(dto.getNationalId());
+        } else {
+            user.setNationalId(oldUser.getNationalId());
+        }
+        if (dto.getUserNumber() != null) {
+            user.setUserNumber(dto.getUserNumber());
+        } else {
+            user.setUserNumber(oldUser.getUserNumber());
+        }
+        if (dto.getPassword() != null) {
+            user.setPassword(HashPassword.HashPW(dto.getPassword()));
+        } else {
+            user.setPassword(oldUser.getPassword());
+        }
+        user.setId(id);
+        try{
+            userDao.update(user);
+        }catch (Exception e){
+            throw new UpdateFailedException("Update User Failed");
+        }
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage(Response.CREATED).build();
+        return new Message.Builder(meta).build();
     }
 
 //	@Override

@@ -7,6 +7,8 @@ import com.PBL3.utils.helpers.HashPassword;
 import com.PBL3.utils.helpers.IDGeneration;
 import com.PBL3.utils.mapper.CountMapper;
 import com.PBL3.utils.mapper.UserMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.List;
 
@@ -68,9 +70,8 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
     @Override
     public User findByUserId(String id) {
         // TODO Auto-generated method stub
-        String sql = "SELECT * FROM users  INNER JOIN roles ON users.roleId = roles.roleId WHERE userId = ?";
+        String sql = "SELECT * FROM users  INNER JOIN roles ON users.role_id = roles.role_id WHERE user_id = ?";
         List<User> users = query(sql, new UserMapper(), id);
-
         return users.isEmpty() ? null : users.get(0);
     }
 
@@ -106,15 +107,41 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
 
     @Override
     public void update(User user) {
-        String sql = "UPDATE users SET ";
+
+        String sql = "UPDATE login.users SET " +
+                "users.company_name = ?, " +
+                "users.tax_identification_number = ?," +
+                "users.phone_number = ?,"+
+                "users.fax_number = ?," +
+                "users.email = ?," +
+                "users.full_name = ?,"
+                +"users.national_id = ?," +
+                "users.user_number = ?," +
+                "users.password = ? " +
+                "WHERE users.user_id = ? ";
+        update(sql,
+                user.getCompanyName(),
+                user.getTaxIndentity(),
+                user.getPhoneNumber(),
+                user.getFaxNumber(),
+                user.getEmail(),
+                user.getFullName(),
+                user.getNationalId(),
+                user.getUserNumber(),
+                user.getPassword(),
+                user.getId());
     }
 
     public void delete(String userId) {
         // TODO Auto-generated method stub
         User user = findByUserId(userId);
-
+        try {
+            System.out.println(new ObjectMapper().writeValueAsString(user));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
         int action = user.getAction() == 0 ? 1 : 0;
-        String sql = "UPDATE users SET action = ? WHERE userId = ?";
+        String sql = "UPDATE users SET action = ? WHERE user_id = ?";
         insert(sql, action, user.getId());
 
     }
