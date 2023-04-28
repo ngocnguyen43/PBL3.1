@@ -6,14 +6,17 @@ import com.PBL3.models.Business;
 import com.PBL3.services.IBusinessService;
 import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
 import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
+import com.PBL3.utils.exceptions.dbExceptions.UnexpectedException;
 import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.IDGeneration;
+import com.PBL3.utils.response.Data;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
 import com.PBL3.utils.response.Response;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 public class BusinessService implements IBusinessService {
 
@@ -36,6 +39,19 @@ public class BusinessService implements IBusinessService {
             throw new CreateFailedException(Response.CREATE_FAILED);
         }
 
+    }
+
+    @Override
+    public Message getAllBusiness() throws UnexpectedException {
+        List<Business> businessList;
+        try{
+            businessList = iBusinessDAO.findAll();
+        }catch (Exception e){
+            throw new UnexpectedException();
+        }
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
+        Data data = new Data.Builder(null).withResults(businessList).build();
+        return new Message.Builder(meta).withData(data).build();
     }
 
 }

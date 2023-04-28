@@ -7,7 +7,7 @@ import java.util.List;
 public interface IProductCertificateDAO extends GenericDAO<ProductCertificatesModel> {
     void createOne(ProductCertificatesModel domain);
 
-    void deleteOne(String id);
+    void deleteOne(ProductCertificatesModel domain);
 
     ProductCertificatesModel findOne(String id);
 

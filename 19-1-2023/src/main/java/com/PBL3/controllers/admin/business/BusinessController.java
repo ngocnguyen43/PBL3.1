@@ -30,4 +30,5 @@ public class BusinessController extends HttpServlet {
         BusinessDTO businessDto = Helper.paramsToString(req.getParameterMap()).toModel(BusinessDTO.class);
         ErrorHandler.handle(resp, () -> businessService.createBusiness(businessDto));
     }
+
 }
