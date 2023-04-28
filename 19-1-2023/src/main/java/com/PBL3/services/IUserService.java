@@ -18,7 +18,8 @@ public interface IUserService {
     Message save(UserDTO dto) throws DuplicateEntryException, CreateFailedException;
 
     Message delete(String userId);
+
     Message findOne(String id);
 
-    Message update(UserDTO dto,String id) throws DuplicateEntryException, UpdateFailedException;
+    Message update(UserDTO dto, String id) throws DuplicateEntryException, UpdateFailedException;
 }

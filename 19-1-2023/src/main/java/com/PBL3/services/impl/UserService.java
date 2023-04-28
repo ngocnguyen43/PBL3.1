@@ -6,7 +6,10 @@ import com.PBL3.dtos.pagination.UserPaginationDTO;
 import com.PBL3.models.*;
 import com.PBL3.models.pagination.UserPagination;
 import com.PBL3.services.IUserService;
-import com.PBL3.utils.exceptions.dbExceptions.*;
+import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
+import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
+import com.PBL3.utils.exceptions.dbExceptions.InvalidPropertiesException;
+import com.PBL3.utils.exceptions.dbExceptions.UpdateFailedException;
 import com.PBL3.utils.helpers.HashPassword;
 import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.IDGeneration;
@@ -111,7 +114,7 @@ public class UserService implements IUserService {
         User domain = Helper.objectMapper(dto, User.class);
         String id = IDGeneration.generate();
         domain.setId(id);
-        if (dto.getBusinessId()!= null) {
+        if (dto.getBusinessId() != null) {
             String companyId = IDGeneration.generate();
             domain.setCompanyId(companyId);
         }
@@ -194,9 +197,9 @@ public class UserService implements IUserService {
             user.setPassword(oldUser.getPassword());
         }
         user.setId(id);
-        try{
+        try {
             userDao.update(user);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new UpdateFailedException("Update User Failed");
         }
         Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage(Response.CREATED).build();

@@ -9,5 +9,5 @@ import com.PBL3.utils.response.Message;
 public interface IProductCertificateService {
     Message createOne(ProductCertificateDTO dto) throws DuplicateEntryException, CreateFailedException;
 
-    Message deleteOne(String id) throws UpdateFailedException;
+    Message deleteOne(ProductCertificateDTO dto) throws UpdateFailedException;
 }

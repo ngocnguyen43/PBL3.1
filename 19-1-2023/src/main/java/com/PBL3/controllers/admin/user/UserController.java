@@ -18,7 +18,7 @@ import java.io.IOException;
 import static com.PBL3.utils.Constants.EndPoint.PRIVATE;
 import static com.PBL3.utils.Constants.EndPoint.V1;
 
-@WebServlet(urlPatterns = {V1 + PRIVATE+ "/user/*"})
+@WebServlet(urlPatterns = {V1 + PRIVATE + "/user/*"})
 @MultipartConfig
 public class UserController extends HttpServlet {
 
@@ -33,19 +33,19 @@ public class UserController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println(new ObjectMapper().writeValueAsString(req.getPathInfo().substring(1)));
         String id = req.getPathInfo().substring(1);
-        ErrorHandler.handle(resp,()->userService.findOne(id));
+        ErrorHandler.handle(resp, () -> userService.findOne(id));
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getPathInfo().substring(1);
         UserDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(UserDTO.class);
-        ErrorHandler.handle(resp,()->userService.update(dto,id));
+        ErrorHandler.handle(resp, () -> userService.update(dto, id));
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getPathInfo().substring(1);
-        ErrorHandler.handle(resp,()->userService.delete(id));
+        ErrorHandler.handle(resp, () -> userService.delete(id));
     }
 }

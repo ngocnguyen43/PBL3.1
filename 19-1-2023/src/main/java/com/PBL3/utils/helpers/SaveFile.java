@@ -12,7 +12,7 @@ public class SaveFile {
 
         Part filePart = null;
         try {
-            filePart = request.getPart("file");
+            filePart = request.getPart("image");
             String fileName = filePart.getSubmittedFileName();
             String id = IDGeneration.generate();
             String[] fileNameSplits = fileName.split("\\.");

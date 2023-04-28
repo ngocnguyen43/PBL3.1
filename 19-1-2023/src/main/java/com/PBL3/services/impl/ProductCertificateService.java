@@ -40,10 +40,11 @@ public class ProductCertificateService implements IProductCertificateService {
     }
 
     @Override
-    public Message deleteOne(String id) throws UpdateFailedException {
+    public Message deleteOne(ProductCertificateDTO dto) throws UpdateFailedException {
+        ProductCertificatesModel domain = Helper.objectMapper(dto,ProductCertificatesModel.class);
         try {
-            iProductCertificateDAO.deleteOne(id);
-            Meta meta = new Meta.Builder(HttpServletResponse.SC_NO_CONTENT).withMessage(Response.SUCCESS).build();
+            iProductCertificateDAO.deleteOne(domain);
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_NO_CONTENT).build();
             return new Message.Builder(meta).build();
         } catch (Exception e) {
             throw new UpdateFailedException(Response.FAILED);

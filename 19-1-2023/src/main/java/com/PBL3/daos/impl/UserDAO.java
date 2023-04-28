@@ -111,11 +111,11 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
         String sql = "UPDATE login.users SET " +
                 "users.company_name = ?, " +
                 "users.tax_identification_number = ?," +
-                "users.phone_number = ?,"+
+                "users.phone_number = ?," +
                 "users.fax_number = ?," +
                 "users.email = ?," +
                 "users.full_name = ?,"
-                +"users.national_id = ?," +
+                + "users.national_id = ?," +
                 "users.user_number = ?," +
                 "users.password = ? " +
                 "WHERE users.user_id = ? ";

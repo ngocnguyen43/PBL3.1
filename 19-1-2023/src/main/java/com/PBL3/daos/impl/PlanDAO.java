@@ -16,17 +16,17 @@ public class PlanDAO extends AbstractDAO<PlanModel> implements IPlanDAO {
     @Override
     public PlanModel findOneByPlanId(String id) {
         String sql =
-        "select login.plans.*," +
-                "login.plans_inspectors.user_id as inspector," +
-                "login.plans_inspectors.action as status, " +
-                "login.plans_inspectors.plan_id as plan, "+
-                "login.users.company_name " +
-                "from login.plans " +
-                "inner join plans_inspectors " +
-                "on login.plans.plan_id = login.plans_inspectors.plan_id " +
-                "INNER JOIN login.users ON " +
-                "login.plans.company_id = login.users.company_id "+
-                "WHERE login.plans.plan_id = ?";
+                "select login.plans.*," +
+                        "login.plans_inspectors.user_id as inspector," +
+                        "login.plans_inspectors.action as status, " +
+                        "login.plans_inspectors.plan_id as plan, " +
+                        "login.users.company_name " +
+                        "from login.plans " +
+                        "inner join plans_inspectors " +
+                        "on login.plans.plan_id = login.plans_inspectors.plan_id " +
+                        "INNER JOIN login.users ON " +
+                        "login.plans.company_id = login.users.company_id " +
+                        "WHERE login.plans.plan_id = ?";
 //        String sql = "SELECT login.plans.* ," +
 //                "login.users.company_name " +
 //                "FROM login.plans " +

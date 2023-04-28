@@ -20,8 +20,8 @@ import java.io.IOException;
 import static com.PBL3.utils.Constants.EndPoint.PRIVATE;
 import static com.PBL3.utils.Constants.EndPoint.V1;
 
-@WebServlet(urlPatterns = {V1 + PRIVATE + "/certificate"})
 @MultipartConfig
+@WebServlet(urlPatterns = {V1 + PRIVATE + "/certificate"})
 public class CertificateController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     @Inject
