@@ -50,8 +50,8 @@ public class CertificateController extends HttpServlet {
         ErrorHandler.handle(resp, () -> certificateService.updateCertificate(dto));
     }
 
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ErrorHandler.handle(resp, () -> certificateService.deleteCertificate(QueryParams.get(req).get("id")));
-    }
+//    @Override
+//    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        ErrorHandler.handle(resp, () -> certificateService.deleteCertificate(QueryParams.get(req).get("id")));
+//    }
 }
