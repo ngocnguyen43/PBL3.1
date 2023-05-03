@@ -1,8 +1,5 @@
 package com.PBL3.controllers.admin.report;
 
-import com.PBL3.services.IGoogleApiService;
-
-import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -15,12 +12,9 @@ import static com.PBL3.utils.Constants.EndPoint.V1;
 
 @WebServlet(urlPatterns = {V1  + "/test"})
 @MultipartConfig
-public class GoogleApisController extends HttpServlet {
-    @Inject
-    private IGoogleApiService iGoogleApiService;
+public class MicrosoftGraphController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println( iGoogleApiService.getAccessToken());
 //            iGoogleApiService.configGoogleDrive("abc.docx");
 //        ObjectMapper objectMapper = new ObjectMapper();
 //        File jsonFile = new File("C:\\Users\\minhn\\Desktop\\haha.json");
@@ -62,11 +56,9 @@ public class GoogleApisController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        iGoogleApiService.uploadFile(req);
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        iGoogleApiService.createPermissions();
     }
 }
