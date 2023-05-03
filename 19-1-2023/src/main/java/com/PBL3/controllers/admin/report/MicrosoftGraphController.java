@@ -2,6 +2,8 @@ package com.PBL3.controllers.admin.report;
 
 import com.PBL3.config.EnvConfig;
 import com.PBL3.services.IMicrosoftService;
+import com.PBL3.utils.exceptions.dbExceptions.UnexpectedException;
+import com.PBL3.utils.helpers.JWTVerify;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
@@ -29,19 +31,28 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.time.Instant;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 
 import static com.PBL3.utils.Constants.EndPoint.V1;
 
 @WebServlet(urlPatterns = {V1  + "/test"})
 @MultipartConfig
 public class MicrosoftGraphController extends HttpServlet {
+
     @Inject
     private IMicrosoftService microsoftService;
     final  String url = "https://graph.microsoft.com/v1.0/drives/b!QpCqiREiSkWR4489RhSuOpHpdbqS0S1Plvao4GEb35GvSuhxD2rUQojXV0gDdSxJ/items/01Z3Q3AQYOUZAWCF2KYVC3RVKGNAX5CVQK:/zzz.docx:/content";
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println(microsoftService.refreshToken());
+//        long unixTime = Instant.now().getEpochSecond();
+//        long jwtExp = Objects.requireNonNull(JWTVerify.verifyingJWT(EnvConfig.load().get("ACCESS_TOKEN"))).getClaim("exp").asLong();
+//        System.out.println( jwtExp < unixTime);
+
+        //System.out.println(microsoftService.refreshToken());
 //            iGoogleApiService.configGoogleDrive("abc.docx");
 //        ObjectMapper objectMapper = new ObjectMapper();
 //        File jsonFile = new File("C:\\Users\\minhn\\Desktop\\haha.json");
@@ -128,57 +139,62 @@ public class MicrosoftGraphController extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        Part filePart = req.getPart("file");
-//        InputStream fileContent = filePart.getInputStream();
-
-        String fileName = filePart.getSubmittedFileName();
-        String[] fileNameSplits = fileName.split("\\.");
-        int extensionIndex = fileNameSplits.length - 1;
-        Path tempFilePath = Files.createTempFile(fileNameSplits[0],"."+ fileNameSplits[extensionIndex]);
-        File tempFile = tempFilePath.toFile();
-        try (InputStream inputStream = filePart.getInputStream()) {
-            Files.copy(inputStream, tempFilePath, StandardCopyOption.REPLACE_EXISTING);
+//        CloseableHttpClient httpclient = HttpClients.createDefault();
+//        Part filePart = req.getPart("file");
+////        InputStream fileContent = filePart.getInputStream();
+//
+//        String fileName = filePart.getSubmittedFileName();
+//        String[] fileNameSplits = fileName.split("\\.");
+//        int extensionIndex = fileNameSplits.length - 1;
+//        Path tempFilePath = Files.createTempFile(fileNameSplits[0],"."+ fileNameSplits[extensionIndex]);
+//        File tempFile = tempFilePath.toFile();
+//        try (InputStream inputStream = filePart.getInputStream()) {
+//            Files.copy(inputStream, tempFilePath, StandardCopyOption.REPLACE_EXISTING);
+//        }
+//        String tempFilePathString = tempFile.getAbsolutePath();
+//        System.out.println(tempFilePathString);
+//        File file = new File(tempFilePathString);
+//        FileBody filebody = new FileBody(file, ContentType.create("application/vnd.openxmlformats-officedocument.wordprocessingml.document"));
+//        MultipartEntityBuilder entitybuilder = MultipartEntityBuilder.create();
+//
+//        //entitybuilder.setMode(HttpMultipartMode.LEGACY);
+//        entitybuilder.addPart("file", filebody);
+//        HttpEntity entity = entitybuilder.build();
+//        ClassicHttpRequest httpPost = ClassicRequestBuilder
+//                .put("https://graph.microsoft.com/v1.0/drives/b!QpCqiREiSkWR4489RhSuOpHpdbqS0S1Plvao4GEb35GvSuhxD2rUQojXV0gDdSxJ/items/01Z3Q3AQYOUZAWCF2KYVC3RVKGNAX5CVQK:/" + fileNameSplits[0] + "." + fileNameSplits[1] + ":/content")
+//                .setEntity(entity)
+//                .setHeader("Authorization","Bearer " + EnvConfig.load().get("ACCESS_TOKEN"))
+//                .build();
+////        String content = null;
+//      String content =   httpclient.execute(httpPost, response -> {
+//            System.out.println("----------------------------------------");
+////                System.out.println("Login form get: " + response.getCode() + " " + response.getReasonPhrase());
+////                EntityUtils.consume(response.getEntity());
+//            HttpEntity entityResponse = response.getEntity();
+//            String responseString = EntityUtils.toString(entityResponse, "UTF-8");
+////                RefreshToken refreshToken = new Helper(responseString).toModel(RefreshToken.class);
+////                return refreshToken.getRefreshToken();
+//            JsonNode parent= new ObjectMapper().readTree(responseString);
+////            content = parent.asText();
+////            System.out.println(parent.path("id").asText());
+////            System.out.println(content);
+//            return parent.path("id").asText();
+////                System.out.println("Post logon cookies:");
+////                final List<Cookie> cookies = cookieStore.getCookies();
+////                if (cookies.isEmpty()) {
+////                    System.out.println("None");
+////                } else {
+////                    for (int i = 0; i < cookies.size(); i++) {
+////                        System.out.println("- " + cookies.get(i));
+////                    }
+////                }
+//        });
+//        System.out.println(content);
+        try {
+            System.out.println(microsoftService.uploadFile(req));
+        } catch (UnexpectedException e) {
+            throw new RuntimeException(e);
         }
-        String tempFilePathString = tempFile.getAbsolutePath();
-        System.out.println(tempFilePathString);
-        File file = new File(tempFilePathString);
-        FileBody filebody = new FileBody(file, ContentType.create("application/vnd.openxmlformats-officedocument.wordprocessingml.document"));
-        MultipartEntityBuilder entitybuilder = MultipartEntityBuilder.create();
-
-        //entitybuilder.setMode(HttpMultipartMode.LEGACY);
-        entitybuilder.addPart("file", filebody);
-        HttpEntity entity = entitybuilder.build();
-        ClassicHttpRequest httpPost = ClassicRequestBuilder
-                .put("https://graph.microsoft.com/v1.0/drives/b!QpCqiREiSkWR4489RhSuOpHpdbqS0S1Plvao4GEb35GvSuhxD2rUQojXV0gDdSxJ/items/01Z3Q3AQYOUZAWCF2KYVC3RVKGNAX5CVQK:/" + fileNameSplits[0] + "." + fileNameSplits[1] + ":/content")
-                .setEntity(entity)
-                .setHeader("Authorization","Bearer " + EnvConfig.load().get("ACCESS_TOKEN"))
-                .build();
-//        String content = null;
-      String content =   httpclient.execute(httpPost, response -> {
-            System.out.println("----------------------------------------");
-//                System.out.println("Login form get: " + response.getCode() + " " + response.getReasonPhrase());
-//                EntityUtils.consume(response.getEntity());
-            HttpEntity entityResponse = response.getEntity();
-            String responseString = EntityUtils.toString(entityResponse, "UTF-8");
-//                RefreshToken refreshToken = new Helper(responseString).toModel(RefreshToken.class);
-//                return refreshToken.getRefreshToken();
-            JsonNode parent= new ObjectMapper().readTree(responseString);
-//            content = parent.asText();
-//            System.out.println(parent.path("id").asText());
-//            System.out.println(content);
-            return parent.path("id").asText();
-//                System.out.println("Post logon cookies:");
-//                final List<Cookie> cookies = cookieStore.getCookies();
-//                if (cookies.isEmpty()) {
-//                    System.out.println("None");
-//                } else {
-//                    for (int i = 0; i < cookies.size(); i++) {
-//                        System.out.println("- " + cookies.get(i));
-//                    }
-//                }
-        });
-        System.out.println(content);
 
     }
 }
