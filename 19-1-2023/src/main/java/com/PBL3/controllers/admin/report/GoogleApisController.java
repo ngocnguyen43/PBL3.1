@@ -1,48 +1,27 @@
 package com.PBL3.controllers.admin.report;
 
 import com.PBL3.services.IGoogleApiService;
-import com.PBL3.services.impl.GoogleApiService;
-import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.node.TextNode;
-import org.apache.hc.client5.http.classic.methods.HttpGet;
-import org.apache.hc.client5.http.classic.methods.HttpUriRequest;
-import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
-import org.apache.hc.client5.http.impl.classic.HttpClients;
-import org.apache.hc.core5.http.HttpEntity;
-import org.apache.hc.core5.http.HttpRequest;
-import org.apache.hc.core5.http.io.entity.EntityUtils;
-import org.apache.hc.core5.http.message.BasicHttpRequest;
-import org.apache.hc.core5.http.support.BasicRequestBuilder;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 
-import static com.PBL3.utils.Constants.EndPoint.*;
+import static com.PBL3.utils.Constants.EndPoint.V1;
 
 @WebServlet(urlPatterns = {V1  + "/test"})
+@MultipartConfig
 public class GoogleApisController extends HttpServlet {
     @Inject
     private IGoogleApiService iGoogleApiService;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //iGoogleApiService.getAccessToken();
-            iGoogleApiService.configGoogleDrive("abc.docx");
+        System.out.println( iGoogleApiService.getAccessToken());
+//            iGoogleApiService.configGoogleDrive("abc.docx");
 //        ObjectMapper objectMapper = new ObjectMapper();
 //        File jsonFile = new File("C:\\Users\\minhn\\Desktop\\haha.json");
 //
@@ -79,5 +58,15 @@ public class GoogleApisController extends HttpServlet {
 //            e.printStackTrace();
 //        }
 
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        iGoogleApiService.uploadFile(req);
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        iGoogleApiService.createPermissions();
     }
 }

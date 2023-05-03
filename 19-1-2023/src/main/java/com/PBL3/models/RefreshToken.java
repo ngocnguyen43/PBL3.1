@@ -6,7 +6,7 @@ public class RefreshToken {
     private String scope;
     private String token_type;
 
-    public String getRefreshToken() {
+    public String getAccess_token() {
         return access_token;
     }
 
