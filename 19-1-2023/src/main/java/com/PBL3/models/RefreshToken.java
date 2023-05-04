@@ -2,7 +2,7 @@ package com.PBL3.models;
 
 public class RefreshToken {
     private String access_token;
-    private  Integer expires_in;
+    private Integer expires_in;
     private String scope;
     private String token_type;
 

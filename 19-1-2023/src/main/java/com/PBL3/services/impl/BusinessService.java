@@ -44,9 +44,9 @@ public class BusinessService implements IBusinessService {
     @Override
     public Message getAllBusiness() throws UnexpectedException {
         List<Business> businessList;
-        try{
+        try {
             businessList = iBusinessDAO.findAll();
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new UnexpectedException();
         }
         Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();

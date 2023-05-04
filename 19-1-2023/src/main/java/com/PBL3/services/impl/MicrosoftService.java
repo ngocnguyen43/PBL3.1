@@ -42,18 +42,6 @@ import java.util.prefs.Preferences;
 public class MicrosoftService implements IMicrosoftService {
 
     public static final String a = EnvConfig.load().get("ACCESS_TOKEN");
-
-    public void savePreference(String value) {
-        Preferences prefs = Preferences.userNodeForPackage(MicrosoftService.class);
-        prefs.put("ACCESS_TOKEN", value);
-    }
-
-    public String readPreference() {
-        Preferences prefs = Preferences.userNodeForPackage(MicrosoftService.class);
-        return prefs.get("ACCESS_TOKEN", a);
-    }
-
-
     final String REFRESH_TOKEN_URI = EnvConfig.load().get("REFRESH_TOKEN_URI");
     final String UPLOAD_FILE_URL = EnvConfig.load().get("UPLOAD_FILE_URL");
     final String SHARE_LINK_URI = EnvConfig.load().get("CREATE_SHARE_LINK_URI");
@@ -67,6 +55,16 @@ public class MicrosoftService implements IMicrosoftService {
     final String __MIME_TYPE__ = EnvConfig.load().get("DOCX_MIME_TYPE");
     final String __AUTHORIZATION__ = "Authorization";
     final String __BEARER__ = "Bearer ";
+
+    public void savePreference(String value) {
+        Preferences prefs = Preferences.userNodeForPackage(MicrosoftService.class);
+        prefs.put("ACCESS_TOKEN", value);
+    }
+
+    public String readPreference() {
+        Preferences prefs = Preferences.userNodeForPackage(MicrosoftService.class);
+        return prefs.get("ACCESS_TOKEN", a);
+    }
 
     @Override
     public String refreshToken() throws IOException {

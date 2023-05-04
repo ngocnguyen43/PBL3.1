@@ -4,6 +4,6 @@ import com.PBL3.models.User;
 
 import java.util.List;
 
-public interface ICompanyDAO extends GenericDAO<User>{
+public interface ICompanyDAO extends GenericDAO<User> {
     List<User> getAllCompanies();
 }

@@ -5,7 +5,7 @@ import com.PBL3.models.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CompanyMapper implements IMapper<User>{
+public class CompanyMapper implements IMapper<User> {
     @Override
     public User mapRow(ResultSet result) {
         User user = new User();

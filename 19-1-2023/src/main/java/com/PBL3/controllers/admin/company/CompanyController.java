@@ -20,6 +20,7 @@ import static com.PBL3.utils.Constants.EndPoint.V1;
 public class CompanyController extends HttpServlet {
     @Inject
     private ICompanyService companyService;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doPost(req, resp);
@@ -27,6 +28,6 @@ public class CompanyController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ErrorHandler.handle(resp,()->companyService.getAllcompanies());
+        ErrorHandler.handle(resp, () -> companyService.getAllcompanies());
     }
 }

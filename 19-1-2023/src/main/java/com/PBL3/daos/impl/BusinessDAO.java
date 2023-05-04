@@ -36,7 +36,7 @@ public class BusinessDAO extends AbstractDAO<Business> implements IBusinessDAO {
     @Override
     public List<Business> findAll() {
         String sql = "SELECT * FROM login.business";
-        return query(sql,new BusinessMapper());
+        return query(sql, new BusinessMapper());
     }
 
 }

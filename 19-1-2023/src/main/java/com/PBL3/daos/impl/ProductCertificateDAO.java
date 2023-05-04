@@ -16,7 +16,7 @@ public class ProductCertificateDAO extends AbstractDAO<ProductCertificatesModel>
     @Override
     public void deleteOne(ProductCertificatesModel domain) {
         String sql = "DELETE FROM product_certificates WHERE product_id = ? AND certificate_id = ?";
-        delete(sql, domain.getProductId(),domain.getCertificateId());
+        delete(sql, domain.getProductId(), domain.getCertificateId());
     }
 
     @Override

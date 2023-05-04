@@ -1,16 +1,8 @@
 package com.PBL3.controllers.admin.report;
 
-import com.PBL3.config.EnvConfig;
 import com.PBL3.services.IMicrosoftService;
 import com.PBL3.utils.exceptions.dbExceptions.UnexpectedException;
 import com.PBL3.utils.helpers.SplitEmbedUri;
-import org.apache.hc.client5.http.classic.methods.HttpPost;
-import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
-import org.apache.hc.client5.http.impl.classic.HttpClients;
-import org.apache.hc.core5.http.ContentType;
-import org.apache.hc.core5.http.HttpEntity;
-import org.apache.hc.core5.http.io.entity.EntityUtils;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -19,10 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 
 import static com.PBL3.utils.Constants.EndPoint.V1;
 

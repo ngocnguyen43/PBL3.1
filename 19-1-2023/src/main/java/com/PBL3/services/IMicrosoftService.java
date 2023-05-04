@@ -8,6 +8,8 @@ import java.io.IOException;
 
 public interface IMicrosoftService {
     String refreshToken() throws IOException;
+
     String uploadFile(HttpServletRequest request) throws UnexpectedException, ServletException, IOException;
-    String createShareLink(String itemId,String token) throws IOException;
+
+    String createShareLink(String itemId, String token) throws IOException;
 }

@@ -5,7 +5,6 @@ import com.PBL3.services.ICertificateService;
 import com.PBL3.utils.exceptions.ErrorHandler;
 import com.PBL3.utils.helpers.CheckContainsFile;
 import com.PBL3.utils.helpers.Helper;
-import com.PBL3.utils.helpers.QueryParams;
 import com.PBL3.utils.helpers.SaveFile;
 
 import javax.inject.Inject;
