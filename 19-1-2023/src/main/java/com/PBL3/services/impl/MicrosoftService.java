@@ -40,6 +40,7 @@ import java.util.Objects;
 import java.util.prefs.Preferences;
 
 public class MicrosoftService implements IMicrosoftService {
+
     public static final String a = EnvConfig.load().get("ACCESS_TOKEN");
 
     public void savePreference(String value) {
