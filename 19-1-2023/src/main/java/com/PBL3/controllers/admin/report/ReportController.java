@@ -1,11 +1,12 @@
 package com.PBL3.controllers.admin.report;
 
 import com.PBL3.dtos.ReportDTO;
+import com.PBL3.services.IMicrosoftService;
 import com.PBL3.services.IReportService;
 import com.PBL3.utils.Constants.EndPoint;
 import com.PBL3.utils.exceptions.ErrorHandler;
+import com.PBL3.utils.exceptions.dbExceptions.UnexpectedException;
 import com.PBL3.utils.helpers.Helper;
-import com.PBL3.utils.helpers.SaveFile;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -21,11 +22,18 @@ import java.io.IOException;
 public class ReportController extends HttpServlet {
     @Inject
     private IReportService iReportService;
+    @Inject
+    private IMicrosoftService microsoftService;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ReportDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(ReportDTO.class);
-        String path = SaveFile.save(req, "document");
+        String path = null;
+        try {
+            path = microsoftService.uploadFile(req);
+        } catch (UnexpectedException e) {
+            throw new RuntimeException(e);
+        }
         dto.setPath(path);
         ErrorHandler.handle(resp, () -> iReportService.createOne(dto));
     }
