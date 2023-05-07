@@ -89,8 +89,9 @@ public class MicrosoftService implements IMicrosoftService {
             System.out.println("----------------------------------------");
             HttpEntity entityResponse = response.getEntity();
             String responseString = EntityUtils.toString(entityResponse, "UTF-8");
-            System.out.println(responseString);
             JsonNode parent = new ObjectMapper().readTree(responseString);
+            String prettyString = new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(parent);
+            System.out.println(prettyString);
             return parent.path(__ACCESS_TOKEN__).asText();
         });
     }
@@ -135,8 +136,9 @@ public class MicrosoftService implements IMicrosoftService {
             System.out.println("----------------------------------------");
             HttpEntity entityResponse = response.getEntity();
             String responseString = EntityUtils.toString(entityResponse, "UTF-8");
-            System.out.println(responseString);
             JsonNode parent = new ObjectMapper().readTree(responseString);
+            String prettyString = new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(parent);
+            System.out.println(prettyString);
             return parent.path("id").asText();
         });
         return this.createShareLink(content, token);
@@ -158,8 +160,9 @@ public class MicrosoftService implements IMicrosoftService {
             System.out.println("-----------------------------------------------");
             HttpEntity entityResponse = response.getEntity();
             String responseString = EntityUtils.toString(entityResponse, "UTF-8");
-            System.out.println(responseString);
             JsonNode parent = new ObjectMapper().readTree(responseString);
+            String prettyString = new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(parent);
+            System.out.println(prettyString);
             String webUrl = parent.at("/link/webUrl").asText();
             return SplitEmbedUri.split(webUrl);
         });
