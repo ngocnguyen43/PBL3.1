@@ -60,8 +60,12 @@ public class CertificateService implements ICertificateService {
     public Message updateCertificate(CertificateDTO dto) throws NotFoundException, UpdateFailedException {
         Certificate domain = Helper.objectMapper(dto, Certificate.class);
         System.out.print(domain.getId());
-        boolean isExist = certificateDAO.findOne(domain.getId()) == null;
-        if (isExist) throw new NotFoundException(Response.NOT_FOUND);
+        Certificate existedCertificate = certificateDAO.findOne(domain.getId());
+        if (existedCertificate == null) throw new NotFoundException(Response.NOT_FOUND);
+        if (domain.getName() == null) domain.setName(existedCertificate.getName());
+        if (domain.getDescription() == null) domain.setDescription(existedCertificate.getDescription());
+        if (domain.getPath() == null) domain.setPath(existedCertificate.getPath());
+        if (domain.getModifiedBy() == null) domain.setModifiedBy(existedCertificate.getModifiedBy());
         try {
             certificateDAO.updateCertificateDao(domain);
             Meta meta = new Meta.Builder(HttpServletResponse.SC_NO_CONTENT).withMessage(Response.SUCCESS).build();

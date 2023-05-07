@@ -31,8 +31,8 @@ public class CertificateDAO extends AbstractDAO<Certificate> implements ICertifi
 
     @Override
     public void updateCertificateDao(Certificate domain) {
-        String sql = "UPDATE certificates SET name = ?,description = ?,image = ?,action = ?,modified_by = ? ";
-        update(sql, domain.getName(), domain.getDescription(), domain.getPath(), domain.getAction() ? 1 : 0, domain.getModifiedBy());
+        String sql = "UPDATE certificates SET name = ?,description = ?,image = ?,action = ?,modified_by = ?  WHERE certificate_id = ?";
+        update(sql, domain.getName(), domain.getDescription(), domain.getPath(), domain.getAction() ? 1 : 0, domain.getModifiedBy(), domain.getId());
     }
 
     @Override
