@@ -2,10 +2,7 @@ package com.PBL3.services;
 
 import com.PBL3.dtos.UserDTO;
 import com.PBL3.dtos.pagination.UserPaginationDTO;
-import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
-import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
-import com.PBL3.utils.exceptions.dbExceptions.InvalidPropertiesException;
-import com.PBL3.utils.exceptions.dbExceptions.UpdateFailedException;
+import com.PBL3.utils.exceptions.dbExceptions.*;
 import com.PBL3.utils.response.Message;
 
 public interface IUserService {
@@ -21,5 +18,5 @@ public interface IUserService {
 
     Message findOne(String id);
 
-    Message update(UserDTO dto, String id) throws DuplicateEntryException, UpdateFailedException;
+    Message update(UserDTO dto, String id) throws DuplicateEntryException, UpdateFailedException, UnexpectedException, NotFoundException;
 }
