@@ -6,10 +6,7 @@ import com.PBL3.dtos.pagination.UserPaginationDTO;
 import com.PBL3.models.*;
 import com.PBL3.models.pagination.UserPagination;
 import com.PBL3.services.IUserService;
-import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
-import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
-import com.PBL3.utils.exceptions.dbExceptions.InvalidPropertiesException;
-import com.PBL3.utils.exceptions.dbExceptions.UpdateFailedException;
+import com.PBL3.utils.exceptions.dbExceptions.*;
 import com.PBL3.utils.helpers.HashPassword;
 import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.IDGeneration;
@@ -144,11 +141,11 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Message update(UserDTO dto, String id) throws DuplicateEntryException, UpdateFailedException {
+    public Message update(UserDTO dto, String id) throws DuplicateEntryException, UpdateFailedException, NotFoundException {
         boolean isEmailExist = userDao.findByEmail(dto.getEmail()) != null;
         if (isEmailExist) throw new DuplicateEntryException("Email is Already in use");
         boolean isNationalIdExist = userDao.findByNationalId(dto.getNationalId()) != null;
-        if (isNationalIdExist) throw new DuplicateEntryException("National Id is already Exist");
+        if (!isNationalIdExist) throw new NotFoundException("User Not Found");
         User oldUser = userDao.findByUserId(id);
         User user = new User();
         if (dto.getCompanyName() != null) {
