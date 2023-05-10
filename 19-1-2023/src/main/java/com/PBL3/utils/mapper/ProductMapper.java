@@ -1,6 +1,7 @@
 package com.PBL3.utils.mapper;
 
 import com.PBL3.models.ProductModel;
+import com.PBL3.utils.helpers.CheckFieldExist;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,7 +25,9 @@ public class ProductMapper implements IMapper<ProductModel> {
             product.setProductName(result.getString("product_name"));
             product.setKindof(result.getString("kindof"));
             product.setAction(result.getInt("action"));
-            product.setCompanyName(result.getString("company_name"));
+            if (CheckFieldExist.checkExist(result, "company_name")) {
+                product.setCompanyName(result.getString("company_name"));
+            }
             if (this.withDate) {
                 product.setModifiedBy(result.getString("modified_by"));
                 product.setUpdatedAt(result.getTimestamp("updated_at"));
