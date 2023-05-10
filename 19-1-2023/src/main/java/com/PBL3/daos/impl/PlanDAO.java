@@ -22,7 +22,7 @@ public class PlanDAO extends AbstractDAO<PlanModel> implements IPlanDAO {
                         "login.plans_inspectors.plan_id as plan, " +
                         "login.users.company_name " +
                         "from login.plans " +
-                        "inner join plans_inspectors " +
+                        "LEFT join plans_inspectors " +
                         "on login.plans.plan_id = login.plans_inspectors.plan_id " +
                         "INNER JOIN login.users ON " +
                         "login.plans.company_id = login.users.company_id " +
