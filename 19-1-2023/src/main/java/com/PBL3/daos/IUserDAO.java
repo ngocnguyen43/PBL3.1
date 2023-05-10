@@ -25,5 +25,6 @@ public interface IUserDAO extends GenericDAO<User> {
     void update(User user);
 
     void delete(String USerId);
+    List<User> getAllMods();
 
 }

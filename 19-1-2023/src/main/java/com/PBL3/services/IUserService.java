@@ -18,5 +18,7 @@ public interface IUserService {
 
     Message findOne(String id);
 
+    Message findAllMods();
+
     Message update(UserDTO dto, String id) throws DuplicateEntryException, UpdateFailedException, UnexpectedException, NotFoundException;
 }

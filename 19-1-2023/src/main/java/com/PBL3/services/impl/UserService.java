@@ -141,6 +141,14 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public Message findAllMods() {
+        List<User> users = userDao.getAllMods();
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
+        Data data = new Data.Builder(null).withResults(users).build();
+        return new Message.Builder(meta).withData(data).build();
+    }
+
+    @Override
     public Message update(UserDTO dto, String id) throws DuplicateEntryException, UpdateFailedException, NotFoundException {
         boolean isEmailExist = userDao.findByEmail(dto.getEmail()) == null;
         if (isEmailExist) throw new NotFoundException("User Not Found");

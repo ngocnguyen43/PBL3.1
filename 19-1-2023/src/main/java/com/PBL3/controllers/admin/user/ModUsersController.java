@@ -19,6 +19,6 @@ public class ModUsersController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ErrorHandler.handle(resp, () -> userService.findAll("MOD"));
+        ErrorHandler.handle(resp, () -> userService.findAllMods());
     }
 }
