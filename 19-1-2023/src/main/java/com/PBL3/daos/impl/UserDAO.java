@@ -147,6 +147,12 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
     }
 
     @Override
+    public List<User> getAllMods() {
+        String sql = "SELECT * FROM users  INNER JOIN roles ON users.role_id = roles.role_id WHERE users.role_id  = 2";
+        return query(sql,new UserMapper());
+    }
+
+    @Override
     public User findByEmail(String email) {
         // TODO Auto-generated method stub
         String sql = "SELECT * FROM login.users INNER JOIN roles ON users.role_id = roles.role_id WHERE users.email = ? ";
