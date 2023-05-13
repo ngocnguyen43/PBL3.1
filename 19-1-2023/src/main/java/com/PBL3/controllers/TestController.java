@@ -1,5 +1,6 @@
 package com.PBL3.controllers;
 
+import com.PBL3.utils.helpers.DivergenceJson;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -9,9 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static com.PBL3.utils.Constants.EndPoint.V1;
@@ -80,7 +81,16 @@ public class TestController extends HttpServlet {
                 ObjectMapper mapper = new ObjectMapper();
                 JsonNode jsonNode = mapper.readTree(jsonString);
                 String prettyString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonNode);
-                System.out.println(prettyString);
+//                Map<String, ArrayList<String>> map = mapper.readValue(jsonString, Map.class);
+//                ArrayList<String> usersList = map.get("users");
+//                ArrayList<String> modsList = map.get("mods");
+//                String[] users = usersList.toArray(new String[0]);
+//                String[] mods = modsList.toArray(new String[0]);
+                ArrayList<String[]> list = DivergenceJson.get(jsonString);
+                System.out.println("Users: " + Arrays.toString(list.get(0)));
+                System.out.println("Mods: " + Arrays.toString(list.get(1)));
+
+//                System.out.println(prettyString);
             }
         } catch (SQLException e) {
             System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
