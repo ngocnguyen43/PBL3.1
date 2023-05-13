@@ -1,5 +1,6 @@
 <component name="libraryTable">
-  <library name="Maven: javax.servlet:jstl:1.2">
+  <library name="Maven: javax.servlet:jstl:1.2" type="java-imported" external-system-id="Maven">
+    <properties groupId="javax.servlet" artifactId="jstl" version="1.2" />
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/../M2/javax/servlet/jstl/1.2/jstl-1.2.jar!/" />
     </CLASSES>

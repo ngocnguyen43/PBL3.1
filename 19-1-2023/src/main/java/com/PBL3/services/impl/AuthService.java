@@ -54,7 +54,7 @@ public class AuthService implements IAuthService {
             String role = user.getRole().getRoleName();
             String accessToken = JWT.generate(claims);
 
-            Data data = new Data.Builder(accessToken).withRole(role).build();
+            Data data = new Data.Builder(accessToken).withRole(role).withId(userId).build();
             Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.LOGIN_SUCCESS).build();
             return new Message.Builder(meta).withData(data).build();
         } catch (Exception e) {

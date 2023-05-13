@@ -1,5 +1,6 @@
 <component name="libraryTable">
-  <library name="Maven: org.springframework:spring-aop:5.3.24">
+  <library name="Maven: org.springframework:spring-aop:5.3.24" type="java-imported" external-system-id="Maven">
+    <properties groupId="org.springframework" artifactId="spring-aop" version="5.3.24" />
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/../M2/org/springframework/spring-aop/5.3.24/spring-aop-5.3.24.jar!/" />
     </CLASSES>

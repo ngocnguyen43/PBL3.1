@@ -89,4 +89,9 @@ public class TestController extends HttpServlet {
         }
 
     }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println(req.getHeader("id"));
+    }
 }
