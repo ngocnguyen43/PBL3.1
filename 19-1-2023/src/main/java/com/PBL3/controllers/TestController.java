@@ -1,10 +1,15 @@
 package com.PBL3.controllers;
 
+import com.PBL3.dtos.NotificationDTO;
+import com.PBL3.services.INotificationService;
+import com.PBL3.utils.exceptions.ErrorHandler;
 import com.PBL3.utils.helpers.DivergenceJson;
+import com.PBL3.utils.helpers.Helper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,12 +18,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 import static com.PBL3.utils.Constants.EndPoint.V1;
 
 @WebServlet(urlPatterns = {V1 + "/try"})
 public class TestController extends HttpServlet {
+    @Inject
+    private INotificationService iNotificationService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -86,9 +94,9 @@ public class TestController extends HttpServlet {
 //                ArrayList<String> modsList = map.get("mods");
 //                String[] users = usersList.toArray(new String[0]);
 //                String[] mods = modsList.toArray(new String[0]);
-                ArrayList<String[]> list = DivergenceJson.get(jsonString);
-                System.out.println("Users: " + Arrays.toString(list.get(0)));
-                System.out.println("Mods: " + Arrays.toString(list.get(1)));
+                ArrayList<List<String>> list = DivergenceJson.get(jsonString);
+                System.out.println("Users: " + list.get(0).toString());
+                System.out.println("Mods: " + list.get(1).toString());
 
 //                System.out.println(prettyString);
             }
@@ -102,6 +110,9 @@ public class TestController extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println(req.getHeader("id"));
+        NotificationDTO dto = Helper.of(req.getReader()).toModel(NotificationDTO.class);
+        dto.setCreator(req.getHeader("id"));
+        dto.setModifiedBy(req.getHeader("id"));
+        //ErrorHandler.handle(resp, () -> iNotificationService.create(dto));
     }
 }
