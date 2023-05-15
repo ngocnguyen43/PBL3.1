@@ -150,7 +150,7 @@ public class UserService implements IUserService {
 
     @Override
     public Message update(UserDTO dto, String id) throws DuplicateEntryException, UpdateFailedException, NotFoundException {
-        boolean isEmailExist = userDao.findByEmail(dto.getEmail()) == null;
+        boolean isEmailExist = userDao.findByEmail(dto.getEmail()) != null;
         if (isEmailExist) throw new NotFoundException("User Not Found");
         boolean isNationalIdExist = userDao.findByNationalId(dto.getNationalId()) != null;
         if (!isNationalIdExist) throw new NotFoundException("User Not Found");
