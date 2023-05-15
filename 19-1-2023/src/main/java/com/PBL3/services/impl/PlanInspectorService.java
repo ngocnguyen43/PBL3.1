@@ -33,7 +33,9 @@ public class PlanInspectorService implements IPlanInspectorService {
         Notification notification = new Notification
                 .Builder(IDGeneration.generate())
                 .withCreator(creator)
-                .withMods(Collections.singletonList(dto.getUserId())).build();
+                .withMods(Collections.singletonList(dto.getUserId()))
+                .withMessage("Add to new plan")
+                .build();
         boolean isExisted = planInspectorDAO.findOne(dto.getUserId(), dto.getPlanId()) != null;
         if (isExisted) throw new DuplicateEntryException(Response.DUPLICATED);
         PlanInspectorModel domain = Helper.objectMapper(dto, PlanInspectorModel.class);

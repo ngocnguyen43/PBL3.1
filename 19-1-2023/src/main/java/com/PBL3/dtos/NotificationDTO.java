@@ -1,12 +1,14 @@
 package com.PBL3.dtos;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.sql.Timestamp;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class NotificationDTO {
     private String creator;
-    private List<String> mods;
-    private List<String> users;
-    private String modifiedBy;
+    private String message;
+    private Timestamp createdAt;
 
     public String getCreator() {
         return creator;
@@ -16,27 +18,19 @@ public class NotificationDTO {
         this.creator = creator;
     }
 
-    public List<String> getMods() {
-        return mods;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMods(List<String> mods) {
-        this.mods = mods;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public List<String> getUsers() {
-        return users;
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
-    public void setUsers(List<String> users) {
-        this.users = users;
-    }
-
-    public String getModifiedBy() {
-        return modifiedBy;
-    }
-
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
 }

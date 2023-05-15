@@ -9,6 +9,15 @@ public class Notification extends AbstractModel {
     private String creator;
     private List<String> mods;
     private List<String> users;
+    private String message;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public String getCreator() {
         return creator;
@@ -40,6 +49,8 @@ public class Notification extends AbstractModel {
         private List<String> users;
         private String id;
         private String modifiedBy;
+        private String message;
+
 
         public Builder(String id) {
             this.id = id;
@@ -65,6 +76,11 @@ public class Notification extends AbstractModel {
             return this;
         }
 
+        public Builder withMessage(String message) {
+            this.message = message;
+            return this;
+        }
+
         public Notification build() {
             Notification notification = new Notification();
             notification.setId(this.id);
@@ -72,6 +88,7 @@ public class Notification extends AbstractModel {
             notification.setMods(this.mods);
             notification.setUsers(this.users);
             notification.setModifiedBy(this.modifiedBy);
+            notification.setMessage(this.message);
             return notification;
         }
     }
