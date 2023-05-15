@@ -1,5 +1,6 @@
 <component name="libraryTable">
-  <library name="Maven: com.aventrix.jnanoid:jnanoid:2.0.0">
+  <library name="Maven: com.aventrix.jnanoid:jnanoid:2.0.0" type="java-imported" external-system-id="Maven">
+    <properties groupId="com.aventrix.jnanoid" artifactId="jnanoid" version="2.0.0" />
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/../M2/com/aventrix/jnanoid/jnanoid/2.0.0/jnanoid-2.0.0.jar!/" />
     </CLASSES>

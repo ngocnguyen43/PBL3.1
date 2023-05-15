@@ -17,7 +17,13 @@ public class Data {
 
     private String refreshToken;
     private String role;
+    @JsonProperty("id")
+    private String userId;
     private Object result = null;
+
+    public String getUserId() {
+        return userId;
+    }
 
     private Data() {
     }
@@ -49,6 +55,8 @@ public class Data {
         private String role;
         private Object result;
 
+        private String userId;
+
         public Builder(String token) {
             this.accessToken = token;
         }
@@ -60,6 +68,11 @@ public class Data {
 
         public Builder withRefreshToken(String token) {
             this.refreshToken = token;
+            return this;
+        }
+
+        public Builder withId(String id) {
+            this.userId = id;
             return this;
         }
 
@@ -79,6 +92,7 @@ public class Data {
             body.refreshToken = this.refreshToken;
             body.result = this.result;
             body.role = this.role;
+            body.userId = this.userId;
             return body;
         }
     }
