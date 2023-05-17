@@ -149,11 +149,16 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Message update(UserDTO dto, String id) throws DuplicateEntryException, UpdateFailedException, NotFoundException {
-        boolean isEmailExist = userDao.findByEmail(dto.getEmail()) != null;
-        if (isEmailExist) throw new NotFoundException("User Not Found");
-        boolean isNationalIdExist = userDao.findByNationalId(dto.getNationalId()) != null;
-        if (!isNationalIdExist) throw new NotFoundException("User Not Found");
+    public Message update(UserDTO dto, String id) throws DuplicateEntryException, UpdateFailedException, NotFoundException, InvalidPropertiesException {
+        if (id == null) throw new InvalidPropertiesException("Invalid Property");
+        if (dto.getEmail() != null) {
+            boolean isEmailExist = userDao.findByEmail(dto.getEmail()) != null;
+            if (isEmailExist) throw new NotFoundException("User Not Found");
+        }
+        if (dto.getNationalId() != null) {
+            boolean isNationalIdExist = userDao.findByNationalId(dto.getNationalId()) != null;
+            if (!isNationalIdExist) throw new NotFoundException("User Not Found");
+        }
         User oldUser = userDao.findByUserId(id);
         User user = new User();
         if (dto.getCompanyName() != null) {
