@@ -153,7 +153,7 @@ public class UserService implements IUserService {
         if (id == null) throw new InvalidPropertiesException("Invalid Property");
         if (dto.getEmail() != null) {
             boolean isEmailExist = userDao.findByEmail(dto.getEmail()) != null;
-            if (isEmailExist) throw new NotFoundException("User Not Found");
+            if (!isEmailExist) throw new NotFoundException("User Not Found");
         }
         if (dto.getNationalId() != null) {
             boolean isNationalIdExist = userDao.findByNationalId(dto.getNationalId()) != null;
