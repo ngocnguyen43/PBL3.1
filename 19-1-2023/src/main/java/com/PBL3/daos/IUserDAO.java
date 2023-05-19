@@ -12,6 +12,8 @@ public interface IUserDAO extends GenericDAO<User> {
 
     User findByUserId(String id);
 
+    User findByUserId(String id, boolean withPassword);
+
     User findByEmail(String email);
 
     User findByCompanyId(String companyId);
@@ -25,6 +27,9 @@ public interface IUserDAO extends GenericDAO<User> {
     void update(User user);
 
     void delete(String USerId);
+
     List<User> getAllMods();
+
+    void updatePassword(String id, String password);
 
 }
