@@ -76,6 +76,13 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
     }
 
     @Override
+    public User findByUserId(String id, boolean withPassword) {
+        String sql = "SELECT * FROM users  INNER JOIN roles ON users.role_id = roles.role_id WHERE user_id = ?";
+        List<User> users = query(sql, new UserMapper(false, withPassword), id);
+        return users.isEmpty() ? null : users.get(0);
+    }
+
+    @Override
     public void save(User user) {
         // TODO Auto-generated method stub
         String password = HashPassword.HashPW(user.getPassword());
@@ -149,7 +156,13 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
     @Override
     public List<User> getAllMods() {
         String sql = "SELECT * FROM users  INNER JOIN roles ON users.role_id = roles.role_id WHERE users.role_id  = 2";
-        return query(sql,new UserMapper());
+        return query(sql, new UserMapper());
+    }
+
+    @Override
+    public void updatePassword(String id, String password) {
+        String sql = "UPDATE login.users SET password = ? WHERE users.user_id = ?";
+        update(sql, password, id);
     }
 
     @Override
