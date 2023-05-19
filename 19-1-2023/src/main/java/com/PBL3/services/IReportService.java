@@ -5,7 +5,7 @@ import com.PBL3.utils.exceptions.dbExceptions.*;
 import com.PBL3.utils.response.Message;
 
 public interface IReportService {
-    Message createOne(ReportDTO dto) throws DuplicateEntryException, CreateFailedException, ForeignKeyViolationException;
+    Message createOne(ReportDTO dto,String id) throws DuplicateEntryException, CreateFailedException, ForeignKeyViolationException;
 
     Message findOneById(String id) throws NotFoundException;
 

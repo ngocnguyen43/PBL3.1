@@ -167,14 +167,16 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
 
     @Override
     public String getUserRole(String id) {
-        String sql = "SELECT * FROM login.users WHERE login.users.user_id = ?";
+        String sql = "SELECT * FROM login.users INNER JOIN roles ON users.role_id = roles.role_id WHERE login.users.user_id = ?";
         List<User> users = query(sql, new UserMapper(), id);
         return users.isEmpty() ? null : users.get(0).getRole().getRoleName();
     }
 
     @Override
     public String getUserName(String id) {
-        return null;
+        String sql = "SELECT * FROM login.users INNER JOIN roles ON users.role_id = roles.role_id WHERE login.users.user_id = ?";
+        List<User> users = query(sql, new UserMapper(), id);
+        return users.isEmpty() ? null : users.get(0).getFullName();
     }
 
     @Override

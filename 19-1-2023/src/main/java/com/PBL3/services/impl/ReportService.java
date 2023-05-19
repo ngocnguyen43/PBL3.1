@@ -2,9 +2,12 @@ package com.PBL3.services.impl;
 
 import com.PBL3.daos.IPlanDAO;
 import com.PBL3.daos.IReportDAO;
+import com.PBL3.daos.IUserDAO;
 import com.PBL3.dtos.ReportDTO;
+import com.PBL3.models.Notification;
 import com.PBL3.models.PlanModel;
 import com.PBL3.models.ReportModel;
+import com.PBL3.services.INotificationService;
 import com.PBL3.services.IReportService;
 import com.PBL3.utils.exceptions.dbExceptions.*;
 import com.PBL3.utils.helpers.Helper;
@@ -23,10 +26,21 @@ public class ReportService implements IReportService {
     private IReportDAO iReportDAO;
     @Inject
     private IPlanDAO iPlanDAO;
+    @Inject
+    private INotificationService notificationService;
+    @Inject
+    private IUserDAO userDAO;
 
     @Override
-    public Message createOne(ReportDTO dto) throws DuplicateEntryException, CreateFailedException, ForeignKeyViolationException {
+    public Message createOne(ReportDTO dto, String userId) throws DuplicateEntryException, CreateFailedException, ForeignKeyViolationException {
         ReportModel domain = Helper.objectMapper(dto, ReportModel.class);
+        String nname = userDAO.getUserName(userId);
+        Notification notification = new Notification
+                .Builder(IDGeneration.generate())
+                .withCreator(userId)
+                .withMessage("The report of plan " + dto.getPlanId() + " has been submitted by " + nname)
+                .withAdmin(true)
+                .build();
         String id = IDGeneration.generate();
         domain.setId(id);
         PlanModel plan = iPlanDAO.findOneWithoutJoin(domain.getPlanId());
@@ -35,9 +49,11 @@ public class ReportService implements IReportService {
         if (report != null) throw new DuplicateEntryException(Response.DUPLICATED);
         try {
             iReportDAO.createOne(domain);
+            notificationService.create(notification);
         } catch (Exception e) {
             throw new CreateFailedException(Response.CREATED);
         }
+
         Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage(Response.CREATED).build();
         return new Message.Builder(meta).build();
     }

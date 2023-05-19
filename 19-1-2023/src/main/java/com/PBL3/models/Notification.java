@@ -9,6 +9,17 @@ public class Notification extends AbstractModel {
     private String creator;
     private List<String> mods;
     private List<String> users;
+
+    private Boolean admin;
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
+    }
+
     private String message;
 
     public String getMessage() {
@@ -35,13 +46,15 @@ public class Notification extends AbstractModel {
         this.mods = mods;
     }
 
+    public void setUsers(List<String> users) {
+        this.users = users;
+    }
+
     public List<String> getUsers() {
         return users;
     }
 
-    public void setUsers(List<String> users) {
-        this.users = users;
-    }
+
 
     public static class Builder {
         private String creator;
@@ -50,6 +63,7 @@ public class Notification extends AbstractModel {
         private String id;
         private String modifiedBy;
         private String message;
+        private Boolean admin;
 
 
         public Builder(String id) {
@@ -63,6 +77,11 @@ public class Notification extends AbstractModel {
 
         public Builder withUsers(List<String> users) {
             this.users = users;
+            return this;
+        }
+
+        public Builder withAdmin(Boolean id) {
+            this.admin = id;
             return this;
         }
 
@@ -89,6 +108,7 @@ public class Notification extends AbstractModel {
             notification.setUsers(this.users);
             notification.setModifiedBy(this.modifiedBy);
             notification.setMessage(this.message);
+            notification.setAdmin(this.admin);
             return notification;
         }
     }

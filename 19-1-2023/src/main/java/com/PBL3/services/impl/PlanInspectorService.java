@@ -1,6 +1,7 @@
 package com.PBL3.services.impl;
 
 import com.PBL3.daos.IPlanInspectorDAO;
+import com.PBL3.daos.IUserDAO;
 import com.PBL3.dtos.PlanInspectorDTO;
 import com.PBL3.models.Notification;
 import com.PBL3.models.PlanInspectorModel;
@@ -25,16 +26,18 @@ public class PlanInspectorService implements IPlanInspectorService {
     private IPlanInspectorDAO planInspectorDAO;
     @Inject
     private INotificationService notificationService;
+    @Inject
+    private IUserDAO userDAO;
 
     @Override
     public Message createOne(PlanInspectorDTO dto, String creator) throws DuplicateEntryException, CreateFailedException, InvalidPropertiesException {
         if (creator == null) throw new InvalidPropertiesException("Invalid properties");
-
+        String role = userDAO.getUserRole(creator);
         Notification notification = new Notification
                 .Builder(IDGeneration.generate())
                 .withCreator(creator)
                 .withMods(Collections.singletonList(dto.getUserId()))
-                .withMessage("Add to new plan")
+                .withMessage("You have been added to new plan by " + role)
                 .build();
         boolean isExisted = planInspectorDAO.findOne(dto.getUserId(), dto.getPlanId()) != null;
         if (isExisted) throw new DuplicateEntryException(Response.DUPLICATED);

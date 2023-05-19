@@ -35,7 +35,7 @@ public class ReportController extends HttpServlet {
             throw new RuntimeException(e);
         }
         dto.setPath(path);
-        ErrorHandler.handle(resp, () -> iReportService.createOne(dto));
+        ErrorHandler.handle(resp, () -> iReportService.createOne(dto,req.getHeader("client_id")));
     }
 
     @Override

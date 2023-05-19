@@ -103,7 +103,6 @@ public class UserService implements IUserService {
 
     @Override
     public Message save(UserDTO dto) throws DuplicateEntryException, CreateFailedException {
-        // TODO Auto-generated method stub
         boolean isEmailExist = userDao.findByEmail(dto.getEmail()) != null;
         if (isEmailExist) throw new DuplicateEntryException("Email has Already Registered");
         boolean isNationalIdExist = userDao.findByNationalId(dto.getNationalId()) != null;
