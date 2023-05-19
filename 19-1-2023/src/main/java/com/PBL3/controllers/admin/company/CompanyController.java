@@ -35,6 +35,6 @@ public class CompanyController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserPaginationDTO dto = Helper.paramsToString(QueryParams.getQuery(req)).toModel(UserPaginationDTO.class);
-        ErrorHandler.handle(resp, () -> userService.findAll(dto,"MOD"));
+        ErrorHandler.handle(resp, () -> companyService.getAllcompanies());
     }
 }
