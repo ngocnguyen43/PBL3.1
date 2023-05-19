@@ -31,7 +31,7 @@ public class CertificateController extends HttpServlet {
         String path = SaveFile.save(req, "image");
         CertificateDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(CertificateDTO.class);
         dto.setPath(path);
-        ErrorHandler.handle(resp, () -> certificateService.createCertificate(dto));
+        ErrorHandler.handle(resp, () -> certificateService.createCertificate(dto,req.getHeader("client_id")));
     }
 
     @Override
@@ -46,7 +46,7 @@ public class CertificateController extends HttpServlet {
             String path = SaveFile.save(req, "image");
             dto.setPath(path);
         }
-        ErrorHandler.handle(resp, () -> certificateService.updateCertificate(dto));
+        ErrorHandler.handle(resp, () -> certificateService.updateCertificate(dto,req.getHeader("client_id")));
     }
 
 //    @Override
