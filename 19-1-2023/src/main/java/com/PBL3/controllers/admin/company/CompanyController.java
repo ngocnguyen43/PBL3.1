@@ -2,7 +2,6 @@ package com.PBL3.controllers.admin.company;
 
 import com.PBL3.dtos.pagination.UserPaginationDTO;
 import com.PBL3.services.ICompanyService;
-import com.PBL3.services.IUserService;
 import com.PBL3.utils.exceptions.ErrorHandler;
 import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.QueryParams;
@@ -24,13 +23,6 @@ import static com.PBL3.utils.Constants.EndPoint.V1;
 public class CompanyController extends HttpServlet {
     @Inject
     private ICompanyService companyService;
-    @Inject
-    private IUserService userService;
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
-    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

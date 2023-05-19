@@ -16,7 +16,7 @@ public interface IAuthService {
 
     Message Register(UserDTO user, String type) throws DuplicateEntryException, CreateFailedException, UnexpectedException, NotFoundException, InvalidCredentialsException;
 
-    Message InspectorRegister(UserDTO dto) throws DuplicateEntryException, CreateFailedException;
+    Message InspectorRegister(UserDTO dto,String userId) throws DuplicateEntryException, CreateFailedException;
 
     Message ResetPassword(ResetPasswordDTO dto) throws NotFoundException, InvalidCredentialsException, UnexpectedException, JsonProcessingException;
 

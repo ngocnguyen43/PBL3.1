@@ -4,8 +4,10 @@ import com.PBL3.daos.IUserDAO;
 import com.PBL3.dtos.ResetPasswordDTO;
 import com.PBL3.dtos.UserDTO;
 import com.PBL3.dtos.UserSigninDTO;
+import com.PBL3.models.Notification;
 import com.PBL3.models.User;
 import com.PBL3.services.IAuthService;
+import com.PBL3.services.INotificationService;
 import com.PBL3.utils.exceptions.authExceptions.InvalidCredentialsException;
 import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
 import com.PBL3.utils.exceptions.dbExceptions.DuplicateEntryException;
@@ -21,13 +23,17 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class AuthService implements IAuthService {
 
     @Inject
     private IUserDAO iUserDAO;
-    private String PASSWORD = "123456";
+    @Inject
+    private INotificationService iNotificationService;
+    @Inject
+    private IUserDAO userDAO;
 
     @Override
     public Message Login(UserSigninDTO dto) throws UnexpectedException, NotFoundException, InvalidCredentialsException {
@@ -99,8 +105,10 @@ public class AuthService implements IAuthService {
     }
 
     @Override
-    public Message InspectorRegister(UserDTO dto) throws DuplicateEntryException, CreateFailedException {
+    public Message InspectorRegister(UserDTO dto, String userId) throws DuplicateEntryException, CreateFailedException {
         User isEmailExist = iUserDAO.findByEmail(dto.getEmail());
+        String creator = userDAO.getUserRole(userId);
+
         if (isEmailExist != null)
             throw new DuplicateEntryException(Response.EMAIL_IN_USE);
         User isNationalIdExist = iUserDAO.findByNationalId(dto.getNationalId());
@@ -110,8 +118,15 @@ public class AuthService implements IAuthService {
         String id = IDGeneration.generate();
         domain.setRoleId(2);
         domain.setId(id);
+        Notification notification = new Notification
+                .Builder(IDGeneration.generate())
+                .withCreator(userId)
+                .withMods(Collections.singletonList(id))
+                .withMessage("You account has been created by " + creator)
+                .build();
         try {
             iUserDAO.save(domain);
+            iNotificationService.create(notification);
             Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage(Response.CREATED).build();
             return new Message.Builder(meta).build();
         } catch (Exception e) {
@@ -141,6 +156,7 @@ public class AuthService implements IAuthService {
     public Message ResetPassword(String userId) throws NotFoundException, UnexpectedException {
         User user = iUserDAO.findByUserId(userId, true);
         if (user == null) throw new NotFoundException("User Not Found");
+        String PASSWORD = "123456";
         String password = HashPassword.HashPW(PASSWORD);
         try {
             iUserDAO.updatePassword(userId, password);
