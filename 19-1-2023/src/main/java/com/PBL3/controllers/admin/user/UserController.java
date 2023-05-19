@@ -18,7 +18,7 @@ import java.io.IOException;
 import static com.PBL3.utils.Constants.EndPoint.PRIVATE;
 import static com.PBL3.utils.Constants.EndPoint.V1;
 
-@WebServlet(urlPatterns = {V1 + PRIVATE + "/user/*"})
+@WebServlet(urlPatterns = {V1 + "/user/*"})
 @MultipartConfig
 public class UserController extends HttpServlet {
 
