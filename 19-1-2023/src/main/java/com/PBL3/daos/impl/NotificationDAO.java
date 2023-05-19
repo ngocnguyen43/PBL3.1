@@ -47,7 +47,7 @@ public class NotificationDAO extends AbstractDAO<Notification> implements INotif
                 "WHERE JSON_CONTAINS(refs->'$.mods','\"" +
                 id +
                 "\"') " +
-                "OR JSON_LENGTH(refs->'$.mods') = 0 " + "AND refs->'$.admin' = false";
+                "OR JSON_CONTAINS(refs->'$.users','\"all\" " + "AND refs->'$.admin' = false";
         String sqlUser = "SELECT creator,message,created_at FROM login.notifications " +
                 "WHERE JSON_CONTAINS(refs->'$.users','\"" +
                 id +
