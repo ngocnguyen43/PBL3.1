@@ -1,6 +1,7 @@
 package com.PBL3.controllers.admin.certificate;
 
 import com.PBL3.dtos.CertificateDTO;
+import com.PBL3.dtos.pagination.CertificatePaginationDTO;
 import com.PBL3.services.ICertificateService;
 import com.PBL3.utils.exceptions.ErrorHandler;
 import com.PBL3.utils.helpers.CheckContainsFile;
@@ -31,12 +32,13 @@ public class CertificateController extends HttpServlet {
         String path = SaveFile.save(req, "image");
         CertificateDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(CertificateDTO.class);
         dto.setPath(path);
-        ErrorHandler.handle(resp, () -> certificateService.createCertificate(dto,req.getHeader("client_id")));
+        ErrorHandler.handle(resp, () -> certificateService.createCertificate(dto, req.getHeader("client_id")));
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ErrorHandler.handle(resp, () -> certificateService.getAllCertificate());
+        CertificatePaginationDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(CertificatePaginationDTO.class);
+        ErrorHandler.handle(resp, () -> certificateService.getAllCertificate(dto));
     }
 
     @Override
@@ -46,7 +48,7 @@ public class CertificateController extends HttpServlet {
             String path = SaveFile.save(req, "image");
             dto.setPath(path);
         }
-        ErrorHandler.handle(resp, () -> certificateService.updateCertificate(dto,req.getHeader("client_id")));
+        ErrorHandler.handle(resp, () -> certificateService.updateCertificate(dto, req.getHeader("client_id")));
     }
 
 //    @Override

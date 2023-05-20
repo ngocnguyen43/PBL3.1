@@ -1,8 +1,10 @@
 package com.PBL3.controllers.admin.plan;
 
+import com.PBL3.dtos.pagination.PlanPaginationDTO;
 import com.PBL3.services.IPlanService;
 import com.PBL3.utils.Constants.EndPoint;
 import com.PBL3.utils.exceptions.ErrorHandler;
+import com.PBL3.utils.helpers.Helper;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -21,6 +23,7 @@ public class PlansController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ErrorHandler.handle(resp, () -> iPlanService.getAll(req.getHeader("client_id")));
+        PlanPaginationDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(PlanPaginationDTO.class);
+        ErrorHandler.handle(resp, () -> iPlanService.getAll(dto, req.getHeader("client_id")));
     }
 }
