@@ -24,6 +24,6 @@ public class PostTypeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PostTypeDTO postTypeDTO = Helper.paramsToString(req.getParameterMap()).toModel(PostTypeDTO.class);
-        ErrorHandler.handle(resp, () -> iPostTypeService.Create(postTypeDTO));
+        ErrorHandler.handle(resp, () -> iPostTypeService.Create(postTypeDTO,req.getHeader("client_id")));
     }
 }

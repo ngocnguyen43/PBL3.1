@@ -7,7 +7,7 @@ import com.PBL3.utils.exceptions.dbExceptions.UnexpectedException;
 import com.PBL3.utils.response.Message;
 
 public interface IBusinessService {
-    Message createBusiness(BusinessDTO businessDTO) throws CreateFailedException, DuplicateEntryException;
+    Message createBusiness(BusinessDTO businessDTO,String id) throws CreateFailedException, DuplicateEntryException;
 
     Message getAllBusiness() throws UnexpectedException;
 }

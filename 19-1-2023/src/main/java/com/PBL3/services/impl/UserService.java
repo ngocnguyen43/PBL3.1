@@ -5,17 +5,21 @@ import com.PBL3.dtos.UserDTO;
 import com.PBL3.dtos.pagination.UserPaginationDTO;
 import com.PBL3.models.*;
 import com.PBL3.models.pagination.UserPagination;
+import com.PBL3.services.INotificationService;
 import com.PBL3.services.IUserService;
 import com.PBL3.utils.exceptions.dbExceptions.*;
 import com.PBL3.utils.helpers.HashPassword;
 import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.IDGeneration;
 import com.PBL3.utils.response.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.commons.lang3.ArrayUtils;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 
 import static com.PBL3.utils.Constants.Pagination.PER_PAGE;
@@ -34,6 +38,10 @@ public class UserService implements IUserService {
     private ICertificateDAO iCertificateDAO;
     @Inject
     private IKindOfProductDAO kindOfProductDAO;
+    @Inject
+    private IUserDAO userDAO;
+    @Inject
+    private INotificationService iNotificationService;
 
     @Override
     public Message findAll(String role) throws InvalidPropertiesException {
@@ -125,8 +133,20 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Message delete(String userId) {
+    public Message delete(String userId, String creator) throws InvalidPropertiesException, UnexpectedException, InvalidPropertiesFormatException, JsonProcessingException {
+        if (creator == null) throw new InvalidPropertiesException("Invalid properties");
+        String role = userDAO.getUserRole(creator);
+        String name = userDao.getUserName(creator);
+        Notification notification = new Notification
+                .Builder(IDGeneration.generate())
+                .withCreator(creator)
+                .withMods(Collections.singletonList("all"))
+                .withAdmin(!role.equals("Admin"))
+                .withMessage("User was deleted by " + (role.equals("Admin") ? role : name))
+                .build();
+
         userDao.delete(userId);
+        iNotificationService.create(notification);
         Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
         return new Message.Builder(meta).build();
     }
@@ -148,7 +168,15 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Message update(UserDTO dto, String id) throws DuplicateEntryException, UpdateFailedException, NotFoundException, InvalidPropertiesException {
+    public Message update(UserDTO dto, String id, String userId) throws DuplicateEntryException, UpdateFailedException, NotFoundException, InvalidPropertiesException {
+        if (userId == null) throw new InvalidPropertiesException("Invalid properties");
+        String role = userDAO.getUserRole(userId);
+        Notification notification = new Notification
+                .Builder(IDGeneration.generate())
+                .withCreator(userId)
+                .withMods(Collections.singletonList(id))
+                .withMessage("You was updated by " + role)
+                .build();
         if (id == null) throw new InvalidPropertiesException("Invalid Property");
         if (dto.getEmail() != null) {
             boolean isEmailExist = userDao.findByEmail(dto.getEmail()) != null;
@@ -208,6 +236,7 @@ public class UserService implements IUserService {
         user.setId(id);
         try {
             userDao.update(user);
+            iNotificationService.create(notification);
         } catch (Exception e) {
             throw new UpdateFailedException("Update User Failed");
         }
