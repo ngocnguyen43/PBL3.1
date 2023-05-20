@@ -3,8 +3,10 @@ package com.PBL3.services.impl;
 import com.PBL3.daos.ICertificateDAO;
 import com.PBL3.daos.IUserDAO;
 import com.PBL3.dtos.CertificateDTO;
+import com.PBL3.dtos.pagination.CertificatePaginationDTO;
 import com.PBL3.models.Certificate;
 import com.PBL3.models.Notification;
+import com.PBL3.models.pagination.CertificatePaginationModel;
 import com.PBL3.services.ICertificateService;
 import com.PBL3.services.INotificationService;
 import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
@@ -13,15 +15,14 @@ import com.PBL3.utils.exceptions.dbExceptions.NotFoundException;
 import com.PBL3.utils.exceptions.dbExceptions.UpdateFailedException;
 import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.IDGeneration;
-import com.PBL3.utils.response.Data;
-import com.PBL3.utils.response.Message;
-import com.PBL3.utils.response.Meta;
-import com.PBL3.utils.response.Response;
+import com.PBL3.utils.response.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.List;
+
+import static com.PBL3.utils.Constants.Pagination.PER_PAGE;
 
 public class CertificateService implements ICertificateService {
     @Inject
@@ -54,11 +55,17 @@ public class CertificateService implements ICertificateService {
     }
 
     @Override
-    public Message getAllCertificate() {
-        List<Certificate> certificateList = certificateDAO.findAll();
+    public Message getAllCertificate(CertificatePaginationDTO dto) {
+        CertificatePaginationModel domain = Helper.objectMapper(dto, CertificatePaginationModel.class);
+        List<Certificate> certificateList = certificateDAO.findAll(domain);
+        Integer pages = certificateDAO.coutAllCertificates();
         Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
         Data data = new Data.Builder(null).withResults(certificateList).build();
-        return new Message.Builder(meta).withData(data).build();
+        Pagination pagination = new Pagination.Builder().
+                withCurrentPage(domain.getPage()).
+                withTotalPages((int) Math.ceil((double) pages / PER_PAGE)).
+                withTotalResults(pages).build();
+        return new Message.Builder(meta).withData(data).withPagination(pagination).build();
     }
 
     @Override
