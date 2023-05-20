@@ -21,6 +21,6 @@ public class PlansController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ErrorHandler.handle(resp, () -> iPlanService.getAll());
+        ErrorHandler.handle(resp, () -> iPlanService.getAll(req.getHeader("client_id")));
     }
 }

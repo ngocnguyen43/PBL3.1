@@ -17,7 +17,6 @@ import com.PBL3.utils.response.Data;
 import com.PBL3.utils.response.Message;
 import com.PBL3.utils.response.Meta;
 import com.PBL3.utils.response.Response;
-import jdk.nashorn.internal.parser.JSONParser;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -88,8 +87,14 @@ public class PlanService implements IPlanService {
     }
 
     @Override
-    public Message getAll() throws NotFoundException {
-        List<PlanModel> plans = iPlanDAO.findAll();
+    public Message getAll(String id) throws NotFoundException {
+        String role = iUserDAO.getUserRole(id);
+        List<PlanModel> plans;
+        if (role.equals("Admin")) {
+            plans = iPlanDAO.findAll();
+        } else {
+            plans = iPlanDAO.findAll(id);
+        }
         if (plans == null) throw new NotFoundException(Response.NOT_FOUND);
         Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
         Data data = new Data.Builder(null).withResults(plans).build();
