@@ -39,8 +39,6 @@ public class UserService implements IUserService {
     @Inject
     private IKindOfProductDAO kindOfProductDAO;
     @Inject
-    private IUserDAO userDAO;
-    @Inject
     private INotificationService iNotificationService;
 
     @Override
@@ -135,14 +133,14 @@ public class UserService implements IUserService {
     @Override
     public Message delete(String userId, String creator) throws InvalidPropertiesException, UnexpectedException, InvalidPropertiesFormatException, JsonProcessingException {
         if (creator == null) throw new InvalidPropertiesException("Invalid properties");
-        String role = userDAO.getUserRole(creator);
+        String role = userDao.getUserRole(creator);
         String name = userDao.getUserName(creator);
         Notification notification = new Notification
                 .Builder(IDGeneration.generate())
                 .withCreator(creator)
                 .withMods(Collections.singletonList("all"))
                 .withAdmin(!role.equals("Admin"))
-                .withMessage("User was deleted by " + (role.equals("Admin") ? role : name))
+                .withMessage("User " + userId + " was deleted by " + (role.equals("Admin") ? role : name))
                 .build();
 
         userDao.delete(userId);
@@ -170,11 +168,14 @@ public class UserService implements IUserService {
     @Override
     public Message update(UserDTO dto, String id, String userId) throws DuplicateEntryException, UpdateFailedException, NotFoundException, InvalidPropertiesException {
         if (userId == null) throw new InvalidPropertiesException("Invalid properties");
-        String role = userDAO.getUserRole(userId);
+        String role = userDao.getUserRole(userId);
+        String uRole = userDao.getUserRole(id);
+        System.out.println(role);
         Notification notification = new Notification
                 .Builder(IDGeneration.generate())
                 .withCreator(userId)
-                .withMods(Collections.singletonList(id))
+                .withMods(uRole.equals("Moderator") ? Collections.singletonList(id) : null)
+                .withUsers(uRole.equals("Store") ? Collections.singletonList(id) : null)
                 .withMessage("You was updated by " + role)
                 .build();
         if (id == null) throw new InvalidPropertiesException("Invalid Property");
