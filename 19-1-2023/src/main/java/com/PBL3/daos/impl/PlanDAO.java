@@ -71,4 +71,12 @@ public class PlanDAO extends AbstractDAO<PlanModel> implements IPlanDAO {
         return query(sql, new PlanMapper());
     }
 
+    @Override
+    public List<PlanModel> findAll(String id) {
+        String sql = "SELECT login.plans.*, login.plans_inspectors.user_id  FROM login.plans LEFT JOIN login.plans_inspectors\n" +
+                "ON login.plans.plan_id = login.plans_inspectors.plan_id WHERE user_id = ?";
+
+        return query(sql, new PlanMapper(), id);
+    }
+
 }

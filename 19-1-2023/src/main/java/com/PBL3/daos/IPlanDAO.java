@@ -16,4 +16,5 @@ public interface IPlanDAO extends GenericDAO<PlanModel> {
     PlanModel findOneWithoutJoin(String id);
 
     List<PlanModel> findAll();
+    List<PlanModel> findAll(String id);
 }

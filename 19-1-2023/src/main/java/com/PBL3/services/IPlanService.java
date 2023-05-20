@@ -16,5 +16,5 @@ public interface IPlanService {
 
     Message inactivePlan(String id) throws InvalidPropertiesException, UpdateFailedException;
 
-    Message getAll() throws NotFoundException;
+    Message getAll(String id) throws NotFoundException;
 }
