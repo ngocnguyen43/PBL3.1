@@ -57,10 +57,19 @@ public class PlanInspectorService implements IPlanInspectorService {
     }
 
     @Override
-    public Message inactive(PlanInspectorDTO dto) throws UpdateFailedException {
+    public Message inactive(PlanInspectorDTO dto, String userId) throws UpdateFailedException, InvalidPropertiesException {
+        if (userId == null) throw new InvalidPropertiesException("Invalid properties");
+        String role = userDAO.getUserRole(userId);
+        Notification notification = new Notification
+                .Builder(IDGeneration.generate())
+                .withCreator(userId)
+                .withMods(Collections.singletonList(dto.getUserId()))
+                .withMessage("You have been deleted from plan by " + role)
+                .build();
         try {
             PlanInspectorModel domain = Helper.objectMapper(dto, PlanInspectorModel.class);
             planInspectorDAO.inactiveInspector(domain.getUserId(), domain.getPlanId());
+            notificationService.create(notification);
             Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage(Response.SUCCESS).build();
             return new Message.Builder(meta).build();
         } catch (Exception e) {

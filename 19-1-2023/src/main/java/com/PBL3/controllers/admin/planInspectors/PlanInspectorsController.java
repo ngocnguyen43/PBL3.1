@@ -30,6 +30,6 @@ public class PlanInspectorsController extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PlanInspectorDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(PlanInspectorDTO.class);
-        ErrorHandler.handle(resp, () -> iPlanInspectorService.inactive(dto));
+        ErrorHandler.handle(resp, () -> iPlanInspectorService.inactive(dto,req.getHeader("client_id")));
     }
 }
