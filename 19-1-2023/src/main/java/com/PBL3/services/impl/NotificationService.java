@@ -4,7 +4,6 @@ import com.PBL3.daos.INotificationDAO;
 import com.PBL3.dtos.NotificationDTO;
 import com.PBL3.models.Notification;
 import com.PBL3.services.INotificationService;
-import com.PBL3.services.IUserService;
 import com.PBL3.utils.exceptions.dbExceptions.UnexpectedException;
 import com.PBL3.utils.response.Data;
 import com.PBL3.utils.response.Message;
@@ -20,8 +19,6 @@ import java.util.List;
 public class NotificationService implements INotificationService {
     @Inject
     private INotificationDAO iNotificationDAO;
-    @Inject
-    private IUserService userService;
 
     @Override
     public void create(Notification domain) throws InvalidPropertiesFormatException, JsonProcessingException, UnexpectedException {
