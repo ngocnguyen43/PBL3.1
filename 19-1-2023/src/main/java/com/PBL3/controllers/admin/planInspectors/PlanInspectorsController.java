@@ -24,12 +24,12 @@ public class PlanInspectorsController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PlanInspectorDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(PlanInspectorDTO.class);
-        ErrorHandler.handle(resp, () -> iPlanInspectorService.createOne(dto,req.getHeader("client_id")));
+        ErrorHandler.handle(resp, () -> iPlanInspectorService.createOne(dto, req.getHeader("client_id")));
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PlanInspectorDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(PlanInspectorDTO.class);
-        ErrorHandler.handle(resp, () -> iPlanInspectorService.inactive(dto,req.getHeader("client_id")));
+        ErrorHandler.handle(resp, () -> iPlanInspectorService.inactive(dto, req.getHeader("client_id")));
     }
 }
