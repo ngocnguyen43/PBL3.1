@@ -123,8 +123,7 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
                 "users.email = ?," +
                 "users.full_name = ?,"
                 + "users.national_id = ?," +
-                "users.user_number = ?," +
-                "users.password = ? " +
+                "users.user_number = ?" +
                 "WHERE users.user_id = ? ";
         update(sql,
                 user.getCompanyName(),
@@ -135,7 +134,6 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
                 user.getFullName(),
                 user.getNationalId(),
                 user.getUserNumber(),
-                user.getPassword(),
                 user.getId());
     }
 
