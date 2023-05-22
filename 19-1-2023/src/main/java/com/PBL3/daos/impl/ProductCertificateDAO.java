@@ -10,19 +10,25 @@ public class ProductCertificateDAO extends AbstractDAO<ProductCertificatesModel>
     @Override
     public void createOne(ProductCertificatesModel domain) {
         String sql = "INSERT INTO product_certificates (id,certificate_id,product_id,action) VALUES (?,?,?,?) ";
-        insert(sql,domain.getId(),domain.getCertificateId(),domain.getProductId(),domain.getAction());
+        insert(sql, domain.getId(), domain.getCertificateId(), domain.getProductId(), domain.getAction());
     }
 
     @Override
-    public void deleteOne(String id) {
-        String sql = "DELETE FROM product_certificates WHERE id = ?";
-        delete(sql,id);
+    public void deleteOne(ProductCertificatesModel domain) {
+        String sql = "DELETE FROM product_certificates WHERE product_id = ? AND certificate_id = ?";
+        delete(sql, domain.getProductId(), domain.getCertificateId());
     }
 
     @Override
     public ProductCertificatesModel findOne(String id) {
         String sql = "SELECT * FROM product_certificates WHERE id = ?";
-        List<ProductCertificatesModel> productCertificatesModels = query(sql,new ProductCertificateMapper(),id);
+        List<ProductCertificatesModel> productCertificatesModels = query(sql, new ProductCertificateMapper(), id);
         return productCertificatesModels.isEmpty() ? null : productCertificatesModels.get(0);
+    }
+
+    @Override
+    public List<ProductCertificatesModel> findAllById(String id) {
+        String sql = "SELECT * FROM product_certificates WHERE product_id = ?";
+        return query(sql, new ProductCertificateMapper(), id);
     }
 }

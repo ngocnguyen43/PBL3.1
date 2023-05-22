@@ -1,132 +1,160 @@
 package com.PBL3.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User extends AbstractModel {
-	private Integer roleId;
-	private  String companyId;
+    private Integer roleId;
+    private String companyId;
+    private String companyName;
+    private String taxIndentity;
+    private String businessId;
+    private String phoneNumber;
+    private String faxNumber;
+    private String email;
+    private String fullName;
+    private String nationalId;
+    private String userNumber;
+    private Integer action = 1;
+    private String password;
+    private Role role;
+    @JsonProperty("business_type")
+    private Business business;
+    @JsonProperty("products")
+    private List<ProductModel> productModel;
 
-	public String getCompanyId() {
-		return companyId;
-	}
 
-	public void setCompanyId(String companyId) {
-		this.companyId = companyId;
-	}
+    public Business getBusiness() {
+        return business;
+    }
 
-	private String companyName;
-	private String taxIndentity;
-	private String businessId;
-	private String phoneNumber;
-	private String faxNumber;
-	private String email;
-	private String fullName;
-	private String nationalId;
-	private String userNumber;
-	private Integer action = 1;
-	private String password;
-	private Role role;
+    public void setBusiness(Business business) {
+        this.business = business;
+    }
 
-	public Integer getRoleId() {
-		return roleId;
-	}
+    public List<ProductModel> getProductModel() {
+        return productModel;
+    }
 
-	public void setRoleId(Integer roleId) {
-		this.roleId = roleId;
-	}
+    public void setProductModel(List<ProductModel> productModel) {
+        this.productModel = productModel;
+    }
 
-	public String getCompanyName() {
-		return companyName;
-	}
+    public String getCompanyId() {
+        return companyId;
+    }
 
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
+    }
 
-	public String getTaxIndentity() {
-		return taxIndentity;
-	}
+    public Integer getRoleId() {
+        return roleId;
+    }
 
-	public void setTaxIndentity(String taxIndentity) {
-		this.taxIndentity = taxIndentity;
-	}
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
+    }
 
-	public String getBusinessId() {
-		return businessId;
-	}
+    public String getCompanyName() {
+        return companyName;
+    }
 
-	public void setBusinessId(String businessId) {
-		this.businessId = businessId;
-	}
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
+    public String getTaxIndentity() {
+        return taxIndentity;
+    }
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
+    public void setTaxIndentity(String taxIndentity) {
+        this.taxIndentity = taxIndentity;
+    }
 
-	public String getFaxNumber() {
-		return faxNumber;
-	}
+    public String getBusinessId() {
+        return businessId;
+    }
 
-	public void setFaxNumber(String faxNumber) {
-		this.faxNumber = faxNumber;
-	}
+    public void setBusinessId(String businessId) {
+        this.businessId = businessId;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-	public String getFullName() {
-		return fullName;
-	}
+    public String getFaxNumber() {
+        return faxNumber;
+    }
 
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
+    public void setFaxNumber(String faxNumber) {
+        this.faxNumber = faxNumber;
+    }
 
-	public String getNationalId() {
-		return nationalId;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setNationalId(String nationalId) {
-		this.nationalId = nationalId;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getUserNumber() {
-		return userNumber;
-	}
+    public String getFullName() {
+        return fullName;
+    }
 
-	public void setUserNumber(String userNumber) {
-		this.userNumber = userNumber;
-	}
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
-	public Integer getAction() {
-		return action;
-	}
+    public String getNationalId() {
+        return nationalId;
+    }
 
-	public void setAction(Integer action) {
-		this.action = action;
-	}
+    public void setNationalId(String nationalId) {
+        this.nationalId = nationalId;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getUserNumber() {
+        return userNumber;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setUserNumber(String userNumber) {
+        this.userNumber = userNumber;
+    }
 
-	public Role getRole() {
-		return role;
-	}
+    public Integer getAction() {
+        return action;
+    }
 
-	public void setRole(Role role) {
-		this.role = role;
-	}
+    public void setAction(Integer action) {
+        this.action = action;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
 }

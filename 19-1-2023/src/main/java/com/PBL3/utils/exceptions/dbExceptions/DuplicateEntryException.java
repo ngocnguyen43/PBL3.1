@@ -6,14 +6,14 @@ import com.PBL3.utils.exceptions.Exception;
 
 public class DuplicateEntryException extends Exception {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	public DuplicateEntryException(String message) {
-		this.message = message;
-		this.errorCode = ErrorCodes.DuplicateEntryException.getValue();
-		this.statusCode = ErrorStatusCodes.DuplicateEntryException.getValue();
-	}
+    public DuplicateEntryException(String message) {
+        this.message = message;
+        this.errorCode = ErrorCodes.DuplicateEntryException.getValue();
+        this.statusCode = ErrorStatusCodes.DuplicateEntryException.getValue();
+    }
 }

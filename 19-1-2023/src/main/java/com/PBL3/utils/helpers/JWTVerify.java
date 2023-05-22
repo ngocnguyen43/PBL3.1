@@ -1,20 +1,25 @@
 package com.PBL3.utils.helpers;
 
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 public class JWTVerify {
-	// private static Logger logger = LoggerFactory.getLogger(JWTVerify.class);
+    // private static Logger logger = LoggerFactory.getLogger(JWTVerify.class);
 
-	// private static
-	private String token;
+    // private static
+    private static String token;
 
-	public JWTVerify(String token) {
-		this.token = token;
-	}
+    public JWTVerify(String token) {
+        JWTVerify.token = token;
+    }
 
-	public DecodedJWT verifyingJWT() {
-		DecodedJWT decodedJWT = JWT.decode(token);
-		return decodedJWT;
-	}
+    public static DecodedJWT verifyingJWT(String token) {
+        try {
+
+            return JWT.decode(token);
+        } catch (JWTDecodeException e) {
+            return null;
+        }
+    }
 }

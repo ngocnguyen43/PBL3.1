@@ -1,7 +1,10 @@
 package com.PBL3.dtos;
 
-public class PlanInspectorDTO  {
+public class PlanInspectorDTO {
     String id;
+    String planId;
+    String userId;
+    Integer action = 1;
 
     public String getId() {
         return id;
@@ -10,11 +13,6 @@ public class PlanInspectorDTO  {
     public void setId(String id) {
         this.id = id;
     }
-
-    String planId;
-    String userId;
-
-    Integer action = 1;
 
     public String getPlanId() {
         return planId;
