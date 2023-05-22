@@ -4,7 +4,6 @@ import com.PBL3.dtos.ResetPasswordDTO;
 import com.PBL3.services.IAuthService;
 import com.PBL3.utils.exceptions.ErrorHandler;
 import com.PBL3.utils.helpers.Helper;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;

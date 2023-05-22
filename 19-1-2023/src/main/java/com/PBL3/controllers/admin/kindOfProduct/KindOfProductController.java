@@ -25,7 +25,7 @@ public class KindOfProductController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         KindOfProductDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(KindOfProductDTO.class);
-        ErrorHandler.handle(resp, () -> iKindOfProductService.createNewKind(dto,req.getHeader("client_id")));
+        ErrorHandler.handle(resp, () -> iKindOfProductService.createNewKind(dto, req.getHeader("client_id")));
     }
 
     @Override

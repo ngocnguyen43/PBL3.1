@@ -8,7 +8,7 @@ import com.PBL3.utils.exceptions.dbExceptions.UpdateFailedException;
 import com.PBL3.utils.response.Message;
 
 public interface IPlanInspectorService {
-    Message createOne(PlanInspectorDTO dto,String from) throws DuplicateEntryException, CreateFailedException, InvalidPropertiesException;
+    Message createOne(PlanInspectorDTO dto, String from) throws DuplicateEntryException, CreateFailedException, InvalidPropertiesException;
 
-    Message inactive(PlanInspectorDTO dto,String id) throws UpdateFailedException, InvalidPropertiesException;
+    Message inactive(PlanInspectorDTO dto, String id) throws UpdateFailedException, InvalidPropertiesException;
 }

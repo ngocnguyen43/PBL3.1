@@ -33,6 +33,7 @@ public interface IUserDAO extends GenericDAO<User> {
     void updatePassword(String id, String password);
 
     String getUserRole(String id);
+
     String getUserName(String id);
 
 }

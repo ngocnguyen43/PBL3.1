@@ -24,6 +24,6 @@ public class CertificateDController extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getPathInfo().substring(1);
-        ErrorHandler.handle(resp, () -> this.certificateService.deleteCertificate(id,req.getHeader("client_id")));
+        ErrorHandler.handle(resp, () -> this.certificateService.deleteCertificate(id, req.getHeader("client_id")));
     }
 }

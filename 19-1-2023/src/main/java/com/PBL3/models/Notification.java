@@ -11,6 +11,7 @@ public class Notification extends AbstractModel {
     private List<String> users;
 
     private Boolean admin;
+    private String message;
 
     public Boolean getAdmin() {
         return admin;
@@ -19,8 +20,6 @@ public class Notification extends AbstractModel {
     public void setAdmin(Boolean admin) {
         this.admin = admin;
     }
-
-    private String message;
 
     public String getMessage() {
         return message;
@@ -46,15 +45,13 @@ public class Notification extends AbstractModel {
         this.mods = mods;
     }
 
-    public void setUsers(List<String> users) {
-        this.users = users;
-    }
-
     public List<String> getUsers() {
         return users;
     }
 
-
+    public void setUsers(List<String> users) {
+        this.users = users;
+    }
 
     public static class Builder {
         private String creator;

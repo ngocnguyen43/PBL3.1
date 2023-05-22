@@ -14,7 +14,7 @@ public class DivergenceJson {
             Map<String, ArrayList<String>> map = mapper.readValue(json, Map.class);
             ArrayList<String> usersList = map.get("users");
             ArrayList<String> modsList = map.get("mods");
-            return new ArrayList<>(Arrays.asList(usersList,modsList));
+            return new ArrayList<>(Arrays.asList(usersList, modsList));
 
         } catch (Exception e) {
             e.printStackTrace();
