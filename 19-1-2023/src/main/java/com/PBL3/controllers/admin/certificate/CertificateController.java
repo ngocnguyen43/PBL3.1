@@ -20,7 +20,11 @@ import java.io.IOException;
 import static com.PBL3.utils.Constants.EndPoint.PRIVATE;
 import static com.PBL3.utils.Constants.EndPoint.V1;
 
-@MultipartConfig
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 1024 * 1024 * 10,
+        maxRequestSize = 1024 * 1024 * 11
+)
 @WebServlet(urlPatterns = {V1 + PRIVATE + "/certificate"})
 public class CertificateController extends HttpServlet {
     private static final long serialVersionUID = 1L;

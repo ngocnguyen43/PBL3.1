@@ -1,9 +1,14 @@
 package com.PBL3.utils.helpers;
 
+import com.PBL3.config.EnvConfig;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class SaveFile {
     private static final String UPLOAD_DIRECTORY = "public";
@@ -17,11 +22,14 @@ public class SaveFile {
             String id = IDGeneration.generate();
             String[] fileNameSplits = fileName.split("\\.");
             int extensionIndex = fileNameSplits.length - 1;
-            String path = null;
-            for (Part part : request.getParts()) {
-                path = "/" + id + "." + fileNameSplits[extensionIndex];
-                part.write("D:\\PBL3.1\\" + folder + "\\" + id + "." + fileNameSplits[extensionIndex]);
-            }
+            InputStream inputStream = filePart.getInputStream();
+            byte[] bytes = new byte[inputStream.available()];
+            inputStream.read(bytes);
+            String path = "/" + id + "." + fileNameSplits[extensionIndex];
+            File file = new File(EnvConfig.load().get("IMAGE_FOLDER") + "\\", id + "." + fileNameSplits[extensionIndex]);
+            FileOutputStream outputStream = new FileOutputStream(file);
+            outputStream.write(bytes);
+            outputStream.close();
             return path;
         } catch (IOException | ServletException e) {
             throw new RuntimeException(e);
