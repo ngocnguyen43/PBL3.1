@@ -71,9 +71,11 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Message findAll(UserPaginationDTO dto, String role) {
+    public Message findAll(UserPaginationDTO dto, String id) throws InvalidPropertiesException {
         UserPagination domain = Helper.objectMapper(dto, UserPagination.class);
         if (domain.getPage() < 0) domain.setPage(1);
+        String role = userDao.getUserRole(id);
+        if (!role.equals("ADMIN") && !role.equals("MOD")) throw new InvalidPropertiesException("Invalid credentials");
         List<User> users = userDao.findAll(role, domain);
         Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
         Data data = new Data.Builder(null).withResults(users).build();

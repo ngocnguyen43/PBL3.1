@@ -28,7 +28,7 @@ public class AdminUsersController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserPaginationDTO dto = Helper.paramsToString(QueryParams.getQuery(req)).toModel(UserPaginationDTO.class);
-        ErrorHandler.handle(resp, () -> userService.findAll(dto, "ADMIN"));
+        ErrorHandler.handle(resp, () -> userService.findAll(dto, req.getHeader("client_id")));
     }
 
     @Override
