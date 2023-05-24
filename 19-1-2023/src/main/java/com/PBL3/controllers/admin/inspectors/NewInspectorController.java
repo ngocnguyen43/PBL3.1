@@ -24,6 +24,6 @@ public class NewInspectorController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(UserDTO.class);
-        ErrorHandler.handle(resp, () -> authService.InspectorRegister(dto,req.getHeader("client_id")));
+        ErrorHandler.handle(resp, () -> authService.InspectorRegister(dto, req.getHeader("client_id")));
     }
 }

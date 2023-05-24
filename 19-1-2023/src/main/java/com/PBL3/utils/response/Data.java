@@ -21,11 +21,11 @@ public class Data {
     private String userId;
     private Object result = null;
 
-    public String getUserId() {
-        return userId;
+    private Data() {
     }
 
-    private Data() {
+    public String getUserId() {
+        return userId;
     }
 
     public String getRole() {

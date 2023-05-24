@@ -9,5 +9,6 @@ import java.util.InvalidPropertiesFormatException;
 
 public interface INotificationService {
     void create(Notification dto) throws InvalidPropertiesFormatException, JsonProcessingException, UnexpectedException;
+
     Message getAllNotifications(String id);
 }

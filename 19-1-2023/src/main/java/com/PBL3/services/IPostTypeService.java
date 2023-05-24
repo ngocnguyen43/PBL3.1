@@ -7,7 +7,7 @@ import com.PBL3.utils.exceptions.dbExceptions.UnexpectedException;
 import com.PBL3.utils.response.Message;
 
 public interface IPostTypeService {
-    Message Create(PostTypeDTO postTypeDTO,String id) throws DuplicateEntryException, UnexpectedException, InvalidPropertiesException;
+    Message Create(PostTypeDTO postTypeDTO, String id) throws DuplicateEntryException, UnexpectedException, InvalidPropertiesException;
 
     Message GetAll() throws UnexpectedException;
 }

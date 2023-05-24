@@ -17,11 +17,11 @@ public interface IUserService {
 
     Message save(UserDTO dto) throws DuplicateEntryException, CreateFailedException;
 
-    Message delete(String userId,String creator) throws InvalidPropertiesException, UnexpectedException, InvalidPropertiesFormatException, JsonProcessingException;
+    Message delete(String userId, String creator) throws InvalidPropertiesException, UnexpectedException, InvalidPropertiesFormatException, JsonProcessingException;
 
     Message findOne(String id);
 
     Message findAllMods();
 
-    Message update(UserDTO dto, String id,String userId) throws DuplicateEntryException, UpdateFailedException, UnexpectedException, NotFoundException, InvalidPropertiesException;
+    Message update(UserDTO dto, String id, String userId) throws DuplicateEntryException, UpdateFailedException, UnexpectedException, NotFoundException, InvalidPropertiesException;
 }

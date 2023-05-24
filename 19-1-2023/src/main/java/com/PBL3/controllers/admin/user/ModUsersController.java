@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(EndPoint.V1 + EndPoint.PRIVATE +  "/p/users")
+@WebServlet(EndPoint.V1 + EndPoint.PRIVATE + "/p/users")
 public class ModUsersController extends HttpServlet {
     @Inject
     private IUserService userService;

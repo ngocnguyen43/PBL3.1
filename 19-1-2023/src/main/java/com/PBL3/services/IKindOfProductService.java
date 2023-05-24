@@ -6,7 +6,7 @@ import com.PBL3.utils.response.Message;
 
 public interface IKindOfProductService {
 
-    Message createNewKind(KindOfProductDTO dto,String userId) throws CreateFailedException;
+    Message createNewKind(KindOfProductDTO dto, String userId) throws CreateFailedException;
 
     Message getAllKinds();
 }

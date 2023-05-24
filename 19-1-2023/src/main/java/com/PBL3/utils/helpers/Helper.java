@@ -60,7 +60,8 @@ public class Helper {
         }
         return null;
     }
-    public String read(){
+
+    public String read() {
         return this.data;
     }
 //	public static String savePart(HttpServletRequest req,String name){

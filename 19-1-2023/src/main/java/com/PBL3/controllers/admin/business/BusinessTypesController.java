@@ -28,7 +28,7 @@ public class BusinessTypesController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BusinessTypesDTO businessTypeDto = Helper.paramsToString(req.getParameterMap()).toModel(BusinessTypesDTO.class);
-        ErrorHandler.handle(resp, () -> businessTypesService.createBusinessType(businessTypeDto,req.getHeader("client_id")));
+        ErrorHandler.handle(resp, () -> businessTypesService.createBusinessType(businessTypeDto, req.getHeader("client_id")));
     }
 
     @Override

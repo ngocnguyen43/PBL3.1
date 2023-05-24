@@ -54,4 +54,10 @@ public class CertificateDAO extends AbstractDAO<Certificate> implements ICertifi
         return pages.isEmpty() ? null : pages.get(0);
     }
 
+    @Override
+    public List<Certificate> findAll() {
+        String sql = "SELECT * FROM login.certificates ";
+        return query(sql, new CertificateMapper());
+    }
+
 }

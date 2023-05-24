@@ -5,7 +5,6 @@ import com.PBL3.utils.exceptions.ErrorHandler;
 import com.PBL3.utils.helpers.DivergenceJson;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -62,7 +61,7 @@ public class TestController extends HttpServlet {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
-        ErrorHandler.handle(resp,()->iNotificationService.getAllNotifications(req.getHeader("client_id")));
+        ErrorHandler.handle(resp, () -> iNotificationService.getAllNotifications(req.getHeader("client_id")));
     }
 
     @Override

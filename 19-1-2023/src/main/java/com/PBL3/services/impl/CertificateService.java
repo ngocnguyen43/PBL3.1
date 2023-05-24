@@ -120,4 +120,12 @@ public class CertificateService implements ICertificateService {
         }
     }
 
+    @Override
+    public Message getAll() {
+        List<Certificate> certificateList = certificateDAO.findAll();
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
+        Data data = new Data.Builder(null).withResults(certificateList).build();
+        return new Message.Builder(meta).withData(data).build();
+    }
+
 }

@@ -5,7 +5,6 @@ import com.PBL3.utils.exceptions.ErrorHandler;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,15 +14,13 @@ import java.io.IOException;
 import static com.PBL3.utils.Constants.EndPoint.PRIVATE;
 import static com.PBL3.utils.Constants.EndPoint.V1;
 
-@MultipartConfig
-@WebServlet(urlPatterns = {V1 + PRIVATE + "/certificate/*"})
-public class CertificateDController extends HttpServlet {
+@WebServlet(urlPatterns = {V1 + PRIVATE + "/certificates"})
+public class CertificatesController extends HttpServlet {
     @Inject
     private ICertificateService certificateService;
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getPathInfo().substring(1);
-        ErrorHandler.handle(resp, () -> this.certificateService.deleteCertificate(id, req.getHeader("client_id")));
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ErrorHandler.handle(resp, () -> certificateService.getAll());
     }
 }
