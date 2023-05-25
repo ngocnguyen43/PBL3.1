@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(EndPoint.V1 + EndPoint.PRIVATE + EndPoint.ADMIN + "/users")
+@WebServlet(EndPoint.V1 + EndPoint.PRIVATE + "/users")
 @MultipartConfig
 
 public class AdminUsersController extends HttpServlet {
@@ -28,7 +28,7 @@ public class AdminUsersController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserPaginationDTO dto = Helper.paramsToString(QueryParams.getQuery(req)).toModel(UserPaginationDTO.class);
-        ErrorHandler.handle(resp, () -> userService.findAll(dto, "ADMIN"));
+        ErrorHandler.handle(resp, () -> userService.findAll(dto, req.getHeader("client_id")));
     }
 
     @Override
