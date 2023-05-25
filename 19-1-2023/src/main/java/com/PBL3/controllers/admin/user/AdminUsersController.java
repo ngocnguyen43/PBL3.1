@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(EndPoint.V1 + EndPoint.PRIVATE + EndPoint.ADMIN + "/users")
+@WebServlet(EndPoint.V1 + EndPoint.PRIVATE + "/users")
 @MultipartConfig
 
 public class AdminUsersController extends HttpServlet {
