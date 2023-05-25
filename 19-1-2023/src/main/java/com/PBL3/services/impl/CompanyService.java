@@ -27,7 +27,7 @@ public class CompanyService implements ICompanyService {
         List<User> users = companyDAO.getAllCompanies(domain);
         Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
         Data data = new Data.Builder(null).withResults(users).build();
-        Integer pages = userDAO.countAllRecord(domain, "MOD");
+        Integer pages = userDAO.countAllRecord(domain, "MODERATOR");
         Pagination pagination = new Pagination.Builder().
                 withCurrentPage(domain.getPage()).
                 withTotalPages((int) Math.ceil((double) pages / PER_PAGE)).
