@@ -23,7 +23,8 @@ public class CertificateDAO extends AbstractDAO<Certificate> implements ICertifi
 
     @Override
     public List<Certificate> findAll(CertificatePaginationModel domain) {
-        String sql = "SELECT * FROM certificates LIMIT " + PER_PAGE + " OFFSET " + (domain.getPage() - 1) * PER_PAGE;
+        String sql = "SELECT * FROM certificates LIMIT " + PER_PAGE + " OFFSET " + (domain.getPage() - 1) * PER_PAGE
+                + " ORDER BY name, created_at";
         return query(sql, new CertificateMapper());
     }
 
@@ -56,7 +57,7 @@ public class CertificateDAO extends AbstractDAO<Certificate> implements ICertifi
 
     @Override
     public List<Certificate> findAll() {
-        String sql = "SELECT * FROM login.certificates ";
+        String sql = "SELECT * FROM login.certificates ORDER BY created_at DESC";
         return query(sql, new CertificateMapper());
     }
 

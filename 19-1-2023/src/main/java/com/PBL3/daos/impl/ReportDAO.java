@@ -29,7 +29,7 @@ public class ReportDAO extends AbstractDAO<ReportModel> implements IReportDAO {
 
     @Override
     public List<ReportModel> findAll() {
-        String sql = "SELECT * FROM reports ";
+        String sql = "SELECT * FROM reports ORDER BY created_at DESC";
         return query(sql, new ReportMapper());
     }
 

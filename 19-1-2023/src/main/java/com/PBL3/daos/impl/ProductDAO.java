@@ -35,7 +35,7 @@ public class ProductDAO extends AbstractDAO<ProductModel> implements IProductDAO
         else sql += " AND true ";
         if (domain.getProduct() != null) sql += " AND product_name LIKE '%" + domain.getProduct() + "%'";
         else sql += " AND true ";
-        sql += "LIMIT " + PER_PAGE + " OFFSET " + (domain.getPage() - 1) * PER_PAGE;
+        sql += " ORDER BY created_at LIMIT " + PER_PAGE + " OFFSET " + (domain.getPage() - 1) * PER_PAGE;
         System.out.println(sql);
 
         return query(sql, new ProductMapper());

@@ -47,13 +47,13 @@ public class NotificationDAO extends AbstractDAO<Notification> implements INotif
                 "WHERE JSON_CONTAINS(refs->'$.mods','\"" +
                 id +
                 "\"') " +
-                "OR JSON_CONTAINS(refs->'$.mods','\"all\"' )" + "AND refs->'$.admin' = false";
+                "OR JSON_CONTAINS(refs->'$.mods','\"all\"' )" + "AND (refs->'$.admin' = false)  ORDER BY login.notifications.created_at DESC";
         String sqlUser = "SELECT creator,message,created_at FROM login.notifications " +
                 "WHERE JSON_CONTAINS(refs->'$.users','\"" +
                 id +
-                "\"') ";
+                "\"')  ORDER BY login.notifications.created_at DESC";
         String sqlAdmin = "SELECT creator,message,created_at FROM login.notifications " +
-                "WHERE refs->'$.admin' = true ";
+                "WHERE refs->'$.admin' = true  ORDER BY login.notifications.created_at DESC";
 //        SELECT * FROM login.notifications
 //        WHERE JSON_CONTAINS(refs->'$.mods', '"N-4ebNaV1ab_X-vNlbyv-yy"')
 //        OR JSON_LENGTH(refs->'$.mods') = 0;
