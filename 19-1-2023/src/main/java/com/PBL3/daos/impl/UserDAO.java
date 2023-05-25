@@ -61,7 +61,7 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
         if (pagination.getEmail() != null) sql += " AND login.users.email LIKE '%" + pagination.getEmail() + "%'";
         else sql += "AND true ";
         if (role.equals("ADMIN")) sql += "AND login.users.role_id != 1";
-        if (role.equals("MOD")) sql += "AND login.users.role_id = 3";
+        if (role.equals("MODERATOR")) sql += "AND login.users.role_id = 3";
         sql += " LIMIT " + PER_PAGE + " OFFSET " + (pagination.getPage() - 1) * PER_PAGE;
         System.out.println(sql);
         return query(sql, new UserMapper());
@@ -215,7 +215,7 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
         if (pagination.getEmail() != null) sql += " AND login.users.email LIKE '%" + pagination.getEmail() + "%'";
         else sql += "AND true ";
         if (role.equals("ADMIN")) sql += "AND login.users.role_id != 1";
-        if (role.equals("MOD")) sql += "AND login.users.role_id = 3";
+        if (role.equals("MODERATOR")) sql += "AND login.users.role_id = 3";
         List<Integer> pages = query(sql, new CountMapper());
         return pages.isEmpty() ? null : pages.get(0);
     }
