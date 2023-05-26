@@ -78,10 +78,13 @@ public class PlanDAO extends AbstractDAO<PlanModel> implements IPlanDAO {
 
     @Override
     public List<PlanModel> findAll(PlanPaginationModel domain, String id) {
-        String sql = "SELECT login.plans.*, login.plans_inspectors.user_id  FROM login.plans LEFT JOIN login.plans_inspectors\n" +
-                "ON login.plans.plan_id = login.plans_inspectors.plan_id WHERE user_id = ? " +
-                " ORDER BY created_at DESC" +
-                " LIMIT " + PER_PAGE + " OFFSET " + (domain.getPage() - 1) * PER_PAGE;
+        String sql = "SELECT login.plans.*,login.users.company_name , login.plans_inspectors.user_id  FROM login.plans " +
+                "LEFT JOIN login.users ON "+
+                "login.plans.company_id = login.users.company_id "+
+                "LEFT JOIN login.plans_inspectors\n" +
+                "ON login.plans.plan_id = login.plans_inspectors.plan_id WHERE login.plans_inspectors.user_id = ? " +
+                "ORDER BY created_at DESC " +
+                "LIMIT " + PER_PAGE + " OFFSET " + (domain.getPage() - 1) * PER_PAGE;
 
         return query(sql, new PlanMapper(), id);
     }
