@@ -25,7 +25,8 @@ public class PostDAO extends AbstractDAO<PostModel> implements IPostDAO {
                 "login.posts.action," +
                 "login.post_types.type_id," +
                 "login.post_types.type_name FROM login.posts " +
-                "INNER JOIN login.post_types ON login.post_types.type_id = login.posts.type_id";
+                "INNER JOIN login.post_types ON login.post_types.type_id = login.posts.type_id " +
+                "ORDER BY created_at ";
         return query(sql, new PostMapper());
     }
 

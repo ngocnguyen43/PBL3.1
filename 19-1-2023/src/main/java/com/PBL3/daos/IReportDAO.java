@@ -14,4 +14,6 @@ public interface IReportDAO extends GenericDAO<ReportModel> {
     List<ReportModel> findAll();
 
     void updateReportStatus(String id);
+
+    Integer countAllReports();
 }

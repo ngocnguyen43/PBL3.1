@@ -76,7 +76,8 @@ public class UserService implements IUserService {
         if (domain.getPage() < 0) domain.setPage(1);
         String role = userDao.getUserRole(id).toUpperCase();
         System.out.println(role);
-        if (!role.equals("ADMIN") && !role.equals("MODERATOR")) throw new InvalidPropertiesException("Invalid credentials");
+        if (!role.equals("ADMIN") && !role.equals("MODERATOR"))
+            throw new InvalidPropertiesException("Invalid credentials");
         List<User> users = userDao.findAll(role, domain);
         Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
         Data data = new Data.Builder(null).withResults(users).build();
