@@ -117,6 +117,7 @@ public class MicrosoftService implements IMicrosoftService {
         Path tempFilePath = Files.createTempFile(fileNameSplits[0], "." + fileNameSplits[extensionIndex]);
 
         File tempFile = tempFilePath.toFile();
+        tempFile.deleteOnExit();
         try (InputStream inputStream = filePart.getInputStream()) {
             Files.copy(inputStream, tempFilePath, StandardCopyOption.REPLACE_EXISTING);
         }
