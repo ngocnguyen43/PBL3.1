@@ -23,8 +23,9 @@ public class CertificateDAO extends AbstractDAO<Certificate> implements ICertifi
 
     @Override
     public List<Certificate> findAll(CertificatePaginationModel domain) {
-        String sql = "SELECT * FROM certificates LIMIT " + PER_PAGE + " OFFSET " + (domain.getPage() - 1) * PER_PAGE
-                + " ORDER BY name, created_at";
+        String sql = "SELECT * FROM certificates"
+                + " ORDER BY name, created_at"
+                + " LIMIT " + PER_PAGE + " OFFSET " + (domain.getPage() - 1) * PER_PAGE;
         return query(sql, new CertificateMapper());
     }
 
