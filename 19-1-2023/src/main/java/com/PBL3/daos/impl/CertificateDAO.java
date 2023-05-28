@@ -12,7 +12,6 @@ import static com.PBL3.utils.Constants.Pagination.PER_PAGE;
 
 public class CertificateDAO extends AbstractDAO<Certificate> implements ICertificateDAO {
 
-
     @Override
     public String save(Certificate domain) {
         Integer action = domain.getAction() ? 1 : 0;
