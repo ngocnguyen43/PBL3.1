@@ -136,4 +136,34 @@ public class ProductService implements IProductService {
             throw new UpdateFailedException(Response.FAILED);
         }
     }
+
+    @Override
+    public Message getAllProducts(ProductPaginationDTO dto, String id) throws UnexpectedException {
+        ProductPagination domain = Helper.objectMapper(dto, ProductPagination.class);
+        if (domain.getPage() < 1) domain.setPage(1);
+        try {
+            List<ProductModel> products = iProductDAO.findAll(domain, id);
+            for (ProductModel product : products) {
+                List<ProductCertificatesModel> productCertificates = productCertificateDAO.findAllById(product.getId());
+                KindOfProductModel kindOfProductModel = kindOfProductDAO.findOne(product.getKindof());
+                product.setKindOfProductModel(kindOfProductModel);
+                List<Certificate> certificates = new ArrayList<>();
+                for (ProductCertificatesModel productCertificate : productCertificates) {
+                    Certificate certificate = iCertificateDAO.findOne(productCertificate.getCertificateId());
+                    certificates.add(certificate);
+                }
+                product.setCertificate(certificates);
+            }
+            Integer records = iProductDAO.countToTalProducts(domain);
+            Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
+            Data data = new Data.Builder(null).withResults(products).build();
+            Pagination pagination = new Pagination.Builder().withCurrentPage(domain.getPage())
+                    .withTotalPages((int) Math.ceil((double) records / PER_PAGE))
+                    .withTotalResults(records)
+                    .build();
+            return new Message.Builder(meta).withData(data).withPagination(pagination).build();
+        } catch (Exception e) {
+            throw new UnexpectedException();
+        }
+    }
 }

@@ -18,4 +18,6 @@ public interface IProductService {
     Message updateProduct(ProductDTO dto) throws UpdateFailedException, NotFoundException;
 
     Message deleteProduct(String id) throws UpdateFailedException;
+
+    Message getAllProducts(ProductPaginationDTO dto,String id) throws UnexpectedException;
 }

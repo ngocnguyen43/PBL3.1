@@ -34,7 +34,8 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
 
     @Override
     public List<User> findAll(String role, UserPagination pagination) {
-        String sql = "SELECT * FROM login.users  INNER JOIN login.roles ON login.users.role_id = login.roles.role_id  WHERE ";
+        String sql = "SELECT * FROM login.users  INNER JOIN login.business ON users.business_id = business.business_id " +
+                "INNER JOIN login.roles ON login.users.role_id = login.roles.role_id  WHERE ";
         if (pagination.getFullname() != null)
             sql += " login.users.full_name LIKE '%" + pagination.getFullname() + "%' ";
         else sql += " true ";
@@ -42,7 +43,7 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
         else sql += "AND true ";
         if (role.equals("ADMIN")) sql += "AND login.users.role_id != 1";
         if (role.equals("MODERATOR")) sql += "AND login.users.role_id = 3";
-        sql += " ORDER BY login.users.role_id ASC, created_at DESC LIMIT " + PER_PAGE + " OFFSET " + (pagination.getPage() - 1) * PER_PAGE;
+        sql += " ORDER BY login.users.role_id ASC, login.users.created_at DESC LIMIT " + PER_PAGE + " OFFSET " + (pagination.getPage() - 1) * PER_PAGE;
         System.out.println(sql);
         return query(sql, new UserMapper());
     }
@@ -111,14 +112,18 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
 
     @Override
     public String getUserRole(String id) {
-        String sql = "SELECT * FROM login.users INNER JOIN roles ON users.role_id = roles.role_id WHERE login.users.user_id = ?";
+        String sql = "SELECT * FROM login.users " +
+//                "INNER JOIN login.business ON users.business_id = business.business_id " +
+                "INNER JOIN roles ON users.role_id = roles.role_id WHERE login.users.user_id = ?";
         List<User> users = query(sql, new UserMapper(), id);
         return users.isEmpty() ? null : users.get(0).getRole().getRoleName();
     }
 
     @Override
     public String getUserName(String id) {
-        String sql = "SELECT * FROM login.users INNER JOIN roles ON users.role_id = roles.role_id WHERE login.users.user_id = ?";
+        String sql = "SELECT * FROM login.users  " +
+                "INNER JOIN login.business ON users.business_id = business.business_id " +
+                "INNER JOIN roles ON users.role_id = roles.role_id WHERE login.users.user_id = ?";
         List<User> users = query(sql, new UserMapper(), id);
         return users.isEmpty() ? null : users.get(0).getFullName();
     }
@@ -126,7 +131,9 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
     @Override
     public User findByEmail(String email) {
         // TODO Auto-generated method stub
-        String sql = "SELECT * FROM login.users INNER JOIN roles ON users.role_id = roles.role_id WHERE users.email = ? ";
+        String sql = "SELECT * FROM login.users  " +
+                "INNER JOIN login.business ON users.business_id = business.business_id " +
+                "INNER JOIN roles ON users.role_id = roles.role_id WHERE users.email = ? ";
 //		String sql = "SELECT * FROM users INNER JOIN roles ON users.roleId = roles.roleId WHERE email = ? ";
 
         List<User> users = query(sql, new UserMapper(false, true), email);
@@ -136,7 +143,9 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
 
     @Override
     public User findByCompanyId(String companyId) {
-        String sql = "SELECT * FROM users INNER JOIN roles ON users.role_id = roles.role_id WHERE company_id = ? ";
+        String sql = "SELECT * FROM users  " +
+                "INNER JOIN login.business ON users.business_id = business.business_id " +
+                "INNER JOIN roles ON users.role_id = roles.role_id WHERE company_id = ? ";
 //		String sql = "SELECT * FROM users INNER JOIN roles ON users.roleId = roles.roleId WHERE email = ? ";
 
         List<User> users = query(sql, new UserMapper(), companyId);
@@ -146,7 +155,9 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
 
     @Override
     public User findByNationalId(String nationalId) {
-        String sql = "SELECT * FROM users INNER JOIN roles ON users.role_id = roles.role_Id WHERE national_id = ?";
+        String sql = "SELECT * FROM users " +
+                "INNER JOIN login.business ON users.business_id = business.business_id " +
+                "INNER JOIN roles ON users.role_id = roles.role_Id WHERE national_id = ?";
         // TODO Auto-generated method stub
         List<User> users = query(sql, new UserMapper(false, true), nationalId);
         return users.isEmpty() ? null : users.get(0);

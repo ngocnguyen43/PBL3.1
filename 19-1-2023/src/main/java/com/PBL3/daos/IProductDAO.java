@@ -12,7 +12,7 @@ public interface IProductDAO extends GenericDAO<ProductModel> {
     List<ProductModel> findAll();
 
     List<ProductModel> findAll(ProductPagination domain);
-
+    List<ProductModel> findAll(ProductPagination domain,String id);
     List<ProductModel> findAllByUserId(String id);
 
     void updateProduct(ProductModel domain);
