@@ -122,7 +122,6 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
     @Override
     public String getUserName(String id) {
         String sql = "SELECT * FROM login.users  " +
-                "INNER JOIN login.business ON users.business_id = business.business_id " +
                 "INNER JOIN roles ON users.role_id = roles.role_id WHERE login.users.user_id = ?";
         List<User> users = query(sql, new UserMapper(), id);
         return users.isEmpty() ? null : users.get(0).getFullName();
@@ -132,7 +131,6 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
     public User findByEmail(String email) {
         // TODO Auto-generated method stub
         String sql = "SELECT * FROM login.users  " +
-                "INNER JOIN login.business ON users.business_id = business.business_id " +
                 "INNER JOIN roles ON users.role_id = roles.role_id WHERE users.email = ? ";
 //		String sql = "SELECT * FROM users INNER JOIN roles ON users.roleId = roles.roleId WHERE email = ? ";
 
@@ -156,7 +154,6 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
     @Override
     public User findByNationalId(String nationalId) {
         String sql = "SELECT * FROM users " +
-                "INNER JOIN login.business ON users.business_id = business.business_id " +
                 "INNER JOIN roles ON users.role_id = roles.role_Id WHERE national_id = ?";
         // TODO Auto-generated method stub
         List<User> users = query(sql, new UserMapper(false, true), nationalId);
