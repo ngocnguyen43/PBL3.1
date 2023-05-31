@@ -72,11 +72,18 @@ public class ProductDAO extends AbstractDAO<ProductModel> implements IProductDAO
     }
 
     @Override
-    public ProductModel findOne(String id) {
-        String sql = "SELECT * FROM products WHERE product_id = ?";
-        List<ProductModel> productModels = query(sql, new ProductMapper(), id);
+    public ProductModel findOne(String id, String userId) {
+        String sql = "SELECT * FROM products WHERE product_id = ? AND user_id = ?";
+        List<ProductModel> productModels = query(sql, new ProductMapper(), id, userId);
         return productModels.isEmpty() ? null : productModels.get(0);
 
+    }
+
+    @Override
+    public ProductModel findOne(String id) {
+        String sql = "SELECT * FROM products WHERE product_id = ? ";
+        List<ProductModel> productModels = query(sql, new ProductMapper(), id);
+        return productModels.isEmpty() ? null : productModels.get(0);
     }
 
     @Override
