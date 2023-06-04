@@ -34,7 +34,7 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
 
     @Override
     public List<User> findAll(String role, UserPagination pagination) {
-        String sql = "SELECT * FROM login.users  INNER JOIN login.business ON users.business_id = business.business_id " +
+        String sql = "SELECT * FROM login.users  LEFT JOIN login.business ON users.business_id = business.business_id " +
                 "INNER JOIN login.roles ON login.users.role_id = login.roles.role_id  WHERE ";
         if (pagination.getFullname() != null)
             sql += " login.users.full_name LIKE '%" + pagination.getFullname() + "%' ";
