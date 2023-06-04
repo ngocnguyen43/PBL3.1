@@ -34,4 +34,12 @@ public class CompanyService implements ICompanyService {
                 withTotalResults(pages).build();
         return new Message.Builder(meta).withData(data).withPagination(pagination).build();
     }
+
+    @Override
+    public Message getAllCompanies() {
+        List<User> users = companyDAO.getAllCompanies();
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
+        Data data = new Data.Builder(null).withResults(users).build();
+        return new Message.Builder(meta).withData(data).build();
+    }
 }

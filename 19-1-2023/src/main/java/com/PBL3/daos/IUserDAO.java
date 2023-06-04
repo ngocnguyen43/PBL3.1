@@ -36,4 +36,6 @@ public interface IUserDAO extends GenericDAO<User> {
 
     String getUserName(String id);
 
+
+
 }

@@ -5,4 +5,5 @@ import com.PBL3.utils.response.Message;
 
 public interface ICompanyService {
     Message getAllcompanies(UserPaginationDTO dto);
+    Message getAllCompanies();
 }

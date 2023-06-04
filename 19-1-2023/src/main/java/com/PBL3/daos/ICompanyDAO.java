@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ICompanyDAO extends GenericDAO<User> {
     List<User> getAllCompanies(UserPagination domain);
+
+    List<User> getAllCompanies();
 }
