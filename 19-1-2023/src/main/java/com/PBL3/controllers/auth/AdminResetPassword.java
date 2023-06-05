@@ -22,6 +22,7 @@ public class AdminResetPassword extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ErrorHandler.handle(resp, () -> authService.ResetPassword(req.getHeader("client_id")));
+        String id = req.getParameter("userId");
+        ErrorHandler.handle(resp, () -> authService.ResetPassword(req.getHeader("client_id"), id));
     }
 }

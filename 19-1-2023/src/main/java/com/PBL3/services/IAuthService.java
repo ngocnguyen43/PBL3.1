@@ -20,5 +20,5 @@ public interface IAuthService {
 
     Message ResetPassword(ResetPasswordDTO dto) throws NotFoundException, InvalidCredentialsException, UnexpectedException, JsonProcessingException;
 
-    Message ResetPassword(String userId) throws NotFoundException, UnexpectedException;
+    Message ResetPassword(String id,String userId) throws NotFoundException, UnexpectedException;
 }
