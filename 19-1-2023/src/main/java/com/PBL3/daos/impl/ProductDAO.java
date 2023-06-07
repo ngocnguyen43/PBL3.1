@@ -30,7 +30,7 @@ public class ProductDAO extends AbstractDAO<ProductModel> implements IProductDAO
                 " LEFT JOIN \n" +
                 "\tlogin.products\n" +
                 "ON login.users.user_id = login.products.user_id\n" +
-                "WHERE product_id IS NOT NULL AND products.action = 1";
+                "WHERE product_id IS NOT NULL ";
         if (domain.getCompany() != null) sql += " AND company_name LIKE '%" + domain.getCompany() + "%'";
         else sql += " AND true ";
         if (domain.getProduct() != null) sql += " AND product_name LIKE '%" + domain.getProduct() + "%'";
