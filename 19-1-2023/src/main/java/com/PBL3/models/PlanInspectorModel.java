@@ -8,6 +8,16 @@ public class PlanInspectorModel extends AbstractModel {
     String planId;
     String userId;
 
+    String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     Integer action;
 
     public String getPlanId() {

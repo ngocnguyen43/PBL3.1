@@ -22,6 +22,7 @@ public class PlanDAO extends AbstractDAO<PlanModel> implements IPlanDAO {
         String sql =
                 "select login.plans.*," +
                         "login.plans_inspectors.user_id as inspector," +
+                        "(select login.users.full_name from login.users where user_id = inspector) as inspector_name,"+
                         "login.plans_inspectors.action as status, " +
                         "login.plans_inspectors.plan_id as plan, " +
                         "login.users.company_name " +

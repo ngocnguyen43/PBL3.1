@@ -37,6 +37,7 @@ public class PlanMapper implements IMapper<PlanModel> {
                 PlanInspectorModel temp = new PlanInspectorModel();
                 temp.setUserId(result.getString("inspector"));
                 temp.setAction(result.getInt("status"));
+                temp.setName(result.getString("inspector_name"));
                 inspectors.add(temp);
                 result.next();
             }
