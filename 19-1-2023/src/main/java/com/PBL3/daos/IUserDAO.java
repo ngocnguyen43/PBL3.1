@@ -16,6 +16,8 @@ public interface IUserDAO extends GenericDAO<User> {
 
     User findByEmail(String email);
 
+    User findByEmailActive(String email);
+
     User findByCompanyId(String companyId);
 
     User findByNationalId(String nationalId);
@@ -35,5 +37,7 @@ public interface IUserDAO extends GenericDAO<User> {
     String getUserRole(String id);
 
     String getUserName(String id);
+
+
 
 }

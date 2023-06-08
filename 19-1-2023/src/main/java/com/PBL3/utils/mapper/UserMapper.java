@@ -2,6 +2,7 @@ package com.PBL3.utils.mapper;
 
 import com.PBL3.models.Role;
 import com.PBL3.models.User;
+import com.PBL3.utils.helpers.CheckFieldExist;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -46,6 +47,9 @@ public class UserMapper implements IMapper<User> {
             role.setRoleCode(result.getString("role_code"));
             role.setRoleName(result.getString("role_name"));
             user.setRole(role);
+            if (CheckFieldExist.checkExist(result, "business_name")) {
+                user.setBusinessType(result.getString("business_name"));
+            }
             return user;
 
         } catch (SQLException e) {

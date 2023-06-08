@@ -11,7 +11,7 @@ import java.util.InvalidPropertiesFormatException;
 public interface IUserService {
     Message findAll(String role) throws InvalidPropertiesException;
 
-    Message findAll(UserPaginationDTO dto, String role);
+    Message findAll(UserPaginationDTO dto, String role) throws InvalidPropertiesException;
 
     Message findByUserId(String id);
 

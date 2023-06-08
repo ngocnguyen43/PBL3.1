@@ -28,9 +28,6 @@ public class ResetPasswordUser extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ResetPasswordDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(ResetPasswordDTO.class);
         dto.setUserId(req.getHeader("client_id"));
-
-//        String prettyString = new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(dto);
-//        System.out.println(prettyString);
         ErrorHandler.handle(resp, () -> authService.ResetPassword(dto));
     }
 }

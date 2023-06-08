@@ -18,4 +18,7 @@ public interface ICertificateDAO extends GenericDAO<Certificate> {
     Certificate findOne(String id);
 
     Integer coutAllCertificates();
+
+    List<Certificate> findAll();
+
 }

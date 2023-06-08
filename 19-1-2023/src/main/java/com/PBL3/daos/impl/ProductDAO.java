@@ -35,10 +35,27 @@ public class ProductDAO extends AbstractDAO<ProductModel> implements IProductDAO
         else sql += " AND true ";
         if (domain.getProduct() != null) sql += " AND product_name LIKE '%" + domain.getProduct() + "%'";
         else sql += " AND true ";
-        sql += "LIMIT " + PER_PAGE + " OFFSET " + (domain.getPage() - 1) * PER_PAGE;
+        sql += " ORDER BY created_at LIMIT " + PER_PAGE + " OFFSET " + (domain.getPage() - 1) * PER_PAGE;
         System.out.println(sql);
 
         return query(sql, new ProductMapper());
+    }
+
+    @Override
+    public List<ProductModel> findAll(ProductPagination domain, String id) {
+        String sql = "SELECT login.products.*,login.users.company_name FROM login.users \n" +
+                " LEFT JOIN \n" +
+                "\tlogin.products\n" +
+                "ON login.users.user_id = login.products.user_id\n" +
+                "WHERE product_id IS NOT NULL AND login.products.user_id = ? ";
+        if (domain.getCompany() != null) sql += " AND company_name LIKE '%" + domain.getCompany() + "%'";
+        else sql += " AND true ";
+        if (domain.getProduct() != null) sql += " AND product_name LIKE '%" + domain.getProduct() + "%'";
+        else sql += " AND true ";
+        sql += " ORDER BY created_at LIMIT " + PER_PAGE + " OFFSET " + (domain.getPage() - 1) * PER_PAGE;
+        System.out.println(sql);
+        return query(sql, new ProductMapper(), id);
+
     }
 
     @Override
@@ -55,11 +72,18 @@ public class ProductDAO extends AbstractDAO<ProductModel> implements IProductDAO
     }
 
     @Override
-    public ProductModel findOne(String id) {
-        String sql = "SELECT * FROM products WHERE product_id = ?";
-        List<ProductModel> productModels = query(sql, new ProductMapper(), id);
+    public ProductModel findOne(String id, String userId) {
+        String sql = "SELECT * FROM products WHERE product_id = ? AND user_id = ?";
+        List<ProductModel> productModels = query(sql, new ProductMapper(), id, userId);
         return productModels.isEmpty() ? null : productModels.get(0);
 
+    }
+
+    @Override
+    public ProductModel findOne(String id) {
+        String sql = "SELECT * FROM products WHERE product_id = ? ";
+        List<ProductModel> productModels = query(sql, new ProductMapper(), id);
+        return productModels.isEmpty() ? null : productModels.get(0);
     }
 
     @Override
@@ -83,5 +107,47 @@ public class ProductDAO extends AbstractDAO<ProductModel> implements IProductDAO
         return records.isEmpty() ? null : records.get(0);
     }
 
+    @Override
+    public Integer countTotalProducts() {
+        String sql = " SELECT COUNT(login.products.product_id) AS total  FROM login.users " +
+                " LEFT JOIN " +
+                " login.products " +
+                " ON login.users.user_id = login.products.user_id\n" +
+                " WHERE products.action = 0";
+        List<Integer> records = query(sql, new CountMapper());
+        return records.isEmpty() ? null : records.get(0);
+    }
 
+    @Override
+    public Integer countTotalProducts(String id) {
+        String sql = " SELECT COUNT(login.products.product_id) AS total  FROM login.users " +
+                " LEFT JOIN " +
+                " login.products " +
+                " ON login.users.user_id = login.products.user_id\n" +
+                " WHERE products.user_id = ?";
+        List<Integer> records = query(sql, new CountMapper(), id);
+        return records.isEmpty() ? null : records.get(0);
+    }
+
+    @Override
+    public void activeProduct(String id) {
+        String sql = "UPDATE login.products SET action = 1 WHERE products.product_id = ?";
+        update(sql, id);
+    }
+
+    @Override
+    public List<ProductModel> getAllPendingProducts(ProductPagination domain) {
+        String sql = "SELECT login.products.*,login.users.company_name FROM login.users \n" +
+                " LEFT JOIN \n" +
+                "\tlogin.products\n" +
+                "ON login.users.user_id = login.products.user_id\n" +
+                "WHERE product_id IS NOT NULL AND products.action = 0 ";
+        if (domain.getCompany() != null) sql += " AND company_name LIKE '%" + domain.getCompany() + "%'";
+        else sql += " AND true ";
+        if (domain.getProduct() != null) sql += " AND product_name LIKE '%" + domain.getProduct() + "%'";
+        else sql += " AND true ";
+        sql += " ORDER BY created_at LIMIT " + PER_PAGE + " OFFSET " + (domain.getPage() - 1) * PER_PAGE;
+        System.out.println(sql);
+        return query(sql, new ProductMapper());
+    }
 }

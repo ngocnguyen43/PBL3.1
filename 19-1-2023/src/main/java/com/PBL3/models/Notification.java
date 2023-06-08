@@ -57,7 +57,7 @@ public class Notification extends AbstractModel {
         private String creator;
         private List<String> mods;
         private List<String> users;
-        private String id;
+        private final String id;
         private String modifiedBy;
         private String message;
         private Boolean admin;

@@ -13,13 +13,24 @@ public interface IProductDAO extends GenericDAO<ProductModel> {
 
     List<ProductModel> findAll(ProductPagination domain);
 
+    List<ProductModel> findAll(ProductPagination domain, String id);
+
     List<ProductModel> findAllByUserId(String id);
 
     void updateProduct(ProductModel domain);
+
+    ProductModel findOne(String id, String userId);
 
     ProductModel findOne(String id);
 
     void deleteOne(String id);
 
     Integer countToTalProducts(ProductPagination domain);
+
+    Integer countTotalProducts();
+
+    Integer countTotalProducts(String id);
+    void activeProduct(String id);
+
+    List<ProductModel> getAllPendingProducts(ProductPagination domain);
 }

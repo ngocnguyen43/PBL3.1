@@ -115,14 +115,15 @@ public class MicrosoftService implements IMicrosoftService {
         String[] fileNameSplits = fileName.split("\\.");
         int extensionIndex = fileNameSplits.length - 1;
         Path tempFilePath = Files.createTempFile(fileNameSplits[0], "." + fileNameSplits[extensionIndex]);
+
         File tempFile = tempFilePath.toFile();
+        tempFile.deleteOnExit();
         try (InputStream inputStream = filePart.getInputStream()) {
             Files.copy(inputStream, tempFilePath, StandardCopyOption.REPLACE_EXISTING);
         }
         String tempFilePathString = tempFile.getAbsolutePath();
         System.out.println(tempFilePathString);
-        File file = new File(tempFilePathString);
-        FileBody filebody = new FileBody(file, ContentType.create(__MIME_TYPE__));
+        FileBody filebody = new FileBody(tempFile, ContentType.create(__MIME_TYPE__));
         MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
 
         entityBuilder.addPart("file", filebody);

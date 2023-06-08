@@ -17,4 +17,6 @@ public interface ICertificateService {
 
     Message updateCertificate(CertificateDTO dto, String id) throws NotFoundException, UpdateFailedException;
 
+    Message getAll();
+
 }

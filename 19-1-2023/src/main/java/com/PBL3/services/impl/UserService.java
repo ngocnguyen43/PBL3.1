@@ -71,9 +71,13 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Message findAll(UserPaginationDTO dto, String role) {
+    public Message findAll(UserPaginationDTO dto, String id) throws InvalidPropertiesException {
         UserPagination domain = Helper.objectMapper(dto, UserPagination.class);
         if (domain.getPage() < 0) domain.setPage(1);
+        String role = userDao.getUserRole(id).toUpperCase();
+        System.out.println(role);
+        if (!role.equals("ADMIN") && !role.equals("MODERATOR"))
+            throw new InvalidPropertiesException("Invalid credentials");
         List<User> users = userDao.findAll(role, domain);
         Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage("OK!").build();
         Data data = new Data.Builder(null).withResults(users).build();
@@ -120,7 +124,7 @@ public class UserService implements IUserService {
             String companyId = IDGeneration.generate();
             domain.setCompanyId(companyId);
         }
-        domain.setPassword(HashPassword.HashPW(domain.getPassword()));
+        //domain.setPassword(HashPassword.HashPW(domain.getPassword()));
         try {
             userDao.save(domain);
             Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage(Response.CREATED).build();
@@ -181,11 +185,11 @@ public class UserService implements IUserService {
         if (id == null) throw new InvalidPropertiesException("Invalid Property");
         if (dto.getEmail() != null) {
             boolean isEmailExist = userDao.findByEmail(dto.getEmail()) != null;
-            if (!isEmailExist) throw new NotFoundException("User Not Found");
+            if (isEmailExist) throw new DuplicateEntryException("Email already in use");
         }
         if (dto.getNationalId() != null) {
             boolean isNationalIdExist = userDao.findByNationalId(dto.getNationalId()) != null;
-            if (!isNationalIdExist) throw new NotFoundException("User Not Found");
+            if (isNationalIdExist) throw new NotFoundException("National id already in use");
         }
         User oldUser = userDao.findByUserId(id);
         User user = new User();

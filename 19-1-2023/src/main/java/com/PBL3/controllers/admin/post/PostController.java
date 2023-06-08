@@ -1,8 +1,10 @@
 package com.PBL3.controllers.admin.post;
 
+import com.PBL3.dtos.pagination.PostPaginationDTO;
 import com.PBL3.services.IPostService;
 import com.PBL3.utils.Constants.EndPoint;
 import com.PBL3.utils.exceptions.ErrorHandler;
+import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.QueryParams;
 
 import javax.inject.Inject;
@@ -20,7 +22,8 @@ public class PostController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ErrorHandler.handle(resp, () -> iPostService.GetAll());
+        PostPaginationDTO dto = Helper.paramsToString(req.getParameterMap()).toModel(PostPaginationDTO.class);
+        ErrorHandler.handle(resp, () -> iPostService.GetAll(dto));
     }
 
     @Override

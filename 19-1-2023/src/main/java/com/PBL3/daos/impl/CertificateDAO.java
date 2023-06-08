@@ -12,7 +12,6 @@ import static com.PBL3.utils.Constants.Pagination.PER_PAGE;
 
 public class CertificateDAO extends AbstractDAO<Certificate> implements ICertificateDAO {
 
-
     @Override
     public String save(Certificate domain) {
         Integer action = domain.getAction() ? 1 : 0;
@@ -23,7 +22,9 @@ public class CertificateDAO extends AbstractDAO<Certificate> implements ICertifi
 
     @Override
     public List<Certificate> findAll(CertificatePaginationModel domain) {
-        String sql = "SELECT * FROM certificates LIMIT " + PER_PAGE + " OFFSET " + (domain.getPage() - 1) * PER_PAGE;
+        String sql = "SELECT * FROM certificates"
+                + " ORDER BY name, created_at"
+                + " LIMIT " + PER_PAGE + " OFFSET " + (domain.getPage() - 1) * PER_PAGE;
         return query(sql, new CertificateMapper());
     }
 
@@ -52,6 +53,12 @@ public class CertificateDAO extends AbstractDAO<Certificate> implements ICertifi
         String sql = "SELECT COUNT(*) as total FROM login.certificates ";
         List<Integer> pages = query(sql, new CountMapper());
         return pages.isEmpty() ? null : pages.get(0);
+    }
+
+    @Override
+    public List<Certificate> findAll() {
+        String sql = "SELECT * FROM login.certificates ORDER BY created_at DESC";
+        return query(sql, new CertificateMapper());
     }
 
 }

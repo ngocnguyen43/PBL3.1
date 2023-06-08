@@ -47,7 +47,7 @@ public class AuthService implements IAuthService {
         } catch (NoSuchAlgorithmException e) {
             throw new UnexpectedException();
         }
-        User user = iUserDAO.findByEmail(dto.getEmail());
+        User user = iUserDAO.findByEmailActive(dto.getEmail());
         if (user == null) throw new NotFoundException(Response.USER_NOT_FOUND);
         String hashedPassword = user.getPassword();
 //        try {
@@ -153,7 +153,7 @@ public class AuthService implements IAuthService {
     }
 
     @Override
-    public Message ResetPassword(String userId) throws NotFoundException, UnexpectedException {
+    public Message ResetPassword(String id,String userId) throws NotFoundException, UnexpectedException {
         User user = iUserDAO.findByUserId(userId, true);
         if (user == null) throw new NotFoundException("User Not Found");
         String PASSWORD = "123456";

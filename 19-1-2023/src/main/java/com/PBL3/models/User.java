@@ -28,6 +28,15 @@ public class User extends AbstractModel {
     @JsonProperty("products")
     private List<ProductModel> productModel;
 
+    private String businessType;
+
+    public String getBusinessType() {
+        return businessType;
+    }
+
+    public void setBusinessType(String businessType) {
+        this.businessType = businessType;
+    }
 
     public Business getBusiness() {
         return business;
