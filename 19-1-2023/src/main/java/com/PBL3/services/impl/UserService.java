@@ -124,7 +124,7 @@ public class UserService implements IUserService {
             String companyId = IDGeneration.generate();
             domain.setCompanyId(companyId);
         }
-        domain.setPassword(HashPassword.HashPW(domain.getPassword()));
+        //domain.setPassword(HashPassword.HashPW(domain.getPassword()));
         try {
             userDao.save(domain);
             Meta meta = new Meta.Builder(HttpServletResponse.SC_CREATED).withMessage(Response.CREATED).build();
