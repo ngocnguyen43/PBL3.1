@@ -47,7 +47,7 @@ public class AuthService implements IAuthService {
         } catch (NoSuchAlgorithmException e) {
             throw new UnexpectedException();
         }
-        User user = iUserDAO.findByEmail(dto.getEmail());
+        User user = iUserDAO.findByEmailActive(dto.getEmail());
         if (user == null) throw new NotFoundException(Response.USER_NOT_FOUND);
         String hashedPassword = user.getPassword();
 //        try {
