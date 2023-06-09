@@ -23,6 +23,6 @@ public class Test extends HttpServlet {
     private IPlanService iPlanService;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ErrorHandler.handle(resp, () -> iPlanService.countCreatedPlans()"");
+        ErrorHandler.handle(resp, () -> iPlanService.countCreatedPlans());
     }
 }
