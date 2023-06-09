@@ -134,7 +134,7 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
         String sql = "SELECT  count(login.users.user_id) as total,DATE_FORMAT(login.users.created_at, '%m/%d/%Y') as date\n" +
                 "FROM    login.users\n" +
                 "WHERE   login.users.created_at BETWEEN NOW() - INTERVAL 180 DAY AND NOW()\n" +
-                "GROUP BY DAY(login.users.created_at);";
+                "GROUP BY DAY(login.users.created_at) ORDER BY login.users.created_at;";
         List<StatsModel> list = query(sql, new StoreCreatedMapper());
         return list.isEmpty() ? null : list;
     }

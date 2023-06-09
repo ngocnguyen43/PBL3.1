@@ -68,7 +68,7 @@ public class CertificateDAO extends AbstractDAO<Certificate> implements ICertifi
         String sql = "SELECT  count(login.certificates.certificate_id) as total,DATE_FORMAT(login.certificates.created_at, '%m/%d/%Y') as date\n" +
                 "FROM    login.certificates\n" +
                 "WHERE   login.certificates.created_at BETWEEN NOW() - INTERVAL 180 DAY AND NOW()\n" +
-                "GROUP BY DAY(login.certificates.created_at);";
+                "GROUP BY DAY(login.certificates.created_at) ORDER BY login.certificates.created_at;";
         List<StatsModel> list = query(sql, new StoreCreatedMapper());
         return list.isEmpty() ? null : list;
     }

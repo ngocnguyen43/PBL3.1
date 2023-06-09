@@ -98,7 +98,7 @@ public class PlanDAO extends AbstractDAO<PlanModel> implements IPlanDAO {
         String sql ="SELECT  count(login.plans.plan_id) as total,DATE_FORMAT(login.plans.created_at, '%m/%d/%Y') as date\n" +
                 "FROM    login.plans\n" +
                 "WHERE   login.plans.created_at BETWEEN NOW() - INTERVAL 180 DAY AND NOW()\n" +
-                "GROUP BY DAY(login.plans.created_at) order by login.plans.created_at DESC;";
+                "GROUP BY DAY(login.plans.created_at) order by login.plans.created_at ;";
         List<StatsModel> list = query(sql,new StoreCreatedMapper());
         return list.isEmpty() ? null : list;
     }
