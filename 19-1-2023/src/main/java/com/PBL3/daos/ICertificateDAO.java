@@ -1,6 +1,7 @@
 package com.PBL3.daos;
 
 import com.PBL3.models.Certificate;
+import com.PBL3.models.StatsModel;
 import com.PBL3.models.pagination.CertificatePaginationModel;
 
 import java.util.List;
@@ -20,5 +21,7 @@ public interface ICertificateDAO extends GenericDAO<Certificate> {
     Integer coutAllCertificates();
 
     List<Certificate> findAll();
+
+    List<StatsModel> countCreatedCertificate();
 
 }

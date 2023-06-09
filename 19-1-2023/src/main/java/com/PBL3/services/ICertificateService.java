@@ -2,10 +2,7 @@ package com.PBL3.services;
 
 import com.PBL3.dtos.CertificateDTO;
 import com.PBL3.dtos.pagination.CertificatePaginationDTO;
-import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
-import com.PBL3.utils.exceptions.dbExceptions.InvalidPropertiesException;
-import com.PBL3.utils.exceptions.dbExceptions.NotFoundException;
-import com.PBL3.utils.exceptions.dbExceptions.UpdateFailedException;
+import com.PBL3.utils.exceptions.dbExceptions.*;
 import com.PBL3.utils.response.Message;
 
 public interface ICertificateService {
@@ -18,5 +15,7 @@ public interface ICertificateService {
     Message updateCertificate(CertificateDTO dto, String id) throws NotFoundException, UpdateFailedException;
 
     Message getAll();
+
+    Message countCreatedCertificate() throws UnexpectedException;
 
 }

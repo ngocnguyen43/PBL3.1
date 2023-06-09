@@ -1,5 +1,6 @@
 package com.PBL3.daos;
 
+import com.PBL3.models.StatsModel;
 import com.PBL3.models.User;
 import com.PBL3.models.pagination.UserPagination;
 
@@ -38,6 +39,6 @@ public interface IUserDAO extends GenericDAO<User> {
 
     String getUserName(String id);
 
-
+    List<StatsModel> countCreatedStore();
 
 }

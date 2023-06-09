@@ -5,13 +5,11 @@ import com.PBL3.daos.IUserDAO;
 import com.PBL3.dtos.PlanDTO;
 import com.PBL3.dtos.pagination.PlanPaginationDTO;
 import com.PBL3.models.PlanModel;
+import com.PBL3.models.StatsModel;
 import com.PBL3.models.User;
 import com.PBL3.models.pagination.PlanPaginationModel;
 import com.PBL3.services.IPlanService;
-import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
-import com.PBL3.utils.exceptions.dbExceptions.InvalidPropertiesException;
-import com.PBL3.utils.exceptions.dbExceptions.NotFoundException;
-import com.PBL3.utils.exceptions.dbExceptions.UpdateFailedException;
+import com.PBL3.utils.exceptions.dbExceptions.*;
 import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.IDGeneration;
 import com.PBL3.utils.helpers.TimestampConvert;
@@ -108,5 +106,19 @@ public class PlanService implements IPlanService {
         Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
         Data data = new Data.Builder(null).withResults(plans).build();
         return new Message.Builder(meta).withData(data).withPagination(pagination).build();
+    }
+
+    @Override
+    public Message countCreatedPlans() throws UnexpectedException {
+        List<StatsModel> list;
+        try {
+            list = iPlanDAO.countPlansCreated();
+        }catch (Exception e){
+            e.printStackTrace();
+            throw  new UnexpectedException();
+        }
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
+        Data data = new Data.Builder(null).withResults(list).build();
+        return new Message.Builder(meta).withData(data).build();
     }
 }

@@ -1,11 +1,13 @@
 package com.PBL3.daos.impl;
 
 import com.PBL3.daos.IUserDAO;
+import com.PBL3.models.StatsModel;
 import com.PBL3.models.User;
 import com.PBL3.models.pagination.UserPagination;
 import com.PBL3.utils.helpers.HashPassword;
 import com.PBL3.utils.helpers.IDGeneration;
 import com.PBL3.utils.mapper.CountMapper;
+import com.PBL3.utils.mapper.StoreCreatedMapper;
 import com.PBL3.utils.mapper.UserMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -125,6 +127,16 @@ public class UserDAO extends AbstractDAO<User> implements IUserDAO {
                 "INNER JOIN roles ON users.role_id = roles.role_id WHERE login.users.user_id = ?";
         List<User> users = query(sql, new UserMapper(), id);
         return users.isEmpty() ? null : users.get(0).getFullName();
+    }
+
+    @Override
+    public List<StatsModel> countCreatedStore() {
+        String sql = "SELECT  count(login.users.user_id) as total,DATE_FORMAT(login.users.created_at, '%m/%d/%Y') as date\n" +
+                "FROM    login.users\n" +
+                "WHERE   login.users.created_at BETWEEN NOW() - INTERVAL 180 DAY AND NOW()\n" +
+                "GROUP BY DAY(login.users.created_at);";
+        List<StatsModel> list = query(sql, new StoreCreatedMapper());
+        return list.isEmpty() ? null : list;
     }
 
     @Override

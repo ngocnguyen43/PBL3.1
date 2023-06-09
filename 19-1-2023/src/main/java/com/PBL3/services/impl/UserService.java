@@ -249,6 +249,20 @@ public class UserService implements IUserService {
         return new Message.Builder(meta).build();
     }
 
+    @Override
+    public Message countCreatedStore() throws UnexpectedException {
+        List<StatsModel> stats;
+        try {
+            stats = userDao.countCreatedStore();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new UnexpectedException();
+        }
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
+        Data data = new Data.Builder(null).withResults(stats).build();
+        return new Message.Builder(meta).withData(data).build();
+    }
+
 //	@Override
 //	public List<Role> findAll() {
 //		// TODO Auto-generated method stub

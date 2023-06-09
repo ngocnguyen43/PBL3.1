@@ -2,9 +2,11 @@ package com.PBL3.daos.impl;
 
 import com.PBL3.daos.ICertificateDAO;
 import com.PBL3.models.Certificate;
+import com.PBL3.models.StatsModel;
 import com.PBL3.models.pagination.CertificatePaginationModel;
 import com.PBL3.utils.mapper.CertificateMapper;
 import com.PBL3.utils.mapper.CountMapper;
+import com.PBL3.utils.mapper.StoreCreatedMapper;
 
 import java.util.List;
 
@@ -59,6 +61,16 @@ public class CertificateDAO extends AbstractDAO<Certificate> implements ICertifi
     public List<Certificate> findAll() {
         String sql = "SELECT * FROM login.certificates ORDER BY created_at DESC";
         return query(sql, new CertificateMapper());
+    }
+
+    @Override
+    public List<StatsModel> countCreatedCertificate() {
+        String sql = "SELECT  count(login.certificates.certificate_id) as total,DATE_FORMAT(login.certificates.created_at, '%m/%d/%Y') as date\n" +
+                "FROM    login.certificates\n" +
+                "WHERE   login.certificates.created_at BETWEEN NOW() - INTERVAL 180 DAY AND NOW()\n" +
+                "GROUP BY DAY(login.certificates.created_at);";
+        List<StatsModel> list = query(sql, new StoreCreatedMapper());
+        return list.isEmpty() ? null : list;
     }
 
 }

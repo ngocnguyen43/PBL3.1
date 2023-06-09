@@ -24,4 +24,5 @@ public interface IUserService {
     Message findAllMods();
 
     Message update(UserDTO dto, String id, String userId) throws DuplicateEntryException, UpdateFailedException, UnexpectedException, NotFoundException, InvalidPropertiesException;
+    Message countCreatedStore() throws UnexpectedException;
 }

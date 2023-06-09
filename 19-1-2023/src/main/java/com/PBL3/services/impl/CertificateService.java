@@ -6,13 +6,11 @@ import com.PBL3.dtos.CertificateDTO;
 import com.PBL3.dtos.pagination.CertificatePaginationDTO;
 import com.PBL3.models.Certificate;
 import com.PBL3.models.Notification;
+import com.PBL3.models.StatsModel;
 import com.PBL3.models.pagination.CertificatePaginationModel;
 import com.PBL3.services.ICertificateService;
 import com.PBL3.services.INotificationService;
-import com.PBL3.utils.exceptions.dbExceptions.CreateFailedException;
-import com.PBL3.utils.exceptions.dbExceptions.InvalidPropertiesException;
-import com.PBL3.utils.exceptions.dbExceptions.NotFoundException;
-import com.PBL3.utils.exceptions.dbExceptions.UpdateFailedException;
+import com.PBL3.utils.exceptions.dbExceptions.*;
 import com.PBL3.utils.helpers.Helper;
 import com.PBL3.utils.helpers.IDGeneration;
 import com.PBL3.utils.response.*;
@@ -125,6 +123,20 @@ public class CertificateService implements ICertificateService {
         List<Certificate> certificateList = certificateDAO.findAll();
         Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
         Data data = new Data.Builder(null).withResults(certificateList).build();
+        return new Message.Builder(meta).withData(data).build();
+    }
+
+    @Override
+    public Message countCreatedCertificate() throws UnexpectedException {
+        List<StatsModel> stats;
+        try {
+            stats = certificateDAO.countCreatedCertificate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new UnexpectedException();
+        }
+        Meta meta = new Meta.Builder(HttpServletResponse.SC_OK).withMessage(Response.OK).build();
+        Data data = new Data.Builder(null).withResults(stats).build();
         return new Message.Builder(meta).withData(data).build();
     }
 

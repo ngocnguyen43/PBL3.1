@@ -2,9 +2,11 @@ package com.PBL3.daos.impl;
 
 import com.PBL3.daos.IPlanDAO;
 import com.PBL3.models.PlanModel;
+import com.PBL3.models.StatsModel;
 import com.PBL3.models.pagination.PlanPaginationModel;
 import com.PBL3.utils.mapper.CountMapper;
 import com.PBL3.utils.mapper.PlanMapper;
+import com.PBL3.utils.mapper.StoreCreatedMapper;
 
 import java.util.List;
 
@@ -89,6 +91,16 @@ public class PlanDAO extends AbstractDAO<PlanModel> implements IPlanDAO {
                 "login.plans.company_id = login.users.company_id\n";
         List<Integer> pages = query(sql, new CountMapper());
         return pages.isEmpty() ? null : pages.get(0);
+    }
+
+    @Override
+    public List<StatsModel> countPlansCreated() {
+        String sql ="SELECT  count(login.plans.plan_id) as total,DATE_FORMAT(login.plans.created_at, '%m/%d/%Y') as date\n" +
+                "FROM    login.plans\n" +
+                "WHERE   login.plans.created_at BETWEEN NOW() - INTERVAL 180 DAY AND NOW()\n" +
+                "GROUP BY DAY(login.plans.created_at) order by login.plans.created_at DESC;";
+        List<StatsModel> list = query(sql,new StoreCreatedMapper());
+        return list.isEmpty() ? null : list;
     }
 
     @Override

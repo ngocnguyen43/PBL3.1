@@ -1,6 +1,7 @@
 package com.PBL3.daos;
 
 import com.PBL3.models.PlanModel;
+import com.PBL3.models.StatsModel;
 import com.PBL3.models.pagination.PlanPaginationModel;
 
 import java.util.List;
@@ -23,6 +24,8 @@ public interface IPlanDAO extends GenericDAO<PlanModel> {
     Integer countAll(String id);
 
     Integer countAll();
+
+    List<StatsModel> countPlansCreated();
 
 
 }
